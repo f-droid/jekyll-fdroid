@@ -15,17 +15,6 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-Gem::Specification.new do |s|
-  s.name        = 'jekyll-fdroid'
-  s.version     = '0.0.1'
-  s.add_runtime_dependency "nokogiri"
-  s.date        = '2017-01-14'
-  s.summary     = "F-Droid - Free and Open Source Android App Repository"
-  s.description = "Browse packages of a F-Droid repository."
-  s.authors     = ["Nico Alt"]
-  s.email       = 'nicoalt@posteo.org'
-  s.files       = Dir['lib/**/*.rb']
-  s.homepage    =
-    'https://gitlab.com/fdroid/jekyll-fdroid'
-  s.license       = 'AGPL-3.0'
-end
+require "fdroid/FDroidIndex"
+require "jekyll/FDroidPackageDetailGenerator"
+require "jekyll/FDroidPackageDetailPage"
