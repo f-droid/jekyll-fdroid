@@ -4,6 +4,10 @@
 
 With this gem you can browse packages of a F-Droid repository in a Jekyll site.
 
+## Dependencies
+
+Gem "nokogiri" needs apt package "zlib1g-dev".
+
 ## License
 
 This program is Free Software:
