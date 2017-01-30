@@ -27,6 +27,7 @@ module Jekyll
 			self.process(@name)
 			self.read_yaml(File.join(base, '_layouts'), 'app.html')
 			self.data['title'] = package.at_xpath('name').content
+			self.data['beautifulURL'] = "/packages/" + package.at_xpath('id').content
 			xmlIcon = package.at_xpath('icon')
 			if xmlIcon != nil
 				self.data['icon'] = xmlIcon.content
