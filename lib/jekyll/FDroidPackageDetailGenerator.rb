@@ -18,16 +18,22 @@
 module Jekyll
 
 	class FDroidPackagesGenerator < Generator
+		attr_accessor :alreadyBuilt
+
 		safe true
 		priority :highest
 
 		def generate(site)
-			packages = FDroidIndex.new.getIndex(site.config["fdroid-repo"] || 'https://f-droid.org/repo')
-			# Generate detail page for every package
-			packages.each do |package|
-				myPage = FDroidPackageDetailPage.new(site, site.source, package)
-				site.pages << myPage
-				site.collections["apps"].docs << myPage
+			# generator will only run on first build, not because of auto-regeneration
+			if @alreadyBuilt != true
+				@alreadyBuilt = true
+				packages = FDroidIndex.new.getIndex(site.config["fdroid-repo"] || 'https://f-droid.org/repo')
+				# Generate detail page for every package
+				packages.each do |package|
+					myPage = FDroidPackageDetailPage.new(site, site.source, package)
+					site.pages << myPage
+					site.collections["apps"].docs << myPage
+				end
 			end
 		end
 	end
