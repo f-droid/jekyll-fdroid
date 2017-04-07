@@ -27,11 +27,12 @@ module Jekyll
 
 			self.process(@name)
 			self.read_yaml(File.join(base, '_layouts'), 'app.html')
-			getFrontMatterData
+			getGeneralFrontMatterData
+			getPackagesFrontMatterData
 		end
 
-		def getFrontMatterData
-			assignments = Hash.new
+		def getGeneralFrontMatterData
+			# Hash with relation between Jekyll and XML variable name
 			assignments = {
 				"added" => "added",
 				"antifeatures" => "antifeatures",
@@ -53,16 +54,61 @@ module Jekyll
 				"title" => "name",
 				"webSite" => "web"
 				}
+			# Add information from XML to front matter
 			assignments.each do |jekyll, xml|
-				addFrontMatterData(jekyll, xml)
+				addGeneralFrontMatterData(jekyll, xml)
 			end
 			self.data["beautifulURL"] = "/packages/" + self.data["package"]
 		end
 
-		def addFrontMatterData(jekyll, xml)
-			data = $package.at_xpath(xml)
-			if data != nil
-				self.data[jekyll] = data.content
+		def addGeneralFrontMatterData(jekyll, xml)
+			xmlData = $package.at_xpath(xml)
+			if xmlData != nil
+				self.data[jekyll] = xmlData.content
+			end
+		end
+
+		def getPackagesFrontMatterData
+			# Hash with relation between Jekyll and XML variable name
+			assignments = {
+				"added" => "added",
+				"apkName" => "apkname",
+				"hash" => "hash",
+				"nativeCode" => "nativecode",
+				"maxSDKVersion" => "maxsdkver",
+				"permissions" => "permissions",
+				"sdkVersion" => "sdkver",
+				"sig" => "sig",
+				"size" => "size",
+				"srcName" => "srcname",
+				"targetSdkVersion" => "targetSdkVersion",
+				"version" => "version",
+				"versionCode" => "versioncode",
+				}
+			# Get all packages
+			packages = $package.xpath('package')
+			self.data["packages"] = []
+			# Add information of each package to front matter
+			packages.each do |package|
+				# Store package information
+				packageInformation = Hash.new
+				# Add information from XML to front matter
+				assignments.each do |jekyll, xml|
+					# nativeCode and permissions can be comma separated arrays
+					if jekyll == "nativeCode" or jekyll == "permissions"
+						xmlData = package.at_xpath(xml)
+						if xmlData != nil
+							xmlData = xmlData.content.split(",")
+							packageInformation[jekyll]= xmlData
+						end
+						next
+					end
+					xmlData = package.at_xpath(xml)
+					if xmlData != nil
+						packageInformation[jekyll] = xmlData.content
+					end
+				end
+				self.data["packages"].push(packageInformation)
 			end
 		end
 	end
