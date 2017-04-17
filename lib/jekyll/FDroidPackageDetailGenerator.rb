@@ -27,7 +27,7 @@ module Jekyll
 			# generator will only run on first build, not because of auto-regeneration
 			if @alreadyBuilt != true
 				@alreadyBuilt = true
-				packages = FDroidIndex.new.getIndex(site.config["fdroid-repo"] || 'https://f-droid.org/repo')
+				packages = FDroidIndex.new.getIndex(site.config["fdroid-repo"])
 				# Generate detail page for every package
 				packages.each do |package|
 					myPage = FDroidPackageDetailPage.new(site, site.source, package)
