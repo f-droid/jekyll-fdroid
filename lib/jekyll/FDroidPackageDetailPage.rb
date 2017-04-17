@@ -68,48 +68,46 @@ module Jekyll
 			end
 		end
 
+		# Hash with relation between Jekyll and XML variable names for the package metadata
+		@@jekyllToXmlPackageAssignments = {
+			"added" => "added",
+			"apkName" => "apkname",
+			"hash" => "hash",
+			"nativeCode" => "nativecode",
+			"maxSDKVersion" => "maxsdkver",
+			"permissions" => "permissions",
+			"sdkVersion" => "sdkver",
+			"sig" => "sig",
+			"size" => "size",
+			"srcName" => "srcname",
+			"targetSdkVersion" => "targetSdkVersion",
+			"version" => "version",
+			"versionCode" => "versioncode",
+		}
+
 		def getPackagesFrontMatterData
-			# Hash with relation between Jekyll and XML variable name
-			assignments = {
-				"added" => "added",
-				"apkName" => "apkname",
-				"hash" => "hash",
-				"nativeCode" => "nativecode",
-				"maxSDKVersion" => "maxsdkver",
-				"permissions" => "permissions",
-				"sdkVersion" => "sdkver",
-				"sig" => "sig",
-				"size" => "size",
-				"srcName" => "srcname",
-				"targetSdkVersion" => "targetSdkVersion",
-				"version" => "version",
-				"versionCode" => "versioncode",
-				}
-			# Get all packages
-			packages = $package.xpath('package')
-			self.data["packages"] = []
-			# Add information of each package to front matter
-			packages.each do |package|
-				# Store package information
-				packageInformation = Hash.new
-				# Add information from XML to front matter
-				assignments.each do |jekyll, xml|
-					# nativeCode and permissions can be comma separated arrays
-					if jekyll == "nativeCode" or jekyll == "permissions"
-						xmlData = package.at_xpath(xml)
-						if xmlData != nil
-							xmlData = xmlData.content.split(",")
-							packageInformation[jekyll]= xmlData
-						end
-						next
-					end
-					xmlData = package.at_xpath(xml)
-					if xmlData != nil
-						packageInformation[jekyll] = xmlData.content
-					end
+			self.data["packages"] = $package.xpath('package').map { |package| getPackageFromXml(package) }
+		end
+
+		def getPackageFromXml(packageXml)
+			packageInformation = Hash.new
+			
+			# Add information from XML to front matter
+			@@jekyllToXmlPackageAssignments.each do |jekyll, xml|
+				xmlData = packageXml.at_xpath(xml)
+				if xmlData == nil
+					next
 				end
-				self.data["packages"].push(packageInformation)
+
+				# nativeCode and permissions can be comma separated arrays
+				if ["nativeCode", "permissions"].include? jekyll
+					packageInformation[jekyll] = xmlData.content.split(",")
+				else
+					packageInformation[jekyll] = xmlData.content
+				end
 			end
+
+			return packageInformation
 		end
 	end
 end
