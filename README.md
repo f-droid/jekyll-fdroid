@@ -3,6 +3,12 @@
 [![Gem Version](https://badge.fury.io/rb/jekyll-fdroid.svg)](https://rubygems.org/gems/jekyll-fdroid)
 
 With this gem you can browse packages of a F-Droid repository in a Jekyll site.
+Add the following configurations to your `_config.yml`:
+```
+gems:
+  - jekyll-fdroid
+fdroid-repo: https://guardianproject.info/fdroid/repo
+```
 
 ## Dependencies
 
