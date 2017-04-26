@@ -17,7 +17,7 @@
 
 module Jekyll
 
-	class FDroidPackageDetailPage < Page
+	class FDroidPackageDetailPage < ReadYamlPage
 		def initialize(site, base, package)
 			$package = package
 			@site = site
@@ -26,7 +26,7 @@ module Jekyll
 			@name = $package.at_xpath('id').content + "/index.html"
 
 			self.process(@name)
-			self.read_yaml(File.join(base, '_layouts'), 'app.html')
+			self.read_yaml((File.expand_path "../../_layouts", File.dirname(__FILE__)), 'package.html')
 			getGeneralFrontMatterData
 			getPackagesFrontMatterData
 		end

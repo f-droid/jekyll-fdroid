@@ -1,0 +1,13 @@
+<a class="package-header" href="{{ include.package.beautifulURL | prepend: site.baseurl }}">
+	<img class="package-icon" src="{{ site.fdroid-repo }}/icons/{{ include.package.icon }}" />
+
+	<div class="package-info">
+		<h4 class="package-name">
+			{{ include.package.title }}
+		</h4>
+
+		<div class="package-desc">
+			<span class="package-summary">{{ include.package.summary }}</span><span class="package-license">{{ include.package.license }}</span>
+		</div>
+	</div>
+</a>

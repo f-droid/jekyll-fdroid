@@ -1,0 +1,150 @@
+/**
+ * F-Droid's Jekyll Plugin
+ *
+ * Copyright (C) 2017 Nico Alt
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+@if global-variable-exists(icon-size) != true {
+	$icon-size: 48px !global;
+}
+@if global-variable-exists(base-font-size) != true {
+	$base-font-size: 16px !global;
+}
+@if global-variable-exists(spacing-unit) != true {
+	$spacing-unit: 32px !global;
+}
+@if global-variable-exists(text-color) != true {
+	$text-color: lighten(#000, 13%) !global;
+}
+@if global-variable-exists(text-color-light) != true {
+	$text-color-light: lighten(#000, 46%) !global;
+}
+
+/**
+ * Browsing
+ */
+
+.package-header, .package-header:visited {
+    display: flex;
+    align-items: top;
+    color: $text-color;
+    margin-bottom: $spacing-unit / 3;
+
+    &:hover {
+        text-decoration: none;
+    }
+
+    .package-icon {
+        width: $icon-size;
+        height: $icon-size;
+        margin-top: $spacing-unit / 4;
+        margin-right: $spacing-unit / 2;
+    }
+
+    .package-name {
+        margin: 0;
+    }
+
+    .package-license {
+        color: $text-color-light;
+
+        &:before { content: " (" }
+        &:after { content: ")" }
+    }
+}
+
+/**
+ * List of packages for sidebar. Show a more condensed view than the full list of packages.
+ */
+ .sidebar-widget .package-header {
+    .package-icon {
+        width: $icon-size * 5 / 6;
+        height: $icon-size * 5 / 6;
+    }
+
+    .package-name {
+        font-size: $base-font-size * 1.1;
+    }
+
+    .package-summary, .package-license {
+        color: $text-color-light;
+        font-size: $base-font-size * 0.9;
+    }
+}
+
+.browse-navigation {
+    @include reset-ul;
+
+    display: inline-block;
+    margin: 1em;
+
+    .nav {
+        $border-radius: 0.2em;
+        display: inline;
+        float: left;
+        color: $text-color;
+
+        .label {
+            border: solid 1px #aaa;
+            margin: 0 0 0 -1px;
+            text-align: center;
+            padding: 0.25em 0.5em;
+        }
+
+        &.disabled {
+            color: #bbb;
+        }
+
+        &.active {
+            .label {
+                background-color: lighten($primary-color, 50%);
+            }
+        }
+
+        &:first-child .label {
+            border-top-left-radius: $border-radius;
+            border-bottom-left-radius: $border-radius;
+        }
+
+        &:last-child .label {
+            border-top-right-radius: $border-radius;
+            border-bottom-right-radius: $border-radius;
+        }
+
+        a {
+            color: $text-color;
+        }
+
+        a:hover {
+            text-decoration: none;
+            background: lighten($primary-color, 15%);
+        }
+
+    }
+
+    // Only display previous, current, and next on smaller screens.
+    @include media-query($tablet) {
+        .nav .label {
+            display: none;
+        }
+
+        .nav.page.active .label,
+        .nav.previous .label,
+        .nav.next .label {
+            display: inline;
+        }
+    }
+}

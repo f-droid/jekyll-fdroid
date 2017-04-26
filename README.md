@@ -10,6 +10,19 @@ gems:
 fdroid-repo: https://guardianproject.info/fdroid/repo
 ```
 
+For default styling of the browsing and packages' pages
+you need to import the plugin's stylesheet in your SASS file like this:
+```
+@import "jekyll-fdroid";
+```
+
+To show a list of latest or last updated packages,
+use the following tags in your page:
+```
+{% fdroid_show_latest_packages %}
+{% fdroid_show_last_updated_packages %}
+```
+
 ## Dependencies
 
 Gem "nokogiri" needs apt package "zlib1g-dev".

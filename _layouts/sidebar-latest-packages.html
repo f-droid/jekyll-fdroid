@@ -1,0 +1,4 @@
+{% assign latestPackages = site.packages | sort: "title" | reverse | sort: "added" | reverse %}
+{% for latestPackage in latestPackages limit:3 %}
+	{% include package-list-item.html package=latestPackage %}
+{% endfor %}
