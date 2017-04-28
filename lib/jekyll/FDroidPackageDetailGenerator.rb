@@ -38,6 +38,12 @@ module Jekyll
 					site.config["sass"]["load_paths"] << (File.expand_path "../../_sass", File.dirname(__FILE__))
 				end
 
+				# Enable pagination
+				if site.config["pagination"].nil? || site.config["pagination"].empty?
+					site.config["pagination"] = Hash.new
+				end
+				site.config["pagination"]["enabled"] = true
+
 				packages = FDroidIndex.new.getIndex(site.config["fdroid-repo"])
 				# Generate detail page for every package
 				site.collections["packages"] = Collection.new(site, "packages")
