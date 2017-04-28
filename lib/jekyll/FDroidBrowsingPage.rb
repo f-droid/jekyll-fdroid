@@ -15,10 +15,17 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-require "fdroid/FDroidIndex"
-require "jekyll/ReadYamlPage"
-require "jekyll/FDroidBrowsingPage"
-require "jekyll/FDroidLastUpdatedPackagesTag"
-require "jekyll/FDroidLatestPackagesTag"
-require "jekyll/FDroidPackageDetailGenerator"
-require "jekyll/FDroidPackageDetailPage"
+module Jekyll
+
+	class FDroidBrowsingPage < ReadYamlPage
+		def initialize(site, base)
+			@site = site
+			@base = base
+			@dir = "packages"
+			@name = "index.html"
+
+			self.process(@name)
+			self.read_yaml((File.expand_path "../../_pages", File.dirname(__FILE__)), 'browse.html')
+		end
+	end
+end

@@ -1,0 +1,20 @@
+---
+layout: page
+title: Browse
+pagination:
+  enabled: true
+  collection: packages
+  per_page: 30
+  trail:
+    before: 4
+    after: 4
+  permalink: '/:num/'
+  sort_field: 'title'
+  title: ':title'
+---
+
+{% for package in paginator.posts %}
+	{% include package-list-item.html package=package %}
+{% endfor %}
+
+{% include_cached browse-paginator-navigation.html paginator=paginator permalink=page.dir %}

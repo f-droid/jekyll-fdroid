@@ -15,10 +15,19 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-require "fdroid/FDroidIndex"
-require "jekyll/ReadYamlPage"
-require "jekyll/FDroidBrowsingPage"
-require "jekyll/FDroidLastUpdatedPackagesTag"
-require "jekyll/FDroidLatestPackagesTag"
-require "jekyll/FDroidPackageDetailGenerator"
-require "jekyll/FDroidPackageDetailPage"
+module Jekyll
+
+	class FDroidLatestPackagesTag < Liquid::Tag
+
+		def initialize(tag_name, text, tokens)
+			super
+		end
+
+		def render(context)
+			template = Liquid::Template.parse(IO.read((File.expand_path "../../_layouts/sidebar-latest-packages.html", File.dirname(__FILE__))))
+			template.render(context)
+		end
+	end
+end
+
+Liquid::Template.register_tag('fdroid_show_latest_packages', Jekyll::FDroidLatestPackagesTag)
