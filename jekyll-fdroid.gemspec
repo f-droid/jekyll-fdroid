@@ -19,6 +19,7 @@ Gem::Specification.new do |s|
   s.name        = 'jekyll-fdroid'
   s.version     = '0.0.1'
   s.add_runtime_dependency "nokogiri"
+  s.add_runtime_dependency "jekyll-include-cache"
   s.add_runtime_dependency "jekyll-paginate-v2", "<= 1.7.3"
   s.date        = '2017-01-14'
   s.summary     = "F-Droid - Free and Open Source Android App Repository"

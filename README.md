@@ -7,8 +7,13 @@ Add the following configurations to your `_config.yml`:
 ```
 gems:
   - jekyll-fdroid
+  - jekyll-include-cache
+  - jekyll-paginate-v2
 fdroid-repo: https://guardianproject.info/fdroid/repo
 ```
+
+`jekyll-include-cache` and `jekyll-paginate-v2` are needed to be added to the configuration manually
+because we [weren't able to add the configuration programmatically](https://gitlab.com/fdroid/jekyll-fdroid/issues/29).
 
 For default styling of the browsing and packages' pages
 you need to import the plugin's stylesheet in your SASS file like this:
