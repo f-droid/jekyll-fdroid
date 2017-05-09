@@ -17,7 +17,8 @@ layout: default
 		{{ page.description }}
 	</div>
 	<p>
-		<b>License</b>: {{ page.license }}
+		<b>License</b>:
+		<a href="{{ page.license|get_license_url }}">{{ page.license|get_license_name }}</a>
 	</p>
 	<p>
 		{% if page.webSite != "" and page.webSite != nil %}
@@ -43,4 +44,57 @@ layout: default
 		For full details and additional technical information,
 		see <a href="https://f-droid.org/wiki/page/{{ page.package }}">this application's page</a> on the F-Droid wiki.
 	</p>
+
+	<div class="package-versions">
+		<h3>Packages</h3>
+		<p>
+			Although APK downloads are available below to give you the choice,
+			you should be aware that by installing that way you will not receive update notifications
+			and it's a less secure way to download.
+			We recommend that you install the F-Droid client and use that.
+		</p>
+		<a href="https://f-droid.org/FDroid.apk" class="material-button">Download F-Droid</a>
+		<ul class="package-versions-list">
+			{% for package in page.packages %}
+			<li class="package-version">
+				<div class="package-version-header">
+					<b>Version {{ package.version }}</b> ({{ package.versionCode }}) - Added on {{ package.added | date: "%b %-d, %Y" }}
+				</div>
+				<p class="package-version-requirement">
+					This version requires Android {{ package.sdkVersion|android_sdk_level_to_version }}  or newer.
+				</p>
+
+				<p class="package-version-source">
+					{% if package.srcName != "" and package.srcName != nil %}
+					It is built and signed by F-Droid,
+					and guaranteed to correspond to <a href="{{ site.fdroid-repo }}/{{ package.srcName }}">this source tarball</a>.
+					{% else %}
+					It is built and signed by the original developer.
+					{% endif %}
+				</p>
+
+				<p class="package-version-download">
+					<a href="{{ site.fdroid-repo }}/{{ package.apkName }}">Download APK</a> {{ package.size|file_size_human_readable }}
+					<a href="{{ site.fdroid-repo }}/{{ package.apkName }}.asc">GPG Signature</a>
+				</p>
+
+				<div class="package-version-permissions">
+					<h4>Permissions</h4>
+					<ul class="package-version-permissions-list">
+						{% for permission in package.permissions %}
+						<li>
+							{{ permission }}
+						</li>
+						{% endfor %}
+					</ul>
+				</div>
+
+			</li>
+			
+			{% endfor %}
+
+		</ul>
+
+	</div>
+
 </article>
