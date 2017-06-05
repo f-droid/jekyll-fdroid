@@ -15,7 +15,7 @@ require 'v8'
 module Jekyll
   module LunrJsSearch
     class Indexer
-      def initialize()
+      def generate(site, packages)
         @js_dir = 'js'
         gem_lunr = File.join(File.dirname(__FILE__), "../../build/lunr.min.js")
         @lunr_path = File.exist?(gem_lunr) ? gem_lunr : File.join(@js_dir, File.basename(gem_lunr))
@@ -25,45 +25,36 @@ module Jekyll
         ctx.load(@lunr_path)
         ctx['indexer'] = proc do |this|
           this.ref('id')
+          this.field('name')
+          this.field('summary')
         end
         @index = ctx.eval('lunr(indexer)')
         @lunr_version = ctx.eval('lunr.version')
         @docs = {}
-      end
 
-      # Index all pages except pages matching any value in config['lunr_excludes'] or with date['exclude_from_search']
-      # The main content from each page is extracted and saved to disk as json
-      def generate(site)
         Jekyll.logger.info "Lunr:", 'Creating search index...'
 
         @site = site
-        # gather pages and posts
-        items = pages_to_index(site)
-        content_renderer = PageRenderer.new(site)
         index = []
 
-        items.each_with_index do |item, i|
-          entry = SearchEntry.create(item, content_renderer)
-
-          entry.strip_index_suffix_from_url! if @strip_index_html
-          entry.strip_stopwords!(stopwords, @min_length) if File.exists?(@stopwords_file)
+        packages.each_with_index do |package, i|
+          package_name = package['id']
+          name = Indexer.content_from_xml(package, 'name')
+          icon = Indexer.content_from_xml(package, 'icon')
+          summary = Indexer.content_from_xml(package, 'summary')
 
           doc = {
-              "id" => i,
-              "title" => entry.title,
-              "url" => entry.url,
-              "date" => entry.date,
-              "categories" => entry.categories,
-              "tags" => entry.tags,
-              "is_post" => entry.is_post,
-              "body" => entry.body
+              'id' => i,
+              'packageName' => package_name,
+              'icon' => icon,
+              'name' => name,
+              'summary' => summary
           }
 
           @index.add(doc)
-          doc.delete("body")
           @docs[i] = doc
 
-          Jekyll.logger.debug "Lunr:", (entry.title ? "#{entry.title} (#{entry.url})" : entry.url)
+          Jekyll.logger.debug "Lunr:", package_name
         end
 
         FileUtils.mkdir_p(File.join(site.dest, @js_dir))
@@ -93,6 +84,11 @@ module Jekyll
         added_files.each do |filename|
           site.static_files << SearchIndexFile.new(site, site.dest, "/", filename)
         end
+      end
+
+      def self.content_from_xml(xml_node, element_name)
+        xml_data = xml_node.at_xpath(element_name)
+        return xml_data == nil ? nil : xml_data.content
       end
 
     end
