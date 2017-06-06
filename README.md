@@ -28,6 +28,26 @@ use the following tags in your page:
 {% fdroid_show_last_updated_packages %}
 ```
 
+To add a search input which lets the user search all packages, use the following tags in your page.
+The first renders a default list item for each search result:
+
+```
+{{ fdroid_search_autocomplete }}
+```
+
+And this allows for a custom [Mustache.js](https://github.com/janl/mustache.js) template for each search result:
+
+```
+{{ fdroid_search_autocomplete_with_template }}
+Mustache.js template goes in here, and has access
+to the following tags:
+* {{ name }}
+* {{ summary }}
+* {{ icon }}
+* {{ packageName }}
+{{ endfdroid_search_autocomplete_with_template }}
+```
+
 ## Dependencies
 
 Gem "nokogiri" needs apt package "zlib1g-dev".
