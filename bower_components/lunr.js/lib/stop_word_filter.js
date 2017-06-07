@@ -10,9 +10,8 @@
  * The built in lunr.stopWordFilter is built using this generator and can be used
  * to generate custom stopWordFilters for applications or non English languages.
  *
- * @module
  * @param {Array} token The token to pass through the filter
- * @returns {Function}
+ * @returns {lunr.PipelineFunction}
  * @see lunr.Pipeline
  * @see lunr.stopWordFilter
  */
@@ -23,7 +22,7 @@ lunr.generateStopWordFilter = function (stopWords) {
   }, {})
 
   return function (token) {
-    if (token && words[token] !== token) return token
+    if (token && words[token.toString()] !== token.toString()) return token
   }
 }
 
@@ -34,10 +33,10 @@ lunr.generateStopWordFilter = function (stopWords) {
  * This is intended to be used in the Pipeline. If the token does not pass the
  * filter then undefined will be returned.
  *
- * @module
- * @param {String} token The token to pass through the filter
- * @returns {String}
- * @see lunr.Pipeline
+ * @implements {lunr.PipelineFunction}
+ * @params {lunr.Token} token - A token to check for being a stop word.
+ * @returns {lunr.Token}
+ * @see {@link lunr.Pipeline}
  */
 lunr.stopWordFilter = lunr.generateStopWordFilter([
   'a',

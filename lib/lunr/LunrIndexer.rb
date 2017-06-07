@@ -20,16 +20,22 @@ module Jekyll
 
         ctx = V8::Context.new
         ctx.load(Indexer.path_to_bower_asset('lunr.js/lunr.js'))
+
         ctx['indexer'] = proc do |this|
           this.ref('id')
           this.field('name')
           this.field('summary')
         end
-        @index = ctx.eval('lunr(indexer)')
+
+        ctx.eval('builder = new lunr.Builder')
+        ctx.eval('builder.pipeline.add(lunr.trimmer, lunr.stopWordFilter, lunr.stemmer)')
+        ctx.eval('builder.searchPipeline.add(lunr.stemmer)')
+        ctx.eval('indexer.call(builder, builder)')
+
         @lunr_version = ctx.eval('lunr.version')
         @docs = {}
 
-        Jekyll.logger.info "Lunr:", 'Creating search index...'
+        Jekyll.logger.info "Lunr:", "Creating search index (lunr.js version #{@lunr_version})..."
 
         @site = site
 
@@ -47,11 +53,13 @@ module Jekyll
               'summary' => summary
           }
 
-          @index.add(doc)
+          ctx['builder'].add(doc)
           @docs[i] = doc
 
           Jekyll.logger.debug "Lunr:", package_name
         end
+
+        @index = ctx.eval('builder.build()')
 
         FileUtils.mkdir_p(File.join(site.dest, @js_dir))
         filename = File.join(@js_dir, 'index.json')

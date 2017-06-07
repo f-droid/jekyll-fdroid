@@ -1,3 +1,4 @@
+/* eslint-disable */
 /*!
  * lunr.stemmer
  * Copyright (C) @YEAR Oliver Nightingale
@@ -8,10 +9,11 @@
  * lunr.stemmer is an english language stemmer, this is a JavaScript
  * implementation of the PorterStemmer taken from http://tartarus.org/~martin
  *
- * @module
- * @param {String} str The string to stem
- * @returns {String}
- * @see lunr.Pipeline
+ * @static
+ * @implements {lunr.PipelineFunction}
+ * @param {lunr.Token} token - The string to stem
+ * @returns {lunr.Token}
+ * @see {@link lunr.Pipeline}
  */
 lunr.stemmer = (function(){
   var step2list = {
@@ -85,7 +87,7 @@ lunr.stemmer = (function(){
   var re3_5 = new RegExp("^" + C + v + "[^aeiouwxy]$");
 
   var porterStemmer = function porterStemmer(w) {
-    var   stem,
+    var stem,
       suffix,
       firstch,
       re,
@@ -126,7 +128,7 @@ lunr.stemmer = (function(){
         re2 = re2_1b_2;
         re3 = re3_1b_2;
         re4 = re4_1b_2;
-        if (re2.test(w)) {  w = w + "e"; }
+        if (re2.test(w)) { w = w + "e"; }
         else if (re3.test(w)) { re = re_1b_2; w = w.replace(re,""); }
         else if (re4.test(w)) { w = w + "e"; }
       }
@@ -212,7 +214,9 @@ lunr.stemmer = (function(){
     return w;
   };
 
-  return porterStemmer;
+  return function (token) {
+    return token.update(porterStemmer);
+  }
 })();
 
 lunr.Pipeline.registerFunction(lunr.stemmer, 'stemmer')

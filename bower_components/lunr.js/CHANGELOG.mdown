@@ -1,5 +1,33 @@
 # Changelog
 
+## 2.0.4
+
+* Fix bug in IDF calculation that meant the weight for common words was not correctly calculated.
+
+## 2.0.3
+
+* Fix bug [#256](https://github.com/olivernn/lunr.js/issues/256) where duplicate query terms could cause a 'duplicate index' error when building the query vector. Thanks [Bjorn Svensson](https://github.com/bsvensson), [Jason Feng](https://github.com/IYCI), and [et1421](https://github.com/et1421) for reporting and confirming the issue.
+
+## 2.0.2
+
+* Fix bug [#255](https://github.com/olivernn/lunr.js/issues/255) where search queries used a different separator than the tokeniser causing some terms to not be searchable. Thanks [Wes Cossick](https://github.com/WesCossick) for reporting.
+* Reduce precision of term scores stored in document vectors to reduce the size of serialised indexes by ~15%, thanks [Qvatra](https://github.com/Qvatra) for the idea.
+
+## 2.0.1
+
+* Fix regression [#254](https://github.com/olivernn/lunr.js/issues/254) where documents containing terms that match properties from Object.prototype cause errors during indexing. Thanks [VonFry](https://github.com/VonFry) for reporting.
+
+## 2.0.0
+
+* Indexes are now immutable, this allows for more space efficient indexes, more advanced searching and better performance.
+* Text processing can now attach metadata to tokens the enter the index, this opens up the possibility of highlighting search terms in results.
+* More advanced searching including search time field boosts, search by field, fuzzy matching and leading and trailing wildcards.
+
+## 1.0.0
+
+* Deprecate incorrectly spelled lunr.tokenizer.separator.
+* No other changes, but bumping to 1.0.0 because it's overdue, and the interfaces are pretty stable now. It also paves the way for 2.0.0...
+
 ## 0.7.2
 
 * Fix bug when loading a serialised tokeniser [#226](https://github.com/olivernn/lunr.js/issues/226), thanks [Alex Turpin](https://github.com/alexturpin) for reporting the issue.

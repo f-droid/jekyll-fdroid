@@ -1,125 +1,96 @@
-module('lunr.tokenizer')
+suite('lunr.tokenizer', function () {
+  var toString = function (o) { return o.toString() }
 
-test("splitting simple strings into tokens", function () {
-  var simpleString = "this is a simple string",
-      tokens = lunr.tokenizer(simpleString)
+  test('splitting into tokens', function () {
+    var tokens = lunr.tokenizer('foo bar baz')
+      .map(toString)
 
-  deepEqual(tokens, ['this', 'is', 'a', 'simple', 'string'])
-})
-
-test('downcasing tokens', function () {
-  var simpleString = 'FOO BAR',
-      tags = ['Foo', 'BAR']
-
-  deepEqual(lunr.tokenizer(simpleString), ['foo', 'bar'])
-  deepEqual(lunr.tokenizer(tags), ['foo', 'bar'])
-})
-
-test('handling arrays of strings', function () {
-  var tags = ['foo', 'bar'],
-      tokens = lunr.tokenizer(tags)
-
-  deepEqual(tokens, tags)
-})
-
-test('handling arrays with undefined or null values', function () {
-  var arr = ['foo', undefined, null, 'bar'],
-      tokens = lunr.tokenizer(arr)
-
-  deepEqual(tokens, ['foo', '', '', 'bar'])
-})
-
-test('handling multiple white spaces', function () {
-  var testString = '  foo    bar  ',
-      tokens = lunr.tokenizer(testString)
-
-  deepEqual(tokens, ['foo', 'bar'])
-})
-
-test('handling null-like arguments', function () {
-  deepEqual(lunr.tokenizer(), [])
-  deepEqual(lunr.tokenizer(null), [])
-  deepEqual(lunr.tokenizer(undefined), [])
-})
-
-test('calling to string on passed val', function () {
-  var date = new Date (Date.UTC(2013, 0, 1, 12)),
-      obj = {
-        toString: function () { return 'custom object' }
-      }
-
-  equal(lunr.tokenizer(41), '41')
-  equal(lunr.tokenizer(false), 'false')
-  deepEqual(lunr.tokenizer(obj), ['custom', 'object'])
-
-  // slicing here to avoid asserting on the timezone part of the date
-  // that will be different whereever the test is run.
-  deepEqual(lunr.tokenizer(date).slice(0, 4), ['tue', 'jan', '01', '2013'])
-})
-
-test("splitting strings with hyphens", function () {
-  var simpleString = "take the New York-San Francisco flight",
-      tokens = lunr.tokenizer(simpleString)
-
-  deepEqual(tokens, ['take', 'the', 'new', 'york', 'san', 'francisco', 'flight'])
-})
-
-test("splitting strings with hyphens and spaces", function () {
-  var simpleString = "Solve for A - B",
-      tokens = lunr.tokenizer(simpleString)
-
-  deepEqual(tokens, ['solve', 'for', 'a', 'b'])
-})
-
-test("registering a tokenizer function", function () {
-  var fn = function () {}
-  lunr.tokenizer.registerFunction(fn, 'test')
-
-  equal(fn.label, 'test')
-  equal(lunr.tokenizer.registeredFunctions['test'], fn)
-
-  delete lunr.tokenizer.registerFunction['test'] // resetting the state after the test
-})
-
-test("loading a registered tokenizer", function () {
-  var serialized = 'default', // default tokenizer is already registered
-      tokenizerFn = lunr.tokenizer.load(serialized)
-
-  equal(tokenizerFn, lunr.tokenizer)
-})
-
-test("loading an un-registered tokenizer", function () {
-  var serialized = 'un-registered' // default tokenizer is already registered
-
-  throws(function () {
-    lunr.tokenizer.load(serialized)
+    assert.sameMembers(['foo', 'bar', 'baz'], tokens)
   })
-})
 
-test('custom separator', function () {
-  try {
-    var defaultSeparator = lunr.tokenizer.separator,
-        str = 'foo|bar|baz'
+  test('downcases tokens', function () {
+    var tokens = lunr.tokenizer('Foo BAR BAZ')
+      .map(toString)
 
-    lunr.tokenizer.separator = '|'
+    assert.sameMembers(['foo', 'bar', 'baz'], tokens)
+  })
 
-    deepEqual(lunr.tokenizer(str), ['foo', 'bar', 'baz'])
-  } finally {
-    lunr.tokenizer.separator = defaultSeparator
-  }
-})
+  test('array of strings', function () {
+    var tokens = lunr.tokenizer(['foo', 'bar', 'baz'])
+      .map(toString)
 
-// TODO: this test is only here to test backwards compatibility and
-// can and should be removed in 1.0.0
-test('custom separator using legacy seperator property', function () {
-  try {
-    var defaultSeparator = lunr.tokenizer.seperator,
-        str = 'foo|bar|baz'
+    assert.sameMembers(['foo', 'bar', 'baz'], tokens)
+  })
 
-    lunr.tokenizer.seperator = '|'
+  test('undefined is converted to empty string', function () {
+    var tokens = lunr.tokenizer(['foo', undefined, 'baz'])
+      .map(toString)
 
-    deepEqual(lunr.tokenizer(str), ['foo', 'bar', 'baz'])
-  } finally {
-    lunr.tokenizer.seperator = defaultSeparator
-  }
+    assert.sameMembers(['foo', '', 'baz'], tokens)
+  })
+
+  test('null is converted to empty string', function () {
+    var tokens = lunr.tokenizer(['foo', null, 'baz'])
+      .map(toString)
+
+    assert.sameMembers(['foo', '', 'baz'], tokens)
+  })
+
+  test('multiple white space is stripped', function () {
+    var tokens = lunr.tokenizer('   foo    bar   baz  ')
+      .map(toString)
+
+    assert.sameMembers(['foo', 'bar', 'baz'], tokens)
+  })
+
+  test('handling null-like arguments', function () {
+    assert.lengthOf(lunr.tokenizer(), 0)
+    assert.lengthOf(lunr.tokenizer(undefined), 0)
+    assert.lengthOf(lunr.tokenizer(null), 0)
+  })
+
+  test('converting a date to tokens', function () {
+    var date = new Date(Date.UTC(2013, 0, 1, 12))
+
+    // NOTE: slicing here to prevent asserting on parts
+    // of the date that might be affected by the timezone
+    // the test is running in.
+    assert.sameMembers(['tue', 'jan', '01', '2013'], lunr.tokenizer(date).slice(0, 4).map(toString))
+  })
+
+  test('converting a number to tokens', function () {
+    assert.equal('41', lunr.tokenizer(41).map(toString))
+  })
+
+  test('converting a boolean to tokens', function () {
+    assert.equal('false', lunr.tokenizer(false).map(toString))
+  })
+
+  test('converting an object to tokens', function () {
+    var obj = {
+      toString: function () { return 'custom object' }
+    }
+
+    assert.sameMembers(lunr.tokenizer(obj).map(toString), ['custom', 'object'])
+  })
+
+  test('splits strings with hyphens', function () {
+    assert.sameMembers(lunr.tokenizer('foo-bar').map(toString), ['foo', 'bar'])
+  })
+
+  test('splits strings with hyphens and spaces', function () {
+    assert.sameMembers(lunr.tokenizer('foo - bar').map(toString), ['foo', 'bar'])
+  })
+
+  test('tracking the token index', function () {
+    var tokens = lunr.tokenizer('foo bar')
+    assert.equal(tokens[0].metadata.index, 0)
+    assert.equal(tokens[1].metadata.index, 1)
+  })
+
+  test('tracking the token position', function () {
+    var tokens = lunr.tokenizer('foo bar')
+    assert.deepEqual(tokens[0].metadata.position, [0, 3])
+    assert.deepEqual(tokens[1].metadata.position, [4, 3])
+  })
 })
