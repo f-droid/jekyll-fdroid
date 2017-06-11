@@ -19,7 +19,7 @@ module Jekyll
         @js_dir = 'js'
 
         ctx = V8::Context.new
-        ctx.load(Indexer.path_to_bower_asset('lunr.js/lunr.js'))
+        ctx.load(Indexer.path_to_asset('bower_components/lunr.js/lunr.js'))
 
         ctx['indexer'] = proc do |this|
           this.ref('id')
@@ -74,10 +74,16 @@ module Jekyll
         added_files = [filename]
 
         site_js = File.join(site.dest, @js_dir)
-        extras = ['lunr.js/lunr.js', 'mustache.js/mustache.min.js', 'awesomplete/awesomplete.min.js', 'awesomplete/awesomplete.css']
+        extras = [
+            'assets/fdroid-search-autocomplete.js',
+            'bower_components/lunr.js/lunr.js',
+            'bower_components/mustache.js/mustache.min.js',
+            'bower_components/awesomplete/awesomplete.min.js',
+            'bower_components/awesomplete/awesomplete.css'
+        ]
         Jekyll.logger.info "Lunr:", "Added required assets to #{@js_dir}"
         extras.each do |path|
-          src = Indexer.path_to_bower_asset(path)
+          src = Indexer.path_to_asset(path)
           Jekyll.logger.debug "Lunr:", "Copying asset from #{src} to #{site_js}"
           FileUtils.cp(src, site_js)
           added_files.push(File.join(@js_dir, File.basename(src)))
@@ -89,8 +95,8 @@ module Jekyll
         end
       end
 
-      def self.path_to_bower_asset(bower_path)
-        return File.join(File.dirname(__FILE__), "../../bower_components/#{bower_path}")
+      def self.path_to_asset(path)
+        return File.join(File.dirname(__FILE__), "../../#{path}")
       end
 
       def self.content_from_xml(xml_node, element_name)
