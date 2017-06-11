@@ -18,25 +18,27 @@
 module Jekyll
 
 	class FDroidSearchTemplateableAutocompleteBlock < Liquid::Block
-    def self.render_template(context, template)
-      context['result_item_template'] = template
-      context['search_id'] = rand(1000000)
+		def self.render_template(context, template)
+			context['result_item_template'] = template
+			context['search_id'] = rand(1000000)
 
-      template = Liquid::Template.parse(IO.read((File.expand_path "../../_layouts/search-autocomplete.html", File.dirname(__FILE__))))
-      template.render(context)
-    end
+			path = "../../_layouts/search-autocomplete.html"
+			template = Liquid::Template.parse(IO.read((File.expand_path path, File.dirname(__FILE__))))
+			template.render(context)
+		end
 
-    def render(context)
-      FDroidSearchTemplateableAutocompleteBlock.render_template(context, super.to_s)
+		def render(context)
+			FDroidSearchTemplateableAutocompleteBlock.render_template(context, super.to_s)
 		end
   end
 
-  class FDroidSearchAutocompleteTag < Liquid::Tag
-    def render(context)
-      result_item_template = IO.read((File.expand_path "../../_includes/search-autocomplete-default-result-template.html", File.dirname(__FILE__)))
-      FDroidSearchTemplateableAutocompleteBlock.render_template(context, result_item_template)
-    end
-  end
+	class FDroidSearchAutocompleteTag < Liquid::Tag
+		def render(context)
+			path = "../../_includes/search-autocomplete-default-result-template.html"
+			result_item_template = IO.read((File.expand_path path, File.dirname(__FILE__)))
+			FDroidSearchTemplateableAutocompleteBlock.render_template(context, result_item_template)
+		end
+	end
 end
 
 Liquid::Template.register_tag('fdroid_search_autocomplete', Jekyll::FDroidSearchAutocompleteTag)
