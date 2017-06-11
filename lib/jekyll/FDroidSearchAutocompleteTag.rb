@@ -20,7 +20,7 @@ module Jekyll
 	class FDroidSearchTemplateableAutocompleteBlock < Liquid::Block
     def self.render_template(context, template)
       context['result_item_template'] = template
-      context['template_id'] = rand(1000000)
+      context['search_id'] = rand(1000000)
 
       template = Liquid::Template.parse(IO.read((File.expand_path "../../_layouts/search-autocomplete.html", File.dirname(__FILE__))))
       template.render(context)
