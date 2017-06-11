@@ -109,7 +109,7 @@
                 return;
             }
 
-            autocomplete.list = index.search("*" + terms + "*").map(function(item) {
+            autocomplete.list = index.search(terms + "*").map(function(item) {
                 return packages[item.ref];
             });
         }

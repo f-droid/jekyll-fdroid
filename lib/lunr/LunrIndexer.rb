@@ -28,8 +28,7 @@ module Jekyll
         end
 
         ctx.eval('builder = new lunr.Builder')
-        ctx.eval('builder.pipeline.add(lunr.trimmer, lunr.stopWordFilter, lunr.stemmer)')
-        ctx.eval('builder.searchPipeline.add(lunr.stemmer)')
+        ctx.eval('builder.pipeline.add(lunr.trimmer, lunr.stopWordFilter)')
         ctx.eval('indexer.call(builder, builder)')
 
         @lunr_version = ctx.eval('lunr.version')
