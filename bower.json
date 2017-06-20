@@ -1,0 +1,16 @@
+{
+  "name": "jekyll-fdroid",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "lunr.js": "^2.0.4",
+    "mustache.js": "mustache#^2.3.0",
+    "awesomplete": "^1.1.1"
+  }
+}

@@ -45,6 +45,9 @@ module Jekyll
 				site.config["pagination"]["enabled"] = true
 
 				packages = FDroidIndex.new.getIndex(site.config["fdroid-repo"])
+
+				Jekyll::LunrJsSearch::Indexer.new.generate(site, packages)
+
 				# Generate detail page for every package
 				site.collections["packages"] = Collection.new(site, "packages")
 				packages.each do |package|
