@@ -51,9 +51,13 @@ module Jekyll
 				# Generate detail page for every package
 				site.collections["packages"] = Collection.new(site, "packages")
 				packages.each do |package|
-					myPage = FDroidPackageDetailPage.new(site, site.source, package)
-					site.pages << myPage
-					site.collections["packages"].docs << myPage
+					# This page needs to be created twice, once for site.pages, and once for site.collections.
+					# If not, then the i18n code in jekyll-polyglot will end up processing the page twice, as
+					# it iterates over all pages and all packages. The end result is a double prefix for "/en/en"
+					# for any links in the page.
+					# https://gitlab.com/fdroid/jekyll-fdroid/issues/38
+					site.pages << FDroidPackageDetailPage.new(site, site.source, package)
+					site.collections["packages"].docs << FDroidPackageDetailPage.new(site, site.source, package)
 				end
 				# Generate browsing pages
 				site.includes_load_paths << (File.expand_path "../../_includes", File.dirname(__FILE__))
