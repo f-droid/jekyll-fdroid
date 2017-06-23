@@ -26,9 +26,19 @@ module Jekyll
 			@name = $package.at_xpath('id').content + "/index.html"
 
 			self.process(@name)
-			self.read_yaml((File.expand_path "../../_layouts", File.dirname(__FILE__)), 'package.html')
+			self.read_yaml(getLayoutDir(), 'package.html')
+
 			getGeneralFrontMatterData
 			getPackagesFrontMatterData
+		end
+
+		def getLayoutDir()
+			layout_dir_override = File.join(site.source, "_layouts")
+			if File.exists? File.join(layout_dir_override, "package.html")
+				return layout_dir_override
+			else
+				return File.expand_path "../../_layouts", File.dirname(__FILE__)
+			end
 		end
 
 		def getGeneralFrontMatterData
