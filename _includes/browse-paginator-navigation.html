@@ -12,7 +12,7 @@
 
 	{% if include.paginator.page_trail[0].num > 1 %}
 		<li class="nav page first">
-			<a class="label" href="{{ include.permalink | prepend: site.baseurl }}">1</a>
+			<a class="label" href="{{ include.permalink | prepend: site.baseurl }}/../1">1</a>
 		</li>
 		<li class="nav disabled"><span class="label">&hellip;</span></li>
 	{% endif %}
@@ -30,7 +30,7 @@
 	{% if include.paginator.page_trail[-1].num < include.paginator.total_pages %}
 		<li class="nav disabled"><span class="label">&hellip;</span></li>
 		<li class="nav page last">
-			<a class="label" href="{{ include.permalink | append: include.paginator.total_pages | prepend: site.baseurl }}">{{include.paginator.total_pages}}</a>
+			<a class="label" href="{{ include.permalink | append: '../' | append: include.paginator.total_pages | prepend: site.baseurl }}">{{include.paginator.total_pages}}</a>
 		</li>
 	{% endif %}
 
