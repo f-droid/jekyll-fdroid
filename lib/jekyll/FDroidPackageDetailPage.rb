@@ -68,7 +68,12 @@ module Jekyll
 			assignments.each do |jekyll, xml|
 				addGeneralFrontMatterData(jekyll, xml)
 			end
+			self.data["description"] = processFdroidAppLinks(self.data["description"])
 			self.data["beautifulURL"] = "/packages/" + self.data["package"]
+		end
+
+		def processFdroidAppLinks(string)
+			string.gsub(/fdroid\.app:([\w._]*)/, '/packages/\1')
 		end
 
 		def addGeneralFrontMatterData(jekyll, xml)
