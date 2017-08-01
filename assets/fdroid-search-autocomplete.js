@@ -39,12 +39,34 @@
         config.onLoad(config, packages, index)
     }
 
-    function setupFullSearch(config) {
-
-    }
-
     function handleFullSearchResults(config, packages, index) {
+        var searchInput = document.createElement('input');
+        searchInput.class = "search";
+        searchInput.type = "text";
+        config.element.appendChild(searchInput);
 
+        var resultsContainer = document.createElement('ul')
+        resultsContainer.className = "results";
+        config.element.appendChild(resultsContainer);
+
+        searchInput.addEventListener('input', function(event) {
+            // Use loop instead of innerHTML = '' for performance (https://stackoverflow.com/a/3955238)
+            while (resultsContainer.firstChild) {
+                resultsContainer.removeChild(resultsContainer.firstChild);
+            }
+
+            var results = performSearch(index, packages, this.value);
+
+            if (results !== null) {
+
+                results.forEach(function(item) {
+                    var package = packages[item.ref];
+                    var node = document.createElement('li');
+                    node.innerHTML = Mustache.render(config.template, package);
+                    resultsContainer.appendChild(node);
+                })
+            }
+        });
     }
 
     /**
@@ -143,7 +165,7 @@
         Mustache.parse(template)
         loadIndex({
             element: element,
-            templateElement: template,
+            template: template,
             baseurl: baseurl,
             fdroidRepo: fdroidRepo,
             onLoad: handleFullSearchResults
