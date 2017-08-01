@@ -36,10 +36,15 @@
 
         index = lunr.Index.load(index);
 
-        var autocomplete = setupSearch(config);
-        autocomplete.input.oninput = function() {
-            performSearch(autocomplete, index, packages, autocomplete.input.value);
-        };
+        config.onLoad(config, packages, index)
+    }
+
+    function setupFullSearch(config) {
+
+    }
+
+    function handleFullSearchResults(config, packages, index) {
+
     }
 
     /**
@@ -47,10 +52,7 @@
      * template available in the #search-result-template script element.
      * @returns {Awesomplete}
      */
-    function setupSearch(config) {
-        var template = config.templateElement.innerHTML;
-        Mustache.parse(template);
-
+    function setupAutocompleteSearch(config) {
         var searchInput = document.createElement('input');
         searchInput.type = "text";
 
@@ -61,7 +63,7 @@
             filter: function() { return true; }, // Don't filter, this is done by lunr.js already.
             item: function(item) {
                 var node = document.createElement('li');
-                node.innerHTML = Mustache.render(template, item.value);
+                node.innerHTML = Mustache.render(config.template, item.value);
                 return node;
             },
             replace: function(item) {
@@ -78,25 +80,33 @@
         return autocomplete;
     }
 
+    function handleAutocompleteResults(config, packages, index) {
+        var autocomplete = setupAutocompleteSearch(config);
+        autocomplete.input.oninput = function() {
+            var results = performSearch(index, packages, autocomplete.input.value);
+            if (results !== null) {
+                autocomplete.list = results.map(function(item) {
+                    return packages[item.ref];
+                });
+            }
+        };
+    }
+
     /**
      * Executed each time the user enteres some new text in the search input.
-     * Uses the lunr.js index to perform a search, then update the Awesomplete input with the search results. The
-     * search which is performed is a wildcard search.
-     * @param {Awesomplete} autocomplete
+     * Uses the lunr.js index to perform a search. The search which is performed is a wildcard search.
      * @param {lunr.Index} index
      * @param {Object[]} packages
      * @param {string} terms
      */
-    function performSearch(autocomplete, index, packages, terms) {
+    function performSearch(index, packages, terms) {
         // For performance reasons, don't try and search with less than three characters. There is a noticibly longer
         // search time when searching for 1 or 2 string terms.
         if (terms == null || terms.length < 3) {
-            return;
+            return null;
         }
 
-        autocomplete.list = index.search(terms + "*").map(function(item) {
-            return packages[item.ref];
-        });
+        return index.search(terms + "*")
     }
 
     window.FDroid = window.FDroid || {};
@@ -110,11 +120,33 @@
      * @param fdroidRepo The site.fdroid-repo variable from Jekyll.
      */
     window.FDroid.Search.addAutocomplete = function(element, templateElement, baseurl, fdroidRepo) {
+        var template = templateElement.innerHTML
+        Mustache.parse(template)
         loadIndex({
             element: element,
-            templateElement: templateElement,
+            template: template,
             baseurl: baseurl,
-            fdroidRepo: fdroidRepo
+            fdroidRepo: fdroidRepo,
+            onLoad: handleAutocompleteResults
+        });
+    };
+
+    /**
+     * @param element DOM Element where the autocomplete is to be appended to.
+     * @param templateElement DOM Element for the script tag (with type "x-tmpl-mustache") where the Mustache.js
+     *                        template lives.
+     * @param baseurl The site.baseurl variable from Jekyll.
+     * @param fdroidRepo The site.fdroid-repo variable from Jekyll.
+     */
+    window.FDroid.Search.addFullSearch = function(element, templateElement, baseurl, fdroidRepo) {
+        var template = templateElement.innerHTML
+        Mustache.parse(template)
+        loadIndex({
+            element: element,
+            templateElement: template,
+            baseurl: baseurl,
+            fdroidRepo: fdroidRepo,
+            onLoad: handleFullSearchResults
         });
     };
 

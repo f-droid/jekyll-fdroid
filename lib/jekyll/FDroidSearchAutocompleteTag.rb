@@ -30,7 +30,7 @@ module Jekyll
 		def render(context)
 			FDroidSearchTemplateableAutocompleteBlock.render_template(context, super.to_s)
 		end
-  end
+    end
 
 	class FDroidSearchAutocompleteTag < Liquid::Tag
 		def render(context)
@@ -39,7 +39,25 @@ module Jekyll
 			FDroidSearchTemplateableAutocompleteBlock.render_template(context, result_item_template)
 		end
 	end
+
+	class FDroidSearchFullTag < Liquid::Tag
+		def self.render_template(context, template)
+		end
+
+		def render(context)
+			path = "../../_includes/search-full-default-result-template.html"
+			result_item_template = IO.read((File.expand_path path, File.dirname(__FILE__)))
+			
+			context['result_item_template'] = result_item_template
+			context['search_id'] = rand(1000000)
+
+			path = "../../_layouts/search-full.html"
+			template = Liquid::Template.parse(IO.read((File.expand_path path, File.dirname(__FILE__))))
+			template.render(context)
+		end
+	end
 end
 
 Liquid::Template.register_tag('fdroid_search_autocomplete', Jekyll::FDroidSearchAutocompleteTag)
 Liquid::Template.register_tag('fdroid_search_autocomplete_with_template', Jekyll::FDroidSearchTemplateableAutocompleteBlock)
+Liquid::Template.register_tag('fdroid_search_full', Jekyll::FDroidSearchFullTag)
