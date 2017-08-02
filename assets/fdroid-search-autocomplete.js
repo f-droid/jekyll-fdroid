@@ -39,23 +39,39 @@
         config.onLoad(config, packages, index)
     }
 
-    function handleFullSearchResults(config, packages, index) {
+    /**
+     * Anything after the "#" in the URL is used for the intial search terms when showing a full search.
+     */
+    function getInitialSearchTerms() {
+        return window.location.hash.substring(1)
+    }
+
+    /**
+     * Helper method to ensure that the search input for both full search and autocomplete are similar.
+     */
+    function createSearchInput() {
         var searchInput = document.createElement('input');
-        searchInput.class = "search";
         searchInput.type = "text";
+        searchInput.className = "search-input";
+        return searchInput
+    }
+
+    function handleFullSearchResults(config, packages, index) {
+        var searchInput = createSearchInput();
+        searchInput.value = getInitialSearchTerms();
         config.element.appendChild(searchInput);
 
         var resultsContainer = document.createElement('ul')
         resultsContainer.className = "results";
         config.element.appendChild(resultsContainer);
 
-        searchInput.addEventListener('input', function(event) {
+        var showResults = function() {
             // Use loop instead of innerHTML = '' for performance (https://stackoverflow.com/a/3955238)
             while (resultsContainer.firstChild) {
                 resultsContainer.removeChild(resultsContainer.firstChild);
             }
 
-            var results = performSearch(index, packages, this.value);
+            var results = performSearch(index, packages, searchInput.value);
 
             if (results !== null) {
 
@@ -66,7 +82,20 @@
                     resultsContainer.appendChild(node);
                 })
             }
+        }
+
+        searchInput.addEventListener('input', function(event) {
+            showResults()
         });
+
+        // If the search results are prepopulated, show relevant results
+        if (searchInput.value != null && searchInput.value.length > 0) {
+            showResults()
+        }
+    }
+
+    function viewPackagePage(config, packageName) {
+        document.location = config.baseurl + '/packages/' + packageName + '/';
     }
 
     /**
@@ -75,9 +104,7 @@
      * @returns {Awesomplete}
      */
     function setupAutocompleteSearch(config) {
-        var searchInput = document.createElement('input');
-        searchInput.type = "text";
-
+        var searchInput = createSearchInput();
         config.element.appendChild(searchInput);
 
         var autocomplete = new Awesomplete(searchInput, {
@@ -96,7 +123,7 @@
         });
 
         searchInput.addEventListener('awesomplete-selectcomplete', function(event) {
-            document.location = config.baseurl + '/packages/' + event.text.value.packageName + '/';
+            viewPackagePage(config, event.text.value.packageName);
         });
 
         return autocomplete;
