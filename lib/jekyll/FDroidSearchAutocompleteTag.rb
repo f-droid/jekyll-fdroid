@@ -66,12 +66,18 @@ module Jekyll
 	# For each search result, this will render the contents of
 	# "_includes/search-full-default-result-template.html" from this plugin.
 	class DefaultFullSearch < Liquid::Tag
+		def initialize(tag_name, argument, tokens)
+			super
+			@empty_search_id = argument.strip
+		end
+
 		def render(context)
 			search_form_template_path = "../../_layouts/search-full.html"
 
 			result_item_template_path = "../../_includes/search-full-default-result-template.html"
 			result_item_template = IO.read((File.expand_path(result_item_template_path, File.dirname(__FILE__))))
 
+			context['empty_search_id'] = @empty_search_id
 			SearchForm.render_form(context, search_form_template_path, result_item_template)
 		end
 	end
@@ -79,5 +85,8 @@ end
 
 Liquid::Template.register_tag('fdroid_search_autocomplete', Jekyll::DefaultDropDown)
 Liquid::Template.register_tag('fdroid_search_autocomplete_with_template', Jekyll::DropDownWithTemplate)
+
+# You can optionally specify the ID of a div where the results are to be rendered as the argument to these tags.
+# Note that if you do so, it will hide all elements from this div when rendering it.
 Liquid::Template.register_tag('fdroid_search_full', Jekyll::DefaultFullSearch)
 Liquid::Template.register_tag('fdroid_search_full_with_template', Jekyll::FullSearchWithTemplate)

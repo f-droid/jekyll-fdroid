@@ -40,10 +40,12 @@
     }
 
     /**
-     * Anything after the "#" in the URL is used for the intial search terms when showing a full search.
+     * Anything after the "#q=" in the URL is used for the intial search terms when showing a full search.
+     * The reason for #q= is to be forwards compatible with an arbitrary number of arguments in the future,
+     * such as "#q=F-Droid&page=2"
      */
     function getInitialSearchTerms() {
-        return window.location.hash.substring(1)
+        return window.location.hash.substring(3)
     }
 
     /**
@@ -65,6 +67,9 @@
         resultsContainer.className = "results";
         config.element.appendChild(resultsContainer);
 
+        var emptySearchElement = config.emptySearchElement;
+        var defaultEmptySearchElementDisplay = emptySearchElement == null ? null : emptySearchElement.style.display;
+
         var showResults = function() {
             // Use loop instead of innerHTML = '' for performance (https://stackoverflow.com/a/3955238)
             while (resultsContainer.firstChild) {
@@ -73,8 +78,12 @@
 
             var results = performSearch(index, packages, searchInput.value);
 
-            if (results !== null) {
-
+            if (results == null) {
+                if (emptySearchElement != null) {
+                   emptySearchElement.style.display = defaultEmptySearchElementDisplay;
+                }
+            } else {
+                emptySearchElement.style.display = 'none';
                 results.forEach(function(item) {
                     var package = packages[item.ref];
                     var node = document.createElement('li');
@@ -147,6 +156,7 @@
      * @param {lunr.Index} index
      * @param {Object[]} packages
      * @param {string} terms
+     * @return {Object[]|null} Will return null if a the search terms is less than three characters, otherwise an array of results.
      */
     function performSearch(index, packages, terms) {
         // For performance reasons, don't try and search with less than three characters. There is a noticibly longer
@@ -157,6 +167,11 @@
 
         return index.search(terms + "*")
     }
+
+    // http://beeker.io/jquery-document-ready-equivalent-vanilla-javascript
+    var domReady = function(callback) {
+        document.readyState === "interactive" || document.readyState === "complete" ? callback() : document.addEventListener("DOMContentLoaded", callback);
+    };
 
     window.FDroid = window.FDroid || {};
     window.FDroid.Search = window.FDroid.Search || {};
@@ -184,18 +199,25 @@
      * @param element DOM Element where the autocomplete is to be appended to.
      * @param templateElement DOM Element for the script tag (with type "x-tmpl-mustache") where the Mustache.js
      *                        template lives.
+     * @param emptySearchElement DOM element to show when there is no text in the search box. Can be empty.
      * @param baseurl The site.baseurl variable from Jekyll.
      * @param fdroidRepo The site.fdroid-repo variable from Jekyll.
      */
-    window.FDroid.Search.addFullSearch = function(element, templateElement, baseurl, fdroidRepo) {
+    window.FDroid.Search.addFullSearch = function(element, templateElement, emptySearchElementId, baseurl, fdroidRepo) {
         var template = templateElement.innerHTML
         Mustache.parse(template)
-        loadIndex({
-            element: element,
-            template: template,
-            baseurl: baseurl,
-            fdroidRepo: fdroidRepo,
-            onLoad: handleFullSearchResults
+        
+        // Wait for the DOM to load before this runs, because emptySearchElementId may not
+        // be part of the DOM when this is called.
+        domReady(function() {
+            loadIndex({
+                element: element,
+                emptySearchElement: document.getElementById(emptySearchElementId),
+                template: template,
+                baseurl: baseurl,
+                fdroidRepo: fdroidRepo,
+                onLoad: handleFullSearchResults
+            });
         });
     };
 
