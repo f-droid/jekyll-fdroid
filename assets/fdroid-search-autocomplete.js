@@ -3,16 +3,39 @@
     /**
      * Loads an index.json file built by jekyll-fdroid via AJAX. Once loaded, it is passed to buildIndex()
      * which will construct the search index and also add the search widget to the DOM.
+     * 
+     * Note that both the autocomplete sidebar and also the full search widget both require index
+     * data to operate. This caches the results in the `indexData` variable, and ensures that the
+     * actual network call is only performed once.
      */
     function loadIndex(config) {
+        var existingData = window.FDroid.Search.Net.indexData;
+        if (existingData !== null) {
+            buildIndex(config, existingData.docs, existingData.index);
+            return;
+        }
 
+        window.FDroid.Search.Net.indexLoadedCallbacks.push(function(docs, index) {
+            buildIndex(config, docs, index);
+        });
+
+        if (window.FDroid.Search.Net.isLoadingIndex) {
+            return;
+        }
+
+        window.FDroid.Search.Net.isLoadingIndex = true;
         var http = new XMLHttpRequest();
         http.onreadystatechange = function () {
             if (http.readyState === XMLHttpRequest.DONE && http.status === 200) {
                 var data = JSON.parse(http.responseText);
-                buildIndex(config, data.docs, data.index);
+                for (var i = 0; i < window.FDroid.Search.Net.indexLoadedCallbacks.length; i ++) {
+                    window.FDroid.Search.Net.indexLoadedCallbacks[i](data.docs, data.index);
+                }
+                window.FDroid.Search.Net.indexData = data;
+                window.FDroid.Search.Net.isLoadingIndex = false;
             }
         };
+
         http.open('GET', config.baseurl + '/js/index.json', true);
         http.send();
 
@@ -174,7 +197,17 @@
     };
 
     window.FDroid = window.FDroid || {};
-    window.FDroid.Search = window.FDroid.Search || {};
+
+    /* The `Net` object is to keep track of the network request for index data,
+       so that it need only be made once, even if two different search widgets
+       request the data. */
+    window.FDroid.Search = window.FDroid.Search || {
+        Net: {
+            indexData: null,
+            isLoadingIndex: false,
+            indexLoadedCallbacks: [],
+        }
+    };
 
     /**
      * @param element DOM Element where the autocomplete is to be appended to.
