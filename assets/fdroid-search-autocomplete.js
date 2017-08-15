@@ -161,6 +161,13 @@
             viewPackagePage(config, event.text.value.packageName);
         });
 
+        searchInput.onkeypress = function(event) {
+            if (event.keyCode == 13) {
+                document.location = config.baseurl + '/packages/#q=' + searchInput.value;
+                location.reload();
+            }
+        };
+
         return autocomplete;
     }
 
