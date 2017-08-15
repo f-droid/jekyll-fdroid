@@ -127,6 +127,13 @@
         if (searchInput.value != null && searchInput.value.length > 0) {
             showResults()
         }
+
+        // The sidebar can trigger the has to change if it is used on the full search page.
+        // Under these circumstances, we should show the relevant results.
+        window.onhashchange = function(event) {
+            searchInput.value = getInitialSearchTerms();
+            showResults();
+        };
     }
 
     function viewPackagePage(config, packageName) {
@@ -163,8 +170,13 @@
 
         searchInput.onkeypress = function(event) {
             if (event.keyCode == 13) {
-                document.location = config.baseurl + '/packages/#q=' + searchInput.value;
-                location.reload();
+                var path = config.baseurl + '/packages'
+                if (location.pathname.substr(0, path.length) == path) {
+                    location.hash = "q=" + searchInput.value;
+                    autocomplete.close();
+                } else {
+                    document.location = path + '#q=' + searchInput.value;
+                }
             }
         };
 
