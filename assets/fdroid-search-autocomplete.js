@@ -116,9 +116,12 @@
             }
         }
 
-        searchInput.addEventListener('input', function(event) {
+        // "Debounce" search results so that rapid key presses in succession don't cause a DOM
+        // rebuild immediately. Rather, we will wait 300ms of no typing before we go ahead and
+        // rebuild the DOM (which has a non-zero cost).
+        searchInput.addEventListener('input', debounce(function(event) {
             showResults()
-        });
+        }, 300));
 
         // If the search results are prepopulated, show relevant results
         if (searchInput.value != null && searchInput.value.length > 0) {
@@ -194,6 +197,24 @@
     // http://beeker.io/jquery-document-ready-equivalent-vanilla-javascript
     var domReady = function(callback) {
         document.readyState === "interactive" || document.readyState === "complete" ? callback() : document.addEventListener("DOMContentLoaded", callback);
+    };
+
+    // MIT licensed debounce from https://github.com/jgarber623/javascript-debounce.
+    // Used to prevent every single keystroke from a fast typer requiring us to rebuild
+    // the DOM of the search results. Instead, it can happen after a pause in typing.
+    var debounce = function(callback, delay) {
+        var timeout;
+
+        return function() {
+            var context = this,
+            args = arguments;
+
+            clearTimeout(timeout);
+
+            timeout = setTimeout(function() {
+                callback.apply(context, args);
+            }, delay);
+        };
     };
 
     window.FDroid = window.FDroid || {};
