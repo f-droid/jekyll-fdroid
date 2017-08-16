@@ -2,3 +2,5 @@
 *.iml
 *.gem
 .vscode
+vendor
+.bundle

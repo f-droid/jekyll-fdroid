@@ -22,6 +22,9 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency "jekyll-include-cache"
   s.add_runtime_dependency "jekyll-paginate-v2", "<= 1.7.3"
   s.add_runtime_dependency 'therubyracer', '~> 0.12'
+  s.add_runtime_dependency 'rubyzip'
+  s.add_runtime_dependency 'json'
+  s.add_development_dependency 'rspec'
   s.date        = '2017-06-26'
   s.summary     = "F-Droid - Free and Open Source Android App Repository"
   s.description = "Browse packages of a F-Droid repository."
