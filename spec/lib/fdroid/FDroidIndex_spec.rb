@@ -55,7 +55,7 @@ module FDroid
   end
 
   RSpec.describe IndexV1 do
-    it 'Downloads and extracts jar files' do
+    it 'Downloads and extracts jar files', :network => true do
       repo = 'https://guardianproject.info/fdroid/repo'
       index = FDroid::IndexV1.download(repo, 'en_US')
       expect(index.apps.count).to eql(10)

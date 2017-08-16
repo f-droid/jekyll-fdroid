@@ -48,6 +48,26 @@ to the following tags:
 {{ endfdroid_search_autocomplete_with_template }}
 ```
 
+## Running Tests
+
+To run the test suite, you must first have installed the releveant dependencies:
+
+```
+bundle install --path vendor
+```
+
+The tests are then run via RSpec:
+
+```
+bundle exec rspec
+```
+
+If you want to exclude tests which hit the network to download F-Droid metadata, run:
+
+```
+bundle exec rspec --tag "~network"
+```
+
 ## Dependencies
 
 Gem "nokogiri" needs apt package "zlib1g-dev".
