@@ -31,6 +31,15 @@ module FDroid
 
       name = App.localized(de_locales, localized, 'name')
       expect(name).to eql('App [de-DE]')
+
+      feature_graphic = App.localized_graphic_path(de_locales, localized, 'featureGraphic')
+      expect(feature_graphic).to eql('de-DE/Feature Graphic [de-DE].png')
+
+      phone_screenshots = App.localized_graphic_list_paths(de_locales, localized, 'phoneScreenshots')
+      expect(phone_screenshots).to eql([
+        'de-DE/phoneScreenshots/Phone 1 [de-DE].jpg',
+        'de-DE/phoneScreenshots/Phone 2 [de-DE].jpg',
+      ])
     end
 
   end
@@ -61,8 +70,37 @@ module FDroid
       expect(index.apps.count).to eql(10)
     end
 
-    it 'Parses the Guardian Project repo metadata correctly' do
+    def parse_checkey_from_gp(locale)
+      path = File.expand_path '../../assets/index-v1.gp.json', File.dirname(__FILE__)
+      index_json = JSON.parse(File.read(path))
+      index = FDroid::IndexV1.new(index_json, locale)
+      expect(index.apps.count).to eql(10)
 
+      # Force each app to parse itself and make sure it doesn't crash.
+      index.apps.each { |app| app.to_data }
+
+      # Then return ripple when we know that each app is able to be parsed.
+      index.apps.detect { |app| app.package_name == 'info.guardianproject.checkey' }
+    end
+
+    it 'Parses the Guardian Project repo metadata correctly' do
+      checkey_en_US = parse_checkey_from_gp('en_US').to_data
+      checkey_en_AU = parse_checkey_from_gp('en_AU').to_data
+      checkey_en = parse_checkey_from_gp('en').to_data
+      checkey_unknown = parse_checkey_from_gp('unknown locale').to_data
+
+      expect(checkey_en_US).to eql(checkey_en_AU)
+      expect(checkey_en_US).to eql(checkey_en)
+      expect(checkey_en_US).to eql(checkey_unknown)
+
+      checkey_fi = parse_checkey_from_gp('fi').to_data
+
+      expect(checkey_en_US).not_to eql(checkey_fi)
+      expect(checkey_en_US['title']).not_to eq(checkey_fi['title'])
+      expect(checkey_en_US['summary']).not_to eq(checkey_fi['summary'])
+      expect(checkey_en_US['description']).not_to eq(checkey_fi['description'])
+
+      expect(checkey_en_US['phone_screenshots'].length).to eq(5)
     end
 
     it 'Processes the F-Droid repo metadata correctly' do
