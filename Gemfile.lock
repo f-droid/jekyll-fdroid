@@ -5,7 +5,6 @@ PATH
       jekyll-include-cache
       jekyll-paginate-v2 (<= 1.7.3)
       json (>= 1.8.5)
-      nokogiri
       rubyzip
       therubyracer (~> 0.12)
 
@@ -45,9 +44,6 @@ GEM
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
     mercenary (0.3.6)
-    mini_portile2 (2.2.0)
-    nokogiri (1.8.0)
-      mini_portile2 (~> 2.2.0)
     pathutil (0.14.0)
       forwardable-extended (~> 2.6)
     public_suffix (2.0.5)
@@ -86,7 +82,6 @@ PLATFORMS
 DEPENDENCIES
   jekyll-fdroid!
   rspec
-  rubyzip
 
 BUNDLED WITH
    1.15.1

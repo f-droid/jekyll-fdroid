@@ -18,8 +18,8 @@
 require 'tmpdir'
 require 'open-uri'
 require 'net/http'
-require 'zip'
 require 'json'
+require 'zip'
 require_relative './App'
 
 module FDroid

@@ -105,6 +105,7 @@ module FDroid
       string.gsub /fdroid\.app:([\w._]*)/, '/packages/\1'
     end
 
+    # TODO: URLs need to be prefixed with "locale/key/value", e.g. "en_US/featureGraphic/featureGraphic.png"
     def self.localized(available_locales, localized, field)
       return nil unless available_locales != nil
 

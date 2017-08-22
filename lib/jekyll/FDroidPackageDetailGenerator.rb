@@ -44,13 +44,13 @@ module Jekyll
 				end
 				site.config["pagination"]["enabled"] = true
 
-				packages = FDroidIndex.new.getIndex(site.config["fdroid-repo"])
+				index = FDroid::IndexV1.download(site.config["fdroid-repo"], site.active_lang || 'en_US')
 
-				Jekyll::LunrJsSearch::Indexer.new.generate(site, packages)
+				Jekyll::LunrJsSearch::Indexer.new.generate(site, index.apps)
 
 				# Generate detail page for every package
 				site.collections["packages"] = Collection.new(site, "packages")
-				packages.each do |package|
+				index.apps.each do |package|
 					# This page needs to be created twice, once for site.pages, and once for site.collections.
 					# If not, then the i18n code in jekyll-polyglot will end up processing the page twice, as
 					# it iterates over all pages and all packages. The end result is a double prefix for "/en/en"
