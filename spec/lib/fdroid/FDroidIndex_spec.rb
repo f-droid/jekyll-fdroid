@@ -7,8 +7,11 @@ require_relative '../../../lib/fdroid/App'
 module FDroid
   RSpec.describe App do
 
-    path = File.expand_path '../../assets/localized.json', File.dirname(__FILE__)
-    localized = JSON.parse(File.read(path))
+    localized_path = File.expand_path '../../assets/localized.json', File.dirname(__FILE__)
+    localized = JSON.parse(File.read(localized_path))
+
+    gp_path = File.expand_path '../../assets/index-v1.gp.json', File.dirname(__FILE__)
+    gp_json = JSON.parse(File.read(gp_path))
 
     it 'Decides which locales to use' do
 
@@ -40,6 +43,18 @@ module FDroid
         'de-DE/phoneScreenshots/Phone 1 [de-DE].jpg',
         'de-DE/phoneScreenshots/Phone 2 [de-DE].jpg',
       ])
+    end
+
+    it 'Formats app descriptions correctly' do
+      multi_line = App.format_description_to_html("This
+is
+a
+
+multi-line
+
+string
+here")
+      expect(multi_line).to eql("This is a<br />multi-line<br />string here")
     end
 
   end
@@ -169,25 +184,22 @@ module FDroid
           "title"=>"F-Droid",
           "summary"=>"The app store that respects freedom and privacy\n",
           "description"=>
-              "F-Droid is an installable catalogue of FOSS (Free and Open Source\n" +
-              "Software) applications for the Android platform. The client makes it\n" +
-              "easy to browse, install, and keep track of updates on your device.\n" +
-              "\n" +
-              "It connects to any F-Droid compatible repositories. The default repo\n" +
-              "is hosted at f-droid.org, which contains only bona fide Free and Open\n" +
-              "Source Software.\n" +
-              "\n" +
-              "Android itself is open in the sense that you are free to install apks\n" +
-              "from anywhere you wish, but there are many good reasons for using\n" +
-              "F-Droid as your free software app manager:\n" +
-              "\n" +
-              "* Be notified when updates are available\n" +
-              "* optionally download and install updates automatically\n" +
-              "* Keep track of older and beta versions\n" +
-              "* Filter apps that aren't compatible with the device\n" +
-              "* Find apps via categories and searchable descriptions\n" +
-              "* Access associated urls for donations, source code etc.\n" +
-              "* Stay safe by checking repo index signatures and apk hashes\n",
+              "F-Droid is an installable catalogue of FOSS (Free and Open Source " +
+              "Software) applications for the Android platform. The client makes it " +
+              "easy to browse, install, and keep track of updates on your device.<br />" +
+              "It connects to any F-Droid compatible repositories. The default repo " +
+              "is hosted at f-droid.org, which contains only bona fide Free and Open " +
+              "Source Software.<br />" +
+              "Android itself is open in the sense that you are free to install apks " +
+              "from anywhere you wish, but there are many good reasons for using " +
+              "F-Droid as your free software app manager:<br />" +
+              "* Be notified when updates are available " +
+              "* optionally download and install updates automatically " +
+              "* Keep track of older and beta versions " +
+              "* Filter apps that aren't compatible with the device " +
+              "* Find apps via categories and searchable descriptions " +
+              "* Access associated urls for donations, source code etc. " +
+              "* Stay safe by checking repo index signatures and apk hashes ",
           "feature_graphic"=>nil,
           "phone_screenshots"=>nil,
           "seven_inch_screenshots"=>nil,

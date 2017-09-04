@@ -60,7 +60,7 @@ module FDroid
     def to_data
       localized_description = App.localized(@available_locales, @app['localized'], 'description')
       if localized_description != nil
-        localized_description = App.replace_fdroid_app_links(localized_description)
+        localized_description = App.process_app_description(localized_description)
       end
 
       {
@@ -98,11 +98,26 @@ module FDroid
       }
     end
 
+    # Any transformations which are required to turn the "description" into something which is
+    # displayable via HTML is done here (e.g. replacing "fdroid.app:" schemes, formatting new lines,
+    # etc.
+    def self.process_app_description(string)
+      string = self.replace_fdroid_app_links(string)
+      self.format_description_to_html(string)
+    end
+
     # Finds all "fdroid.app:" schemes in a particular string, and replaces with "/packages/".
     # @param [string]  string
     # @return [string]
     def self.replace_fdroid_app_links(string)
       string.gsub /fdroid\.app:([\w._]*)/, '/packages/\1'
+    end
+
+    # Ensure double newlines "\n\n" are converted to "<br />" tags.
+    def self.format_description_to_html(string)
+      string
+        .gsub("\n\n", '<br />')
+        .gsub(/\r?\n/, ' ')
     end
 
     # TODO: URLs need to be prefixed with "locale/key/value", e.g. "en_US/featureGraphic/featureGraphic.png"
