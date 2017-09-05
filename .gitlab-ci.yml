@@ -1,0 +1,13 @@
+image: ruby:2.3
+
+stages:
+  - test
+
+test:
+  stage: test
+  script:
+    - ruby -v
+    - apt-get update
+    - apt-get install -y bundler
+    - bundle install --path vendor
+    - bundle exec rspec

@@ -1,0 +1,219 @@
+{
+  "fr-CA": {
+    "phoneScreenshots": [
+      "Phone 1 [fr-CA].jpg",
+      "Phone 2 [fr-CA].jpg"
+    ],
+    "wearScreenshots": [
+      "Wear 1 [fr-CA].jpg",
+      "Wear 2 [fr-CA].jpg"
+    ],
+    "sevenInchScreenshots": [
+      "7\" 1 [fr-CA].jpg",
+      "7\" 2 [fr-CA].jpg"
+    ],
+    "tenInchScreenshots": [
+      "10\" 1 [fr-CA].jpg",
+      "10\" 2 [fr-CA].jpg"
+    ],
+    "tvScreenshots": [
+      "TV 1 [fr-CA].jpg",
+      "TV 2 [fr-CA].jpg"
+    ],
+    "whatsNew": "Whats New [fr-CA].png",
+    "video": "Video [fr-CA].png",
+    "icon": "icon [fr-CA].png",
+    "name": "App [fr-CA]",
+    "summary": "Summary [fr-CA]",
+    "featureGraphic": "Feature Graphic [fr-CA].png",
+    "promoGraphic": "Promo Graphic [fr-CA].png",
+    "tvBanner": "TV Banner [fr-CA].png",
+    "description": "Description [fr-CA]"
+  },
+  "de": {
+    "phoneScreenshots": [
+      "Phone 1 [de].jpg",
+      "Phone 2 [de].jpg"
+    ],
+    "wearScreenshots": [
+      "Wear 1 [de].jpg",
+      "Wear 2 [de].jpg"
+    ],
+    "sevenInchScreenshots": [
+      "7\" 1 [de].jpg",
+      "7\" 2 [de].jpg"
+    ],
+    "tenInchScreenshots": [
+      "10\" 1 [de].jpg",
+      "10\" 2 [de].jpg"
+    ],
+    "tvScreenshots": [
+      "TV 1 [de].jpg",
+      "TV 2 [de].jpg"
+    ],
+    "whatsNew": "Whats New [de].png",
+    "video": "Video [de].png",
+    "icon": "icon [de].png",
+    "name": "App [de]",
+    "summary": "Summary [de]",
+    "featureGraphic": "Feature Graphic [de].png",
+    "promoGraphic": "Promo Graphic [de].png",
+    "tvBanner": "TV Banner [de].png",
+    "description": "Description [de]"
+  },
+  "de-DE": {
+    "phoneScreenshots": [
+      "Phone 1 [de-DE].jpg",
+      "Phone 2 [de-DE].jpg"
+    ],
+    "wearScreenshots": [
+      "Wear 1 [de-DE].jpg",
+      "Wear 2 [de-DE].jpg"
+    ],
+    "sevenInchScreenshots": [
+      "7\" 1 [de-DE].jpg",
+      "7\" 2 [de-DE].jpg"
+    ],
+    "tenInchScreenshots": [
+      "10\" 1 [de-DE].jpg",
+      "10\" 2 [de-DE].jpg"
+    ],
+    "tvScreenshots": [
+      "TV 1 [de-DE].jpg",
+      "TV 2 [de-DE].jpg"
+    ],
+    "whatsNew": "Whats New [de-DE].png",
+    "video": "Video [de-DE].png",
+    "icon": "icon [de-DE].png",
+    "name": "App [de-DE]",
+    "summary": "Summary [de-DE]",
+    "featureGraphic": "Feature Graphic [de-DE].png",
+    "promoGraphic": "Promo Graphic [de-DE].png",
+    "tvBanner": "TV Banner [de-DE].png",
+    "description": "Description [de-DE]"
+  },
+  "de-AT": {
+    "phoneScreenshots": [
+      "Phone 1 [de-AT].jpg",
+      "Phone 2 [de-AT].jpg"
+    ],
+    "wearScreenshots": [
+      "Wear 1 [de-AT].jpg",
+      "Wear 2 [de-AT].jpg"
+    ],
+    "sevenInchScreenshots": [
+      "7\" 1 [de-AT].jpg",
+      "7\" 2 [de-AT].jpg"
+    ],
+    "tenInchScreenshots": [
+      "10\" 1 [de-AT].jpg",
+      "10\" 2 [de-AT].jpg"
+    ],
+    "tvScreenshots": [
+      "TV 1 [de-AT].jpg",
+      "TV 2 [de-AT].jpg"
+    ],
+    "whatsNew": "Whats New [de-AT].png",
+    "video": "Video [de-AT].png",
+    "icon": "icon [de-AT].png",
+    "name": "App [de-AT]",
+    "summary": "Summary [de-AT]",
+    "featureGraphic": "Feature Graphic [de-AT].png",
+    "promoGraphic": "Promo Graphic [de-AT].png",
+    "tvBanner": "TV Banner [de-AT].png",
+    "description": "Description [de-AT]"
+  },
+  "en-US": {
+    "phoneScreenshots": [
+      "Phone 1 [en-US].jpg",
+      "Phone 2 [en-US].jpg"
+    ],
+    "wearScreenshots": [
+      "Wear 1 [en-US].jpg",
+      "Wear 2 [en-US].jpg"
+    ],
+    "sevenInchScreenshots": [
+      "7\" 1 [en-US].jpg",
+      "7\" 2 [en-US].jpg"
+    ],
+    "tenInchScreenshots": [
+      "10\" 1 [en-US].jpg",
+      "10\" 2 [en-US].jpg"
+    ],
+    "tvScreenshots": [
+      "TV 1 [en-US].jpg",
+      "TV 2 [en-US].jpg"
+    ],
+    "whatsNew": "Whats New [en-US].png",
+    "video": "Video [en-US].png",
+    "icon": "icon [en-US].png",
+    "name": "App [en-US]",
+    "summary": "Summary [en-US]",
+    "featureGraphic": "Feature Graphic [en-US].png",
+    "promoGraphic": "Promo Graphic [en-US].png",
+    "tvBanner": "TV Banner [en-US].png",
+    "description": "Description [en-US]"
+  },
+  "en-AU": {
+    "phoneScreenshots": [
+      "Phone 1 [en-AU].jpg",
+      "Phone 2 [en-AU].jpg"
+    ],
+    "wearScreenshots": [
+      "Wear 1 [en-AU].jpg",
+      "Wear 2 [en-AU].jpg"
+    ],
+    "sevenInchScreenshots": [
+      "7\" 1 [en-AU].jpg",
+      "7\" 2 [en-AU].jpg"
+    ],
+    "tenInchScreenshots": [
+      "10\" 1 [en-AU].jpg",
+      "10\" 2 [en-AU].jpg"
+    ],
+    "tvScreenshots": [
+      "TV 1 [en-AU].jpg",
+      "TV 2 [en-AU].jpg"
+    ],
+    "whatsNew": "Whats New [en-AU].png",
+    "video": "Video [en-AU].png",
+    "icon": "icon [en-AU].png",
+    "name": "App [en-AU]",
+    "summary": "Summary [en-AU]",
+    "featureGraphic": "Feature Graphic [en-AU].png",
+    "promoGraphic": "Promo Graphic [en-AU].png",
+    "tvBanner": "TV Banner [en-AU].png",
+    "description": "Description [en-AU]"
+  },
+  "en": {
+    "phoneScreenshots": [
+      "Phone 1 [en].jpg",
+      "Phone 2 [en].jpg"
+    ],
+    "wearScreenshots": [
+      "Wear 1 [en].jpg",
+      "Wear 2 [en].jpg"
+    ],
+    "sevenInchScreenshots": [
+      "7\" 1 [en].jpg",
+      "7\" 2 [en].jpg"
+    ],
+    "tenInchScreenshots": [
+      "10\" 1 [en].jpg",
+      "10\" 2 [en].jpg"
+    ],
+    "tvScreenshots": [
+      "TV 1 [en].jpg",
+      "TV 2 [en].jpg"
+    ],
+    "whatsNew": "Whats New [en].png",
+    "video": "Video [en].png",
+    "icon": "icon [en].png",
+    "name": "App [en]",
+    "summary": "Summary [en]",
+    "featureGraphic": "Feature Graphic [en].png",
+    "promoGraphic": "Promo Graphic [en].png",
+    "tvBanner": "TV Banner [en].png",
+    "description": "Description [en]"
+  }
+}
