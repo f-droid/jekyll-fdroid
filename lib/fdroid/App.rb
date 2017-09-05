@@ -20,8 +20,9 @@ require_relative './Package'
 module FDroid
   class App
     def initialize(app, packages, locale)
+      # Sort packages in reverse-chronological order
+      @packages = packages.map { |p| Package.new(p) }
       @app = app
-      @packages = packages
       @locale = locale
       @available_locales = app.key?('localized') ? App.available_locales(locale, app['localized']) : nil
     end
@@ -92,7 +93,7 @@ module FDroid
           'phone_screenshots' => App.localized_graphic_list_paths(@available_locales, @app['localized'], 'phoneScreenshots'),
           'seven_inch_screenshots' => App.localized_graphic_list_paths(@available_locales, @app['localized'], 'sevenInchScreenshots'),
 
-          'packages' => @packages.map {|p| Package.new(p).to_data},
+          'packages' => @packages.sort.reverse.map { |p| p.to_data },
 
           'beautiful_url' => "/packages/#{package_name}"
       }

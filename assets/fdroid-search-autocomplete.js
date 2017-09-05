@@ -30,7 +30,7 @@
         for (var packageId in packages) {
             if (packages.hasOwnProperty(packageId)) {
                 var pkg = packages[packageId];
-                pkg.icon_url = config.fdroidRepo + '/icons/' + pkg.icon;
+                pkg.icon_url = config.fdroidRepo + '/' + pkg.icon;
             }
         }
 
