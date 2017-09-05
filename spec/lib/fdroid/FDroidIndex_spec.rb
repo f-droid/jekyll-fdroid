@@ -128,6 +128,10 @@ here")
       index.apps.each { |app| app.to_data }
 
       fdroid = index.apps.detect { |app| app.package_name == 'org.fdroid.fdroid' }.to_data
+
+      # Assert that packages are ordered in reverse-chronological order
+      expect(fdroid['packages'].map{ |p| p['version_code'] }).to eql([1000000, 104050, 103250, 103150, 103050, 103003, 103002, 103001, 102350, 102250, 102150, 102050])
+
       fdroid_package = fdroid['packages'][0]
       fdroid['packages'] = nil
 

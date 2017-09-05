@@ -23,6 +23,14 @@ module FDroid
       @package = package
     end
 
+    def <=> (other)
+      self.version_code <=> other.version_code
+    end
+
+    def version_code
+      @package['versionCode']
+    end
+
     def to_data
       added = nil
       if @package['added'] != nil then
@@ -31,7 +39,7 @@ module FDroid
 
       {
         'version_name' => @package['versionName'],
-        'version_code' => @package['versionCode'],
+        'version_code' => version_code,
         'added' => added,
         'apk_name' => @package['apkName'],
         'hash' => @package['hash'],
