@@ -1,6 +1,6 @@
 # F-Droid's Jekyll Plugin
 #
-# Copyright (C) 2017 Nico Alt
+# Copyright (C) 2017 Peter Serwylo
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
@@ -15,16 +15,31 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-require "fdroid/IndexV1"
-require "jekyll/ReadYamlPage"
-require "jekyll/FDroidBrowsingPage"
-require "jekyll/FDroidFilters"
-require "jekyll/FDroidLastUpdatedPackagesTag"
-require "jekyll/FDroidLatestPackagesTag"
-require "jekyll/FDroidPackageDetailGenerator"
-require "jekyll/FDroidPackageDetailPage"
-require "jekyll/FDroidSearchAutocompleteTag"
-require "jekyll/FDroidRepoInfoTag"
-require "lunr/LunrIndexer"
-require "lunr/SearchIndexFile"
-require "lunr/Javascript"
+module FDroid
+  class Repo
+    def initialize(repo)
+      @repo = repo
+    end
+
+    def name
+      @repo['name']
+    end
+    
+    def address
+      @repo['address']
+    end
+
+    def icon_url
+      "#{self.address}/icons/#{@repo['icon']}"
+    end
+
+    def description
+      @repo['description']
+    end
+    
+    def date
+      added = Date.strptime("#{@repo['timestamp'] / 1000}", '%s')
+    end
+
+  end
+end
