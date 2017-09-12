@@ -176,7 +176,8 @@ here")
           "flattr"=>nil,
           "categories"=>["System"],
           "anti_features"=>nil,
-          "suggested_version_code"=>"102350",
+          "suggested_version_code"=>102350,
+          "suggested_version_name"=>"0.102.3",
           "issue_tracker"=>"https://gitlab.com/fdroid/fdroidclient/issues",
           "changelog"=>"https://gitlab.com/fdroid/fdroidclient/raw/HEAD/CHANGELOG.md",
           "license"=>"GPL-3.0+",
@@ -186,6 +187,7 @@ here")
           "last_updated"=>1499583764677,
           "icon"=>"icons-640/org.fdroid.fdroid.1000000.png",
           "title"=>"F-Droid",
+          "whats_new"=>nil,
           "summary"=>"The app store that respects freedom and privacy\n",
           "description"=>
               "F-Droid is an installable catalogue of FOSS (Free and Open Source " +
@@ -214,6 +216,22 @@ here")
 
       expect(fdroid).to eql(expected_app)
       expect(fdroid_package).to eql(expected_package)
+
+      antennapod = index.apps.detect { |app| app.package_name == 'de.danoeh.antennapod' }.to_data
+      expect(antennapod['whats_new']).to eql(
+        "* New features: " +
+        " * Subscription overview " +
+        " * Proxy support " +
+        " * Statistics " +
+        " * Manual gpodder.net sync " +
+        "* Fixes: " +
+        " * Audioplayer controls " +
+        " * Audio ducking " +
+        " * Video control fade-out " +
+        " * External media controls " +
+        " * Feed parsing"
+      )
+      
     end
 
   end

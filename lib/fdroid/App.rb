@@ -52,6 +52,15 @@ module FDroid
       App.localized(@available_locales, @app['localized'], 'summary')
     end
 
+    def suggested_version_code
+      code = field('suggestedVersionCode')
+      if code != nil
+        code = Integer(code)
+      end
+      return code
+    end
+
+
     # Generates a hash of dumb strings to be used in templates.
     # If a specific value is not present, then it will have a nil value.
     # If a value can be localized, then it will choose the most appropriate
@@ -75,7 +84,8 @@ module FDroid
           'flattr' => field('flattr'),
           'categories' => field('categories'),
           'anti_features' => field('anti_features'),
-          'suggested_version_code' => field('suggestedVersionCode'),
+          'suggested_version_code' => suggested_version_code,
+          'suggested_version_name' => @packages.detect { |p| p.version_code == suggested_version_code }&.version_name,
           'issue_tracker' => field('issueTracker'),
           'changelog' => field('changelog'),
           'license' => field('license'),
@@ -83,6 +93,7 @@ module FDroid
           'website' => field('webSite'),
           'added' => field('added'),
           'last_updated' => field('lastUpdated'),
+          'whats_new' => App.process_app_description(App.localized(@available_locales, @app['localized'], 'whatsNew')),
 
           'icon' => icon,
           'title' => name,
@@ -103,6 +114,10 @@ module FDroid
     # displayable via HTML is done here (e.g. replacing "fdroid.app:" schemes, formatting new lines,
     # etc.
     def self.process_app_description(string)
+      if string == nil
+        return nil
+      end
+
       string = self.replace_fdroid_app_links(string)
       self.format_description_to_html(string)
     end
