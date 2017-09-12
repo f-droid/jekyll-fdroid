@@ -21,10 +21,13 @@ require 'net/http'
 require 'json'
 require 'zip'
 require_relative './App'
+require_relative './Repo'
 
 module FDroid
   class IndexV1
-    attr_reader :apps
+    attr_reader :apps, :repo
+
+    @@downloaded_repos = {}
 
     # Download and parse an index, returning a new instance of IndexV1.
     # @param [string]  repo
@@ -41,6 +44,10 @@ module FDroid
     # @param [string]  repo
     # @return [Hash]
     def self.download_index(repo)
+      if @@downloaded_repos.has_key? repo
+        return @@downloaded_repos[repo]
+      end
+
       Dir.mktmpdir do |dir|
         jar = File.join dir, 'index-v1.jar'
         open(jar, 'wb') do |file|
@@ -49,7 +56,8 @@ module FDroid
 
         Zip::File.open(jar) do |zip_file|
           entry = zip_file.glob('index-v1.json').first
-          next entry.get_input_stream.read
+          @@downloaded_repos[repo] = entry.get_input_stream.read
+          next @@downloaded_repos[repo]
         end
       end
     end
@@ -59,6 +67,8 @@ module FDroid
         packages_json = index['packages'][app_json['packageName']]
         App.new(app_json, packages_json, locale)
       end
+
+      @repo = Repo.new(index['repo'])
     end
 
   end

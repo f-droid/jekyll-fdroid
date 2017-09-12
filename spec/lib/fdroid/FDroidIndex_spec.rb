@@ -89,6 +89,17 @@ here")
       path = File.expand_path '../../assets/index-v1.gp.json', File.dirname(__FILE__)
       index_json = JSON.parse(File.read(path))
       index = FDroid::IndexV1.new(index_json, locale)
+
+      expect(index.repo.name).to eql('Guardian Project Official Releases')
+      expect(index.repo.address).to eql('https://guardianproject.info/fdroid/repo')
+      expect(index.repo.icon_url).to eql('https://guardianproject.info/fdroid/repo/icons/guardianproject.png')
+      expect(index.repo.date).to eql(Date.new(2017, 07, 19))
+      expect(index.repo.description).to eql(
+        'The official app repository of The Guardian Project. Applications in ' +
+        'this repository are official binaries build by the original ' +
+        'application developers and signed by the same key as the APKs that ' +
+        'are released in the Google Play store. ')
+
       expect(index.apps.count).to eql(10)
 
       # Force each app to parse itself and make sure it doesn't crash.
@@ -122,6 +133,17 @@ here")
       path = File.expand_path '../../assets/index-v1.json', File.dirname(__FILE__)
       index_json = JSON.parse(File.read(path))
       index = FDroid::IndexV1.new(index_json, 'en_US')
+
+      expect(index.repo.name).to eql('F-Droid')
+      expect(index.repo.address).to eql('https://f-droid.org/repo')
+      expect(index.repo.icon_url).to eql('https://f-droid.org/repo/icons/fdroid-icon.png')
+      expect(index.repo.date).to eql(Date.new(2017, 07, 14))
+      expect(index.repo.description).to eql(
+        'The official FDroid repository. Applications in this repository are ' +
+        'built directly from the source code. (One, Firefox, is the official ' +
+        'binary built by the Mozilla. This will ultimately be replaced by a ' +
+        'source-built version. ')
+
       expect(index.apps.count).to eql(1246)
 
       # Force each app to parse itself and make sure it doesn't crash.

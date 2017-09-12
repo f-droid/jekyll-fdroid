@@ -1,6 +1,6 @@
 # F-Droid's Jekyll Plugin
 #
-# Copyright (C) 2017 Nico Alt
+# Copyright (C) 2017 Peter Serwylo
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
@@ -15,16 +15,25 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-require "fdroid/IndexV1"
-require "jekyll/ReadYamlPage"
-require "jekyll/FDroidBrowsingPage"
-require "jekyll/FDroidFilters"
-require "jekyll/FDroidLastUpdatedPackagesTag"
-require "jekyll/FDroidLatestPackagesTag"
-require "jekyll/FDroidPackageDetailGenerator"
-require "jekyll/FDroidPackageDetailPage"
-require "jekyll/FDroidSearchAutocompleteTag"
-require "jekyll/FDroidRepoInfoTag"
-require "lunr/LunrIndexer"
-require "lunr/SearchIndexFile"
-require "lunr/Javascript"
+require_relative '../fdroid/IndexV1'
+
+module Jekyll
+
+	# Used to output the repo name/timestamp used to generate this F-Droid site.
+	class FDroidRepoInfoTag < Liquid::Tag
+
+		def initialize(tag_name, text, tokens)
+			super
+		end
+
+		def render(context)
+			site = context.registers[:site]
+			url = site.config['fdroid-repo']
+			index = FDroid::IndexV1.download(url, 'en')
+
+			"#{index.repo.name} #{index.repo.date}"
+		end
+	end
+end
+
+Liquid::Template.register_tag('fdroid_repo_info', Jekyll::FDroidRepoInfoTag)
