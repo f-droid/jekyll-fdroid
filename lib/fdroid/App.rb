@@ -49,7 +49,17 @@ module FDroid
     end
 
     def summary
-      App.localized(@available_locales, @app['localized'], 'summary')
+      App.localized(@available_locales, @app['localized'], 'summary') || field('summary')
+    end
+
+    def description
+      desc = App.localized(@available_locales, @app['localized'], 'description') || field('description')
+
+      if desc != nil
+        desc = App.process_app_description(desc)
+      end
+
+      return desc
     end
 
     def suggested_version_code
@@ -68,11 +78,6 @@ module FDroid
     # The 'packages' key is an array of Package.to_data hashes.
     # @return [Hash]
     def to_data
-      localized_description = App.localized(@available_locales, @app['localized'], 'description')
-      if localized_description != nil
-        localized_description = App.process_app_description(localized_description)
-      end
-
       {
           # These fields are taken as is from the metadata. If not present, they are
           'package_name' => package_name,
@@ -99,7 +104,7 @@ module FDroid
           'title' => name,
           'summary' => summary,
 
-          'description' => localized_description,
+          'description' => description,
           'feature_graphic' => App.localized_graphic_path(@available_locales, @app['localized'], 'featureGraphic'),
           'phone_screenshots' => App.localized_graphic_list_paths(@available_locales, @app['localized'], 'phoneScreenshots'),
           'seven_inch_screenshots' => App.localized_graphic_list_paths(@available_locales, @app['localized'], 'sevenInchScreenshots'),
@@ -136,7 +141,10 @@ module FDroid
         .gsub(/\r?\n/, ' ')
     end
 
-    # TODO: URLs need to be prefixed with "locale/key/value", e.g. "en_US/featureGraphic/featureGraphic.png"
+    # @param [string] available_locales
+    # @param [string] localized
+    # @param [string] field
+    # @return [string]
     def self.localized(available_locales, localized, field)
       return nil unless available_locales != nil
 
