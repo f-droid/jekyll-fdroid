@@ -120,7 +120,8 @@
         // rebuild immediately. Rather, we will wait 300ms of no typing before we go ahead and
         // rebuild the DOM (which has a non-zero cost).
         searchInput.addEventListener('input', debounce(function(event) {
-            showResults()
+            // Will trigger "window.onhashchange", which will in turn cause a search to be run.
+            window.location.hash = (searchInput.value.length == 0) ? "" : "q=" + searchInput.value;
         }, 300));
 
         // If the search results are prepopulated, show relevant results
