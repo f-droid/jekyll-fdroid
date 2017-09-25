@@ -68,6 +68,14 @@ If you want to exclude tests which hit the network to download F-Droid metadata,
 bundle exec rspec --tag "~network"
 ```
 
+## Can I use this plugin with the old index?
+
+Starting at version 0.2.0 this plugin only supports the new JSON index
+of F-Droid.
+If you want to use this plugin with the old XML index,
+you can use the [release 0.1.1](https://rubygems.org/gems/jekyll-fdroid/versions/0.1.1)
+which is the last one supporting the old index.
+
 ## License
 
 This program is Free Software:
