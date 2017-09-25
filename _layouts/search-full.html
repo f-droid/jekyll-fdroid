@@ -1,0 +1,21 @@
+<script src="{{ site.baseurl }}/js/lunr.js"></script>
+<script src="{{ site.baseurl }}/js/mustache.min.js"></script>
+<script src="{{ site.baseurl }}/js/awesomplete.min.js"></script>
+<script src="{{ site.baseurl }}/js/fdroid-search-autocomplete.js"></script>
+<link href="{{ site.baseurl }}/js/awesomplete.css" rel="stylesheet" type="text/css" />
+
+<script id="search-result-template-{{ search_id }}" type="x-tmpl-mustache">
+	{{ result_item_template }}
+</script>
+
+<div id="search-input-{{ search_id }}" class="search-widget"></div>
+
+<script>
+	FDroid.Search.addFullSearch(
+			document.getElementById('search-input-{{ search_id }}'),
+			document.getElementById('search-result-template-{{ search_id }}'),
+			'{{ empty_search_id }}', // Don't get this element yet, because it may not be part of the DOM yet (if it is below this in the resulting HTML)
+			'{{ site.baseurl }}',
+			'{{ site.fdroid-repo }}',
+	);
+</script>
