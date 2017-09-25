@@ -68,10 +68,6 @@ If you want to exclude tests which hit the network to download F-Droid metadata,
 bundle exec rspec --tag "~network"
 ```
 
-## Dependencies
-
-Gem "nokogiri" needs apt package "zlib1g-dev".
-
 ## License
 
 This program is Free Software:
