@@ -17,14 +17,14 @@
 
 Gem::Specification.new do |s|
   s.name        = 'jekyll-fdroid'
-  s.version     = '0.1.0'
+  s.version     = '0.1.1'
   s.add_runtime_dependency "jekyll-include-cache"
   s.add_runtime_dependency "jekyll-paginate-v2", "<= 1.7.3"
   s.add_runtime_dependency 'therubyracer', '~> 0.12'
   s.add_runtime_dependency 'rubyzip'
   s.add_runtime_dependency 'json', '>= 1.8.5'
   s.add_development_dependency 'rspec'
-  s.date        = '2017-06-26'
+  s.date        = '2017-09-25'
   s.summary     = "F-Droid - Free and Open Source Android App Repository"
   s.description = "Browse packages of a F-Droid repository."
   s.authors     = ["Nico Alt"]
