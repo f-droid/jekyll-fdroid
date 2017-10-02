@@ -11,4 +11,5 @@ test:
     - apt-get update
     - apt-get install -y bundler
     - bundle install --path vendor
+    - bundle exec rubocop lib spec
     - bundle exec rspec
