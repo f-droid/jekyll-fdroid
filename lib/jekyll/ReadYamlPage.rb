@@ -18,7 +18,6 @@
 # Found at https://github.com/ggreer/jekyll-gallery-generator/blob/master/lib/jekyll-gallery-generator.rb#L69
 
 module Jekyll
-
   class ReadYamlPage < Page
     # We need do define it ourself because the templates are in the plugin's directory
     def read_yaml(base, name, opts = {})

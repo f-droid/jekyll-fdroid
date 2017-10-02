@@ -24,7 +24,7 @@ module FDroid
     def name
       @repo['name']
     end
-    
+
     def address
       @repo['address']
     end
@@ -36,10 +36,9 @@ module FDroid
     def description
       @repo['description']
     end
-    
+
     def date
       added = Date.strptime("#{@repo['timestamp'] / 1000}", '%s')
     end
-
   end
 end

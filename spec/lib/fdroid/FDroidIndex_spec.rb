@@ -6,7 +6,6 @@ require_relative '../../../lib/fdroid/App'
 
 module FDroid
   RSpec.describe App do
-
     localized_path = File.expand_path '../../assets/localized.json', File.dirname(__FILE__)
     localized = JSON.parse(File.read(localized_path))
 
@@ -14,7 +13,6 @@ module FDroid
     gp_json = JSON.parse(File.read(gp_path))
 
     it 'Decides which locales to use' do
-
       de_locales = App.available_locales('de-DE', localized)
       expect(de_locales).to eq(['de-DE', 'de', 'de-AT', 'en-US', 'en', 'en-AU'])
 
@@ -26,7 +24,6 @@ module FDroid
 
       zh_locales = App.available_locales('zh', localized)
       expect(zh_locales).to eq(['en-US', 'en', 'en-AU'])
-
     end
 
     it 'Calculates localized metadata correctly' do
@@ -39,10 +36,12 @@ module FDroid
       expect(feature_graphic).to eql('de-DE/Feature Graphic [de-DE].png')
 
       phone_screenshots = App.localized_graphic_list_paths(de_locales, localized, 'phoneScreenshots')
-      expect(phone_screenshots).to eql([
-        'de-DE/phoneScreenshots/Phone 1 [de-DE].jpg',
-        'de-DE/phoneScreenshots/Phone 2 [de-DE].jpg',
-      ])
+      expect(phone_screenshots).to eql(
+        [
+          'de-DE/phoneScreenshots/Phone 1 [de-DE].jpg',
+          'de-DE/phoneScreenshots/Phone 2 [de-DE].jpg',
+        ]
+      )
     end
 
     it 'Formats app descriptions correctly' do
@@ -56,25 +55,29 @@ string
 here")
       expect(multi_line).to eql("This is a<br />multi-line<br />string here")
     end
-
   end
 
   RSpec.describe Permission do
     it 'Serializes in a sane manner' do
       permission = Permission.new(["my-permission", nil]).to_data
-      expect(permission).to eql({"permission"=>"my-permission", "min_sdk"=>nil})
+      expect(permission).to eql({ "permission" => "my-permission", "min_sdk" => nil })
 
-      package = Package.new({
-        "uses-permission"=>[
-          ["perm1", nil],
-          ["perm2", 24]
+      package = Package.new(
+        {
+          "uses-permission" =>
+          [
+            ["perm1", nil],
+            ["perm2", 24]
+          ]
+        }
+      ).to_data
+
+      expect(package['uses_permission']).to eql(
+        [
+          { "permission" => "perm1", "min_sdk" => nil },
+          { "permission" => "perm2", "min_sdk" => 24 },
         ]
-      }).to_data
-
-      expect(package['uses_permission']).to eql([
-        {"permission"=>"perm1", "min_sdk"=>nil},
-        {"permission"=>"perm2", "min_sdk"=>24},
-      ])
+      )
     end
   end
 
@@ -98,7 +101,8 @@ here")
         'The official app repository of The Guardian Project. Applications in ' +
         'this repository are official binaries build by the original ' +
         'application developers and signed by the same key as the APKs that ' +
-      'are released in the Google Play store. ')
+        'are released in the Google Play store. '
+      )
 
       expect(index.apps.count).to eql(10)
 
@@ -142,7 +146,8 @@ here")
         'The official FDroid repository. Applications in this repository are ' +
         'built directly from the source code. (One, Firefox, is the official ' +
         'binary built by the Mozilla. This will ultimately be replaced by a ' +
-      'source-built version. ')
+        'source-built version. '
+      )
 
       expect(index.apps.count).to eql(1246)
 
@@ -152,67 +157,68 @@ here")
       fdroid = index.apps.detect { |app| app.package_name == 'org.fdroid.fdroid' }.to_data
 
       # Assert that packages are ordered in reverse-chronological order
-      expect(fdroid['packages'].map{ |p| p['version_code'] }).to eql([1000000, 104050, 103250, 103150, 103050, 103003, 103002, 103001, 102350, 102250, 102150, 102050])
+      expect(fdroid['packages'].map { |p| p['version_code'] }).to eql([1000000, 104050, 103250, 103150, 103050, 103003, 103002, 103001, 102350, 102250, 102150, 102050])
 
       fdroid_package = fdroid['packages'][0]
       fdroid['packages'] = nil
 
       expected_package = {
-        "version_name"=>"1.0-alpha0",
-        "version_code"=>1000000,
-        "added"=>Date.new(2017, 7, 9),
-        "apk_name"=>"org.fdroid.fdroid_1000000.apk",
-        "file_extension"=>"APK",
-        "hash"=>"bbbbd10bf93c8f670cc869e1f2a148b83821c80b566d0a1b7858b26b7a3660fa",
-        "hash_type"=>"sha256",
-        "min_sdk_version"=>"10",
-        "max_sdk_version"=>nil,
-        "target_sdk_version"=>"24",
-        "native_code"=>nil,
-        "sig"=>"9063aaadfff9cfd811a9c72fb5012f28",
-        "size"=>7135159,
-        "uses_permission"=>[
-          {"permission"=>"android.permission.INTERNET", "min_sdk"=>nil},
-          {"permission"=>"android.permission.ACCESS_NETWORK_STATE", "min_sdk"=>nil},
-          {"permission"=>"android.permission.ACCESS_WIFI_STATE", "min_sdk"=>nil},
-          {"permission"=>"android.permission.CHANGE_WIFI_MULTICAST_STATE", "min_sdk"=>nil},
-          {"permission"=>"android.permission.CHANGE_NETWORK_STATE", "min_sdk"=>nil},
-          {"permission"=>"android.permission.CHANGE_WIFI_STATE", "min_sdk"=>nil},
-          {"permission"=>"android.permission.BLUETOOTH", "min_sdk"=>nil},
-          {"permission"=>"android.permission.BLUETOOTH_ADMIN", "min_sdk"=>nil},
-          {"permission"=>"android.permission.RECEIVE_BOOT_COMPLETED", "min_sdk"=>nil},
-          {"permission"=>"android.permission.WRITE_EXTERNAL_STORAGE", "min_sdk"=>nil},
-          {"permission"=>"android.permission.WRITE_SETTINGS", "min_sdk"=>nil},
-          {"permission"=>"android.permission.NFC", "min_sdk"=>nil},
-          {"permission"=>"android.permission.ACCESS_SUPERUSER", "min_sdk"=>nil},
-          {"permission"=>"android.permission.READ_EXTERNAL_STORAGE", "min_sdk"=>nil}
+        "version_name" => "1.0-alpha0",
+        "version_code" => 1000000,
+        "added" => Date.new(2017, 7, 9),
+        "apk_name" => "org.fdroid.fdroid_1000000.apk",
+        "file_extension" => "APK",
+        "hash" => "bbbbd10bf93c8f670cc869e1f2a148b83821c80b566d0a1b7858b26b7a3660fa",
+        "hash_type" => "sha256",
+        "min_sdk_version" => "10",
+        "max_sdk_version" => nil,
+        "target_sdk_version" => "24",
+        "native_code" => nil,
+        "sig" => "9063aaadfff9cfd811a9c72fb5012f28",
+        "size" => 7135159,
+        "uses_permission" =>
+        [
+          { "permission" => "android.permission.INTERNET", "min_sdk" => nil },
+          { "permission" => "android.permission.ACCESS_NETWORK_STATE", "min_sdk" => nil },
+          { "permission" => "android.permission.ACCESS_WIFI_STATE", "min_sdk" => nil },
+          { "permission" => "android.permission.CHANGE_WIFI_MULTICAST_STATE", "min_sdk" => nil },
+          { "permission" => "android.permission.CHANGE_NETWORK_STATE", "min_sdk" => nil },
+          { "permission" => "android.permission.CHANGE_WIFI_STATE", "min_sdk" => nil },
+          { "permission" => "android.permission.BLUETOOTH", "min_sdk" => nil },
+          { "permission" => "android.permission.BLUETOOTH_ADMIN", "min_sdk" => nil },
+          { "permission" => "android.permission.RECEIVE_BOOT_COMPLETED", "min_sdk" => nil },
+          { "permission" => "android.permission.WRITE_EXTERNAL_STORAGE", "min_sdk" => nil },
+          { "permission" => "android.permission.WRITE_SETTINGS", "min_sdk" => nil },
+          { "permission" => "android.permission.NFC", "min_sdk" => nil },
+          { "permission" => "android.permission.ACCESS_SUPERUSER", "min_sdk" => nil },
+          { "permission" => "android.permission.READ_EXTERNAL_STORAGE", "min_sdk" => nil }
         ]
       }
 
       expected_app = {
-        "package_name"=>"org.fdroid.fdroid",
-        "author_email"=>nil,
-        "author_name"=>nil,
-        "author_website"=>nil,
-        "bitcoin"=>"15u8aAPK4jJ5N8wpWJ5gutAyyeHtKX5i18",
-        "donate"=>"https://f-droid.org/about",
-        "flattr"=>nil,
-        "categories"=>["System"],
-        "anti_features"=>nil,
-        "suggested_version_code"=>102350,
-        "suggested_version_name"=>"0.102.3",
-        "issue_tracker"=>"https://gitlab.com/fdroid/fdroidclient/issues",
-        "changelog"=>"https://gitlab.com/fdroid/fdroidclient/raw/HEAD/CHANGELOG.md",
-        "license"=>"GPL-3.0+",
-        "source_code"=>"https://gitlab.com/fdroid/fdroidclient",
-        "website"=>"https://f-droid.org",
-        "added"=>1295222400000,
-        "last_updated"=>1499583764677,
-        "icon"=>"icons-640/org.fdroid.fdroid.1000000.png",
-        "title"=>"F-Droid",
-        "whats_new"=>nil,
-        "summary"=>"The app store that respects freedom and privacy\n",
-        "description"=>
+        "package_name" => "org.fdroid.fdroid",
+        "author_email" => nil,
+        "author_name" => nil,
+        "author_website" => nil,
+        "bitcoin" => "15u8aAPK4jJ5N8wpWJ5gutAyyeHtKX5i18",
+        "donate" => "https://f-droid.org/about",
+        "flattr" => nil,
+        "categories" => ["System"],
+        "anti_features" => nil,
+        "suggested_version_code" => 102350,
+        "suggested_version_name" => "0.102.3",
+        "issue_tracker" => "https://gitlab.com/fdroid/fdroidclient/issues",
+        "changelog" => "https://gitlab.com/fdroid/fdroidclient/raw/HEAD/CHANGELOG.md",
+        "license" => "GPL-3.0+",
+        "source_code" => "https://gitlab.com/fdroid/fdroidclient",
+        "website" => "https://f-droid.org",
+        "added" => 1295222400000,
+        "last_updated" => 1499583764677,
+        "icon" => "icons-640/org.fdroid.fdroid.1000000.png",
+        "title" => "F-Droid",
+        "whats_new" => nil,
+        "summary" => "The app store that respects freedom and privacy\n",
+        "description" =>
         "F-Droid is an installable catalogue of FOSS (Free and Open Source " +
         "Software) applications for the Android platform. The client makes it " +
         "easy to browse, install, and keep track of updates on your device.<br />" +
@@ -229,13 +235,12 @@ here")
         "* Find apps via categories and searchable descriptions " +
         "* Access associated urls for donations, source code etc. " +
         "* Stay safe by checking repo index signatures and apk hashes ",
-        "feature_graphic"=>nil,
-        "phone_screenshots"=>nil,
-        "seven_inch_screenshots"=>nil,
-        "packages"=>nil,
-        "beautiful_url"=>"/packages/org.fdroid.fdroid"
+        "feature_graphic" => nil,
+        "phone_screenshots" => nil,
+        "seven_inch_screenshots" => nil,
+        "packages" => nil,
+        "beautiful_url" => "/packages/org.fdroid.fdroid"
       }
-
 
       expect(fdroid).to eql(expected_app)
       expect(fdroid_package).to eql(expected_package)
@@ -255,6 +260,5 @@ here")
         " * Feed parsing"
       )
     end
-
   end
 end

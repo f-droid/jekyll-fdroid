@@ -16,7 +16,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 module Jekyll
-
   class FDroidPackagesGenerator < Generator
     attr_accessor :alreadyBuilt
 

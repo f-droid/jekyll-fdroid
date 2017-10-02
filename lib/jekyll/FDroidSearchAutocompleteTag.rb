@@ -16,13 +16,12 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 module Jekyll
-
   class SearchForm
     def self.render_form(context, search_form_template_path, result_item_template_contents)
       context['result_item_template'] = result_item_template_contents
       context['search_id'] = rand(1000000)
 
-      template = Liquid::Template.parse(IO.read((File.expand_path( search_form_template_path, File.dirname(__FILE__)))))
+      template = Liquid::Template.parse(IO.read((File.expand_path(search_form_template_path, File.dirname(__FILE__)))))
       template.render(context)
     end
   end
