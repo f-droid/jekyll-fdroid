@@ -46,6 +46,7 @@ module FDroid
         'version_code' => version_code,
         'added' => added,
         'apk_name' => @package['apkName'],
+        'file_extension' => File.extname(@package['apkName'].to_s).strip.upcase[1..-1],
         'hash' => @package['hash'],
         'hash_type' => @package['hashType'],
         'min_sdk_version' => @package['minSdkVersion'],

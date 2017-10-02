@@ -162,6 +162,7 @@ here")
         "version_code"=>1000000,
         "added"=>Date.new(2017, 7, 9),
         "apk_name"=>"org.fdroid.fdroid_1000000.apk",
+        "file_extension"=>"APK",
         "hash"=>"bbbbd10bf93c8f670cc869e1f2a148b83821c80b566d0a1b7858b26b7a3660fa",
         "hash_type"=>"sha256",
         "min_sdk_version"=>"10",
