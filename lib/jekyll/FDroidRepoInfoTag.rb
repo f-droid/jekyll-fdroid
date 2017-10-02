@@ -22,16 +22,20 @@ module Jekyll
   # Used to output the repo name/timestamp used to generate this F-Droid site.
   class FDroidRepoInfoTag < Liquid::Tag
 
+    @@repotag = ''
+
     def initialize(tag_name, text, tokens)
       super
     end
 
     def render(context)
-      site = context.registers[:site]
-      url = site.config['fdroid-repo']
-      index = FDroid::IndexV1.download(url, 'en')
-
-      "#{index.repo.name} #{index.repo.date}"
+      if @@repotag == ''
+        site = context.registers[:site]
+        url = site.config['fdroid-repo']
+        index = FDroid::IndexV1.download(url, 'en')
+        @@repotag = "#{index.repo.name} #{index.repo.date}"
+      end
+      return @@repotag
     end
   end
 end
