@@ -19,21 +19,25 @@ require_relative '../fdroid/IndexV1'
 
 module Jekyll
 
-	# Used to output the repo name/timestamp used to generate this F-Droid site.
-	class FDroidRepoInfoTag < Liquid::Tag
+  # Used to output the repo name/timestamp used to generate this F-Droid site.
+  class FDroidRepoInfoTag < Liquid::Tag
 
-		def initialize(tag_name, text, tokens)
-			super
-		end
+    @@repotag = ''
 
-		def render(context)
-			site = context.registers[:site]
-			url = site.config['fdroid-repo']
-			index = FDroid::IndexV1.download(url, 'en')
+    def initialize(tag_name, text, tokens)
+      super
+    end
 
-			"#{index.repo.name} #{index.repo.date}"
-		end
-	end
+    def render(context)
+      if @@repotag == ''
+        site = context.registers[:site]
+        url = site.config['fdroid-repo']
+        index = FDroid::IndexV1.download(url, 'en')
+        @@repotag = "#{index.repo.name} #{index.repo.date}"
+      end
+      return @@repotag
+    end
+  end
 end
 
 Liquid::Template.register_tag('fdroid_repo_info', Jekyll::FDroidRepoInfoTag)

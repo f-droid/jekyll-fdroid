@@ -17,15 +17,15 @@
 
 module Jekyll
 
-	class FDroidBrowsingPage < ReadYamlPage
-		def initialize(site, base)
-			@site = site
-			@base = base
-			@dir = "packages"
-			@name = "index.html"
+  class FDroidBrowsingPage < ReadYamlPage
+    def initialize(site, base)
+      @site = site
+      @base = base
+      @dir = "packages"
+      @name = "index.html"
 
-			self.process(@name)
-			self.read_yaml((File.expand_path "../../_pages", File.dirname(__FILE__)), 'browse.html')
-		end
-	end
+      self.process(@name)
+      self.read_yaml((File.expand_path "../../_pages", File.dirname(__FILE__)), 'browse.html')
+    end
+  end
 end

@@ -24,8 +24,8 @@ module FDroid
 
     def to_data
       {
-          'permission' => @permission,
-          'min_sdk' => @min_sdk,
+        'permission' => @permission,
+        'min_sdk' => @min_sdk,
       }
     end
   end

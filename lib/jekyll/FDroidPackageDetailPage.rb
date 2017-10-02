@@ -21,7 +21,7 @@ module Jekyll
 
     # @param [Jekyll::Site]  site
     # @param [string]  base
-    # @param [FDfroid::App]  package
+    # @param [FDroid::App]  package
     def initialize(site, base, package)
       @site = site
       @base = base

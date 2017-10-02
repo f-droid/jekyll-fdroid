@@ -7,6 +7,7 @@ test:
   stage: test
   script:
     - ruby -v
+    - for f in `find * -name \*.rb`; do printf "$f\t"; ruby -c $f; done
     - apt-get update
     - apt-get install -y bundler
     - bundle install --path vendor
