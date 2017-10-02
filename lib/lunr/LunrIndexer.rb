@@ -44,11 +44,11 @@ module Jekyll
 
         packages.each_with_index do |package, i|
           doc = {
-              'id' => i,
-              'packageName' => package.package_name,
-              'icon' => package.icon,
-              'name' => package.name,
-              'summary' => package.summary
+            'id' => i,
+            'packageName' => package.package_name,
+            'icon' => package.icon,
+            'name' => package.name,
+            'summary' => package.summary
           }
 
           ctx['builder'].add(doc)
@@ -63,8 +63,8 @@ module Jekyll
         filename = File.join(@js_dir, 'index.json')
 
         total = {
-            "docs" => @docs,
-            "index" => @index.to_hash
+          "docs" => @docs,
+          "index" => @index.to_hash
         }
 
         filepath = File.join(site.dest, filename)
@@ -74,11 +74,11 @@ module Jekyll
 
         site_js = File.join(site.dest, @js_dir)
         extras = [
-            'assets/fdroid-search-autocomplete.js',
-            'bower_components/lunr.js/lunr.js',
-            'bower_components/mustache.js/mustache.min.js',
-            'bower_components/awesomplete/awesomplete.min.js',
-            'bower_components/awesomplete/awesomplete.css'
+          'assets/fdroid-search-autocomplete.js',
+          'bower_components/lunr.js/lunr.js',
+          'bower_components/mustache.js/mustache.min.js',
+          'bower_components/awesomplete/awesomplete.min.js',
+          'bower_components/awesomplete/awesomplete.css'
         ]
         Jekyll.logger.info "Lunr:", "Added required assets to #{@js_dir}"
         extras.each do |path|

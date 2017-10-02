@@ -17,17 +17,17 @@
 
 module Jekyll
 
-	class FDroidLastUpdatedPackagesTag < Liquid::Tag
+  class FDroidLastUpdatedPackagesTag < Liquid::Tag
 
-		def initialize(tag_name, text, tokens)
-			super
-		end
+    def initialize(tag_name, text, tokens)
+      super
+    end
 
-		def render(context)
-			template = Liquid::Template.parse(IO.read((File.expand_path "../../_layouts/sidebar-lastupdated-packages.html", File.dirname(__FILE__))))
-			template.render(context)
-		end
-	end
+    def render(context)
+      template = Liquid::Template.parse(IO.read((File.expand_path "../../_layouts/sidebar-lastupdated-packages.html", File.dirname(__FILE__))))
+      template.render(context)
+    end
+  end
 end
 
 Liquid::Template.register_tag('fdroid_show_last_updated_packages', Jekyll::FDroidLastUpdatedPackagesTag)

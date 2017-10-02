@@ -79,39 +79,39 @@ module FDroid
     # @return [Hash]
     def to_data
       {
-          # These fields are taken as is from the metadata. If not present, they are
-          'package_name' => package_name,
-          'author_email' => field('authorEmail'),
-          'author_name' => field('authorName'),
-          'author_website' => field('authorWebSite'),
-          'bitcoin' => field('bitcoin'),
-          'donate' => field('donate'),
-          'flattr' => field('flattr'),
-          'categories' => field('categories'),
-          'anti_features' => field('anti_features'),
-          'suggested_version_code' => suggested_version_code,
-          'suggested_version_name' => @packages.detect { |p| p.version_code == suggested_version_code }&.version_name,
-          'issue_tracker' => field('issueTracker'),
-          'changelog' => field('changelog'),
-          'license' => field('license'),
-          'source_code' => field('sourceCode'),
-          'website' => field('webSite'),
-          'added' => field('added'),
-          'last_updated' => field('lastUpdated'),
-          'whats_new' => App.process_app_description(App.localized(@available_locales, @app['localized'], 'whatsNew')),
+        # These fields are taken as is from the metadata. If not present, they are
+        'package_name' => package_name,
+        'author_email' => field('authorEmail'),
+        'author_name' => field('authorName'),
+        'author_website' => field('authorWebSite'),
+        'bitcoin' => field('bitcoin'),
+        'donate' => field('donate'),
+        'flattr' => field('flattr'),
+        'categories' => field('categories'),
+        'anti_features' => field('anti_features'),
+        'suggested_version_code' => suggested_version_code,
+        'suggested_version_name' => @packages.detect { |p| p.version_code == suggested_version_code }&.version_name,
+        'issue_tracker' => field('issueTracker'),
+        'changelog' => field('changelog'),
+        'license' => field('license'),
+        'source_code' => field('sourceCode'),
+        'website' => field('webSite'),
+        'added' => field('added'),
+        'last_updated' => field('lastUpdated'),
+        'whats_new' => App.process_app_description(App.localized(@available_locales, @app['localized'], 'whatsNew')),
 
-          'icon' => icon,
-          'title' => name,
-          'summary' => summary,
+        'icon' => icon,
+        'title' => name,
+        'summary' => summary,
 
-          'description' => description,
-          'feature_graphic' => App.localized_graphic_path(@available_locales, @app['localized'], 'featureGraphic'),
-          'phone_screenshots' => App.localized_graphic_list_paths(@available_locales, @app['localized'], 'phoneScreenshots'),
-          'seven_inch_screenshots' => App.localized_graphic_list_paths(@available_locales, @app['localized'], 'sevenInchScreenshots'),
+        'description' => description,
+        'feature_graphic' => App.localized_graphic_path(@available_locales, @app['localized'], 'featureGraphic'),
+        'phone_screenshots' => App.localized_graphic_list_paths(@available_locales, @app['localized'], 'phoneScreenshots'),
+        'seven_inch_screenshots' => App.localized_graphic_list_paths(@available_locales, @app['localized'], 'sevenInchScreenshots'),
 
-          'packages' => @packages.sort.reverse.map { |p| p.to_data },
+        'packages' => @packages.sort.reverse.map { |p| p.to_data },
 
-          'beautiful_url' => "/packages/#{package_name}"
+        'beautiful_url' => "/packages/#{package_name}"
       }
     end
 
@@ -137,8 +137,8 @@ module FDroid
     # Ensure double newlines "\n\n" are converted to "<br />" tags.
     def self.format_description_to_html(string)
       string
-        .gsub("\n\n", '<br />')
-        .gsub(/\r?\n/, ' ')
+      .gsub("\n\n", '<br />')
+      .gsub(/\r?\n/, ' ')
     end
 
     # @param [string] available_locales
@@ -156,34 +156,28 @@ module FDroid
 
       return nil
     end
-    
     # Prefixes the result with "chosen_locale/" before returning.
     # @see localized
     def self.localized_graphic_path(available_locales, localized, field)
       return nil unless available_locales != nil
-      
       available_locales.each do |l|
         if localized[l].key?(field)
           return "#{l}/#{localized[l][field]}"
         end
       end
-      
       return nil
     end
-    
     # Similar to localized_graphic_path, but prefixes each item in the resulting array
     # with "chosen_locale/field/".
     # @see localized
     # @see localized_graphic_path
     def self.localized_graphic_list_paths(available_locales, localized, field)
       return nil unless available_locales != nil
-      
       available_locales.each do |l|
         if localized[l].key?(field)
           return localized[l][field].map { |val| "#{l}/#{field}/#{val}" }
         end
       end
-      
       return nil
     end
 
