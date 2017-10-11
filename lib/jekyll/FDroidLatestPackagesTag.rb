@@ -16,9 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 module Jekyll
-
   class FDroidLatestPackagesTag < Liquid::Tag
-
     def initialize(tag_name, text, tokens)
       super
     end

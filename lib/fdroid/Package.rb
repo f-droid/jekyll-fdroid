@@ -23,7 +23,7 @@ module FDroid
       @package = package
     end
 
-    def <=> (other)
+    def <=>(other)
       self.version_code <=> other.version_code
     end
 
@@ -63,7 +63,7 @@ module FDroid
       if @package['uses-permission'] == nil then
         []
       else
-        @package['uses-permission'].map {|perm| Permission.new(perm).to_data }
+        @package['uses-permission'].map { |perm| Permission.new(perm).to_data }
       end
     end
 

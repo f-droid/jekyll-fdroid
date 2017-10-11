@@ -18,10 +18,8 @@
 require_relative '../fdroid/IndexV1'
 
 module Jekyll
-
   # Used to output the repo name/timestamp used to generate this F-Droid site.
   class FDroidRepoInfoTag < Liquid::Tag
-
     @@repotag = ''
 
     def initialize(tag_name, text, tokens)

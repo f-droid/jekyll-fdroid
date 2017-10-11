@@ -70,6 +70,5 @@ module FDroid
 
       @repo = Repo.new(index['repo'])
     end
-
   end
 end

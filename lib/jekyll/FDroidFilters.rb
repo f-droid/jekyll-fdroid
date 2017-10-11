@@ -16,9 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 module Jekyll
-
   module Filters
-
     # Convert an Android SDK level into an Android version.
     #
     # input - Android SDK Level.

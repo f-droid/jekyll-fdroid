@@ -70,7 +70,6 @@ module FDroid
       return code
     end
 
-
     # Generates a hash of dumb strings to be used in templates.
     # If a specific value is not present, then it will have a nil value.
     # If a value can be localized, then it will choose the most appropriate
@@ -137,8 +136,8 @@ module FDroid
     # Ensure double newlines "\n\n" are converted to "<br />" tags.
     def self.format_description_to_html(string)
       string
-      .gsub("\n\n", '<br />')
-      .gsub(/\r?\n/, ' ')
+        .gsub("\n\n", '<br />')
+        .gsub(/\r?\n/, ' ')
     end
 
     # @param [string] available_locales
@@ -156,6 +155,7 @@ module FDroid
 
       return nil
     end
+
     # Prefixes the result with "chosen_locale/" before returning.
     # @see localized
     def self.localized_graphic_path(available_locales, localized, field)
@@ -167,6 +167,7 @@ module FDroid
       end
       return nil
     end
+
     # Similar to localized_graphic_path, but prefixes each item in the resulting array
     # with "chosen_locale/field/".
     # @see localized

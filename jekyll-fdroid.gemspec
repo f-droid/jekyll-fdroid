@@ -24,6 +24,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'rubyzip'
   s.add_runtime_dependency 'json', '>= 1.8.5'
   s.add_development_dependency 'rspec'
+  s.add_development_dependency 'rubocop', '~> 0.50.0'
   s.date        = '2017-10-02'
   s.summary     = "F-Droid - Free and Open Source Android App Repository"
   s.description = "Browse packages of a F-Droid repository."
