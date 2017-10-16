@@ -133,11 +133,10 @@ module FDroid
       string.gsub /fdroid\.app:([\w._]*)/, '/packages/\1'
     end
 
-    # Ensure double newlines "\n\n" are converted to "<br />" tags.
+    # Ensure newlines in descriptions are preserved (converted to "<br />" tags)
+    # Handles UNIX, Windows and MacOS newlines, with a one-to-one replacement
     def self.format_description_to_html(string)
-      string
-        .gsub("\n\n", '<br />')
-        .gsub(/\r?\n/, ' ')
+      string.gsub(/(?:\n\r?|\r\n?)/, '<br />')
     end
 
     # @param [string] available_locales

@@ -53,7 +53,7 @@ multi-line
 
 string
 here")
-      expect(multi_line).to eql("This is a<br />multi-line<br />string here")
+      expect(multi_line).to eql("This<br />is<br />a<br /><br />multi-line<br /><br />string<br />here")
     end
   end
 
@@ -219,22 +219,22 @@ here")
         "whats_new" => nil,
         "summary" => "The app store that respects freedom and privacy\n",
         "description" =>
-        "F-Droid is an installable catalogue of FOSS (Free and Open Source " +
-        "Software) applications for the Android platform. The client makes it " +
-        "easy to browse, install, and keep track of updates on your device.<br />" +
-        "It connects to any F-Droid compatible repositories. The default repo " +
-        "is hosted at f-droid.org, which contains only bona fide Free and Open " +
-        "Source Software.<br />" +
-        "Android itself is open in the sense that you are free to install apks " +
-        "from anywhere you wish, but there are many good reasons for using " +
-        "F-Droid as your free software app manager:<br />" +
-        "* Be notified when updates are available " +
-        "* optionally download and install updates automatically " +
-        "* Keep track of older and beta versions " +
-        "* Filter apps that aren't compatible with the device " +
-        "* Find apps via categories and searchable descriptions " +
-        "* Access associated urls for donations, source code etc. " +
-        "* Stay safe by checking repo index signatures and apk hashes ",
+        "F-Droid is an installable catalogue of FOSS (Free and Open Source<br />" +
+        "Software) applications for the Android platform. The client makes it<br />" +
+        "easy to browse, install, and keep track of updates on your device.<br /><br />" +
+        "It connects to any F-Droid compatible repositories. The default repo<br />" +
+        "is hosted at f-droid.org, which contains only bona fide Free and Open<br />" +
+        "Source Software.<br /><br />" +
+        "Android itself is open in the sense that you are free to install apks<br />" +
+        "from anywhere you wish, but there are many good reasons for using<br />" +
+        "F-Droid as your free software app manager:<br /><br />" +
+        "* Be notified when updates are available<br />" +
+        "* optionally download and install updates automatically<br />" +
+        "* Keep track of older and beta versions<br />" +
+        "* Filter apps that aren't compatible with the device<br />" +
+        "* Find apps via categories and searchable descriptions<br />" +
+        "* Access associated urls for donations, source code etc.<br />" +
+        "* Stay safe by checking repo index signatures and apk hashes<br />",
         "feature_graphic" => nil,
         "phone_screenshots" => nil,
         "seven_inch_screenshots" => nil,
@@ -247,16 +247,16 @@ here")
 
       antennapod = index.apps.detect { |app| app.package_name == 'de.danoeh.antennapod' }.to_data
       expect(antennapod['whats_new']).to eql(
-        "* New features: " +
-        " * Subscription overview " +
-        " * Proxy support " +
-        " * Statistics " +
-        " * Manual gpodder.net sync " +
-        "* Fixes: " +
-        " * Audioplayer controls " +
-        " * Audio ducking " +
-        " * Video control fade-out " +
-        " * External media controls " +
+        "* New features:<br />" +
+        " * Subscription overview<br />" +
+        " * Proxy support<br />" +
+        " * Statistics<br />" +
+        " * Manual gpodder.net sync<br />" +
+        "* Fixes:<br />" +
+        " * Audioplayer controls<br />" +
+        " * Audio ducking<br />" +
+        " * Video control fade-out<br />" +
+        " * External media controls<br />" +
         " * Feed parsing"
       )
     end
