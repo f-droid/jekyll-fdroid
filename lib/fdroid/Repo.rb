@@ -37,6 +37,10 @@ module FDroid
       @repo['description']
     end
 
+    def timestamp
+      @repo['timestamp']
+    end
+
     def date
       added = Date.strptime("#{@repo['timestamp'] / 1000}", '%s')
     end

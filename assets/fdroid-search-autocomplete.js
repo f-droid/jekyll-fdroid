@@ -36,7 +36,7 @@
             }
         };
 
-        http.open('GET', config.baseurl + '/js/index.json', true);
+        http.open('GET', config.baseurl + '/js/index.json?timestamp=' + config.repoTimestamp, true);
         http.send();
 
     }
@@ -256,8 +256,9 @@
      *                        template lives.
      * @param baseurl The site.baseurl variable from Jekyll.
      * @param fdroidRepo The site.fdroid-repo variable from Jekyll.
+     * @param repoTimestamp The UNIX timestamp of when the repo was created.
      */
-    window.FDroid.Search.addAutocomplete = function(element, templateElement, baseurl, fdroidRepo) {
+    window.FDroid.Search.addAutocomplete = function(element, templateElement, baseurl, fdroidRepo, repoTimestamp) {
         var template = templateElement.innerHTML
         Mustache.parse(template)
         loadIndex({
@@ -265,6 +266,7 @@
             template: template,
             baseurl: baseurl,
             fdroidRepo: fdroidRepo,
+            repoTimestamp: repoTimestamp,
             onLoad: handleAutocompleteResults
         });
     };
@@ -273,11 +275,12 @@
      * @param element DOM Element where the autocomplete is to be appended to.
      * @param templateElement DOM Element for the script tag (with type "x-tmpl-mustache") where the Mustache.js
      *                        template lives.
-     * @param emptySearchElement DOM element to show when there is no text in the search box. Can be empty.
+     * @param emptySearchElementId ID of DOM element to show when there is no text in the search box. Can be empty.
      * @param baseurl The site.baseurl variable from Jekyll.
      * @param fdroidRepo The site.fdroid-repo variable from Jekyll.
+     * @param repoTimestamp The UNIX timestamp of when the repo was created.
      */
-    window.FDroid.Search.addFullSearch = function(element, templateElement, emptySearchElementId, baseurl, fdroidRepo) {
+    window.FDroid.Search.addFullSearch = function(element, templateElement, emptySearchElementId, baseurl, fdroidRepo, repoTimestamp) {
         var template = templateElement.innerHTML
         Mustache.parse(template)
         
@@ -290,6 +293,7 @@
                 template: template,
                 baseurl: baseurl,
                 fdroidRepo: fdroidRepo,
+                repoTimestamp: repoTimestamp,
                 onLoad: handleFullSearchResults
             });
         });
