@@ -109,8 +109,15 @@ here")
       # Force each app to parse itself and make sure it doesn't crash.
       index.apps.each { |app| app.to_data }
 
-      # Then return ripple when we know that each app is able to be parsed.
+      # Then return Checkey when we know that each app is able to be parsed.
       index.apps.detect { |app| app.package_name == 'info.guardianproject.checkey' }
+    end
+
+    def parse_camerav_from_gp(locale)
+      path = File.expand_path '../../assets/index-v1.gp.json', File.dirname(__FILE__)
+      index_json = JSON.parse(File.read(path))
+      index = FDroid::IndexV1.new(index_json, locale)
+      index.apps.detect { |app| app.package_name == 'org.witness.informacam.app' }
     end
 
     it 'Parses the Guardian Project repo metadata correctly' do
@@ -131,6 +138,15 @@ here")
       expect(checkey_en_US['description']).not_to eq(checkey_fi['description'])
 
       expect(checkey_en_US['phone_screenshots'].length).to eq(5)
+    end
+
+    it 'Follows proper override rules for name/summary/description' do
+      camerav_en_US = parse_camerav_from_gp('en_US').to_data
+      camerav_th = parse_camerav_from_gp('th').to_data
+
+      expect(camerav_en_US['title']).to eq(camerav_th['title'])
+      expect(camerav_en_US['summary']).to eq(camerav_th['summary'])
+      expect(camerav_en_US['description']).to eq(camerav_th['description'])
     end
 
     it 'Processes the F-Droid repo metadata correctly' do
