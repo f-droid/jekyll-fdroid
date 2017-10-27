@@ -179,8 +179,6 @@ here")
       fdroid['packages'] = nil
 
       expected_package = {
-        "version_name" => "1.0-alpha0",
-        "version_code" => 1000000,
         "added" => Date.new(2017, 7, 9),
         "apk_name" => "org.fdroid.fdroid_1000000.apk",
         "file_extension" => "APK",
@@ -208,7 +206,9 @@ here")
           { "permission" => "android.permission.NFC", "min_sdk" => nil },
           { "permission" => "android.permission.ACCESS_SUPERUSER", "min_sdk" => nil },
           { "permission" => "android.permission.READ_EXTERNAL_STORAGE", "min_sdk" => nil }
-        ]
+        ],
+        "version_name" => "1.0-alpha0",
+        "version_code" => 1000000,
       }
 
       expected_app = {
