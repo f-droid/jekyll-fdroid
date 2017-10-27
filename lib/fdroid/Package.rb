@@ -43,6 +43,7 @@ module FDroid
 
       {
         'added' => added,
+        'anti_features' => @package['antiFeatures'],
         'apk_name' => @package['apkName'],
         'file_extension' => File.extname(@package['apkName'].to_s).strip.upcase[1..-1],
         'hash' => @package['hash'],
@@ -50,7 +51,9 @@ module FDroid
         'max_sdk_version' => @package['maxSdkVersion'],
         'min_sdk_version' => @package['minSdkVersion'],
         'native_code' => @package['nativecode'],
+        'srcname' => @package['srcname'],
         'sig' => @package['sig'],
+        'signer' => @package['signer'],
         'size' => @package['size'],
         'target_sdk_version' => @package['targetSdkVersion'],
         'uses_permission' => permission,
