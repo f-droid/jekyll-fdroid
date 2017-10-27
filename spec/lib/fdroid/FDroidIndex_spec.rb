@@ -188,7 +188,7 @@ here")
         "min_sdk_version" => "10",
         "max_sdk_version" => nil,
         "target_sdk_version" => "24",
-        "native_code" => nil,
+        "nativecode" => nil,
         "srcname" => "org.fdroid.fdroid_1000000_src.tar.gz",
         "sig" => "9063aaadfff9cfd811a9c72fb5012f28",
         "signer" => "43238d512c1e5eb2d6569f4a3afbf5523418b82e0a3ed1552770abb9a9c9ccab",

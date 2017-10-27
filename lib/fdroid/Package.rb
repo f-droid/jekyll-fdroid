@@ -50,7 +50,7 @@ module FDroid
         'hash_type' => @package['hashType'],
         'max_sdk_version' => @package['maxSdkVersion'],
         'min_sdk_version' => @package['minSdkVersion'],
-        'native_code' => @package['nativecode'],
+        'nativecode' => @package['nativecode'],
         'srcname' => @package['srcname'],
         'sig' => @package['sig'],
         'signer' => @package['signer'],
