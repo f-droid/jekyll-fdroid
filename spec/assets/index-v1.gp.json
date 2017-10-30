@@ -36,6 +36,8 @@
          "authorEmail" : "support@guardianproject.info",
          "name" : "CameraV",
          "issueTracker" : "https://dev.guardianproject.info/projects/informacam/issues",
+         "summary" : "placeholder for priority tests",
+         "description" : "placeholder for priority tests",
          "localized" : {
             "no" : {
                "summary" : "Den enkleste måten å fange etterprøvbar foto og video bevis, sikkert og privat"
@@ -65,6 +67,7 @@
                "summary" : "La forma más fácil de capturar la foto verificable y prueba de vídeo, de forma s"
             },
             "th" : {
+               "name" : "ยและเอกชน",
                "summary" : "วิธีที่ง่ายที่สุดที่จะจับภาพหลักฐานที่ตรวจสอบได้และวิดีโอได้อย่างปลอดภัยและเอกชน"
             },
             "en-US" : {
@@ -166,7 +169,6 @@
          "license" : "GPLv3",
          "authorEmail" : "support@guardianproject.info",
          "issueTracker" : "https://dev.guardianproject.info/projects/checkey/issues",
-         "name" : "Checkey",
          "localized" : {
             "el" : {
                "summary" : "χρησιμότητα για να πάρει πληροφορίες σχετικά με τα αρχεία APK που είναι εγκατεστ"
@@ -270,6 +272,7 @@
             },
             "en-US" : {
                "icon" : "icon.png",
+               "name" : "Checkey: check your apps",
                "phoneScreenshots" : [
                   "TbqNtNkkPMILBH2HCHD5cjRnXR4XtaQ5z4mbttDcbBAVkJlZdTQK2uDmRriLMskbH9__.png",
                   "WZgIkxH4IACsYCLBy49XzLUBkl_TAcUtIefuO_TQOlDmp8znPLEFsv_c2WniSzqWDA.png",

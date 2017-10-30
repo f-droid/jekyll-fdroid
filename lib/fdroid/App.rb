@@ -45,15 +45,15 @@ module FDroid
     end
 
     def name
-      App.localized(@available_locales, @app['localized'], 'name') || field('name')
+      field('name') || App.localized(@available_locales, @app['localized'], 'name')
     end
 
     def summary
-      App.localized(@available_locales, @app['localized'], 'summary') || field('summary')
+      field('summary') || App.localized(@available_locales, @app['localized'], 'summary')
     end
 
     def description
-      desc = App.localized(@available_locales, @app['localized'], 'description') || field('description')
+      desc = field('description') || App.localized(@available_locales, @app['localized'], 'description')
 
       if desc != nil
         desc = App.process_app_description(desc)
