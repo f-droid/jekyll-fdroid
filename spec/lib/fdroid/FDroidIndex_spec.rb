@@ -179,9 +179,8 @@ here")
       fdroid['packages'] = nil
 
       expected_package = {
-        "version_name" => "1.0-alpha0",
-        "version_code" => 1000000,
         "added" => Date.new(2017, 7, 9),
+        "anti_features" => nil,
         "apk_name" => "org.fdroid.fdroid_1000000.apk",
         "file_extension" => "APK",
         "hash" => "bbbbd10bf93c8f670cc869e1f2a148b83821c80b566d0a1b7858b26b7a3660fa",
@@ -189,8 +188,10 @@ here")
         "min_sdk_version" => "10",
         "max_sdk_version" => nil,
         "target_sdk_version" => "24",
-        "native_code" => nil,
+        "nativecode" => nil,
+        "srcname" => "org.fdroid.fdroid_1000000_src.tar.gz",
         "sig" => "9063aaadfff9cfd811a9c72fb5012f28",
+        "signer" => "43238d512c1e5eb2d6569f4a3afbf5523418b82e0a3ed1552770abb9a9c9ccab",
         "size" => 7135159,
         "uses_permission" =>
         [
@@ -208,7 +209,9 @@ here")
           { "permission" => "android.permission.NFC", "min_sdk" => nil },
           { "permission" => "android.permission.ACCESS_SUPERUSER", "min_sdk" => nil },
           { "permission" => "android.permission.READ_EXTERNAL_STORAGE", "min_sdk" => nil }
-        ]
+        ],
+        "version_name" => "1.0-alpha0",
+        "version_code" => 1000000,
       }
 
       expected_app = {

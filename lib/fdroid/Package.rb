@@ -42,20 +42,23 @@ module FDroid
       end
 
       {
-        'version_name' => version_name,
-        'version_code' => version_code,
         'added' => added,
+        'anti_features' => @package['antiFeatures'],
         'apk_name' => @package['apkName'],
         'file_extension' => File.extname(@package['apkName'].to_s).strip.upcase[1..-1],
         'hash' => @package['hash'],
         'hash_type' => @package['hashType'],
-        'min_sdk_version' => @package['minSdkVersion'],
         'max_sdk_version' => @package['maxSdkVersion'],
-        'target_sdk_version' => @package['targetSdkVersion'],
-        'native_code' => @package['nativecode'],
+        'min_sdk_version' => @package['minSdkVersion'],
+        'nativecode' => @package['nativecode'],
+        'srcname' => @package['srcname'],
         'sig' => @package['sig'],
+        'signer' => @package['signer'],
         'size' => @package['size'],
+        'target_sdk_version' => @package['targetSdkVersion'],
         'uses_permission' => permission,
+        'version_name' => version_name,
+        'version_code' => version_code,
       }
     end
 
