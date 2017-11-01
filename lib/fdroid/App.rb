@@ -39,7 +39,7 @@ module FDroid
       localized = App.localized_graphic_path(@available_locales, @app['localized'], 'icon')
       if localized
         "#{package_name}/#{localized}"
-      else
+      elsif field('icon')
         "icons-640/#{field('icon')}"
       end
     end
