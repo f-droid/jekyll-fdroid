@@ -21,6 +21,9 @@ module Jekyll
       context['result_item_template'] = result_item_template_contents
       context['search_id'] = rand(1000000)
 
+      site = context.registers[:site]
+      context['repo_timestamp'] = FDroid::IndexV1.download(site.config['fdroid-repo'], 'en').repo.timestamp
+
       template = Liquid::Template.parse(IO.read((File.expand_path(search_form_template_path, File.dirname(__FILE__)))))
       template.render(context)
     end
