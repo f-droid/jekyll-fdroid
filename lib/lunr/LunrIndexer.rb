@@ -74,6 +74,7 @@ module Jekyll
         site_js = File.join(site.dest, @js_dir)
         extras = [
           'assets/fdroid-search-autocomplete.js',
+          'assets/fdroid-search-autocomplete-init.js',
           'bower_components/lunr.js/lunr.js',
           'bower_components/mustache.js/mustache.min.js',
           'bower_components/awesomplete/awesomplete.min.js',
