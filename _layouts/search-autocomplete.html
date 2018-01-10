@@ -8,14 +8,11 @@
 	{{ result_item_template }}
 </script>
 
-<div id="search-input-{{ search_id }}"></div>
+<div
+    class="search-input-wrapper"
+    data-search-id="{{ search_id }}"
+    data-baseurl="{{ site.baseurl }}"
+    data-fdroid-repo="{{ site.fdroid-repo }}"
+    data-repo-timestamp="{{ repo_timestamp }}"></div>
 
-<script>
-	FDroid.Search.addAutocomplete(
-			document.getElementById('search-input-{{ search_id }}'),
-			document.getElementById('search-result-template-{{ search_id }}'),
-			'{{ site.baseurl }}',
-			'{{ site.fdroid-repo }}',
-			'{{ repo_timestamp }}'
-	);
-</script>
+<script src="{{ site.baseurl }}/js/fdroid-search-autocomplete-init.js"></script>

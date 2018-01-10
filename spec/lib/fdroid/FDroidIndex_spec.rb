@@ -85,7 +85,7 @@ here")
     it 'Downloads and extracts jar files', :network => true do
       repo = 'https://guardianproject.info/fdroid/repo'
       index = FDroid::IndexV1.download(repo, 'en_US')
-      expect(index.apps.count).to eql(10)
+      expect(index.apps.count).to be >= 10
     end
 
     def parse_checkey_from_gp(locale)

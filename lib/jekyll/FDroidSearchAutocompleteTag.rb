@@ -18,11 +18,19 @@
 module Jekyll
   class SearchForm
     def self.render_form(context, search_form_template_path, result_item_template_contents)
-      context['result_item_template'] = result_item_template_contents
-      context['search_id'] = rand(1000000)
-
       site = context.registers[:site]
-      context['repo_timestamp'] = FDroid::IndexV1.download(site.config['fdroid-repo'], 'en').repo.timestamp
+      repo_timestamp = FDroid::IndexV1.download(site.config['fdroid-repo'], 'en').repo.timestamp
+
+      context['result_item_template'] = result_item_template_contents
+
+      # If an app developer is able to guess this at the time that they write their app descriptions, then they could
+      # potentially try and inject a new template which hijacks the search results template. This is due to the way in
+      # which JS is used to find the relevant `<script type="x-tmpl-mustache" id="...-{{ search_id }}">` template.
+      # Thus, make it random, and include the repo timestamp. They'd need to guess a random number correctly, and it
+      # will change every day that the repo is republished.
+      context['search_id'] = "#{rand(1000000)}.#{repo_timestamp}"
+
+      context['repo_timestamp'] = repo_timestamp
 
       template = Liquid::Template.parse(IO.read((File.expand_path(search_form_template_path, File.dirname(__FILE__)))))
       template.render(context)
