@@ -83,6 +83,7 @@ module FDroid
         'author_email' => field('authorEmail'),
         'author_name' => field('authorName'),
         'author_website' => field('authorWebSite'),
+        'translation' => field('translation'),
         'bitcoin' => field('bitcoin'),
         'donate' => field('donate'),
         'flattr' => field('flattr'),

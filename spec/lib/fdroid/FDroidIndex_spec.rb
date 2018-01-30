@@ -227,6 +227,7 @@ here")
         "suggested_version_code" => 102350,
         "suggested_version_name" => "0.102.3",
         "issue_tracker" => "https://gitlab.com/fdroid/fdroidclient/issues",
+        "translation" => "https://hosted.weblate.org/projects/f-droid/f-droid",
         "changelog" => "https://gitlab.com/fdroid/fdroidclient/raw/HEAD/CHANGELOG.md",
         "license" => "GPL-3.0+",
         "source_code" => "https://gitlab.com/fdroid/fdroidclient",
