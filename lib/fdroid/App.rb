@@ -86,7 +86,7 @@ module FDroid
         'translation' => field('translation'),
         'bitcoin' => field('bitcoin'),
         'donate' => field('donate'),
-        'flattr' => field('flattrID'),
+        'flattrID' => field('flattrID'),
         'liberapay' => field('liberapayID'),
         'categories' => field('categories'),
         'anti_features' => field('anti_features'),

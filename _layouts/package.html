@@ -55,9 +55,9 @@ layout: default
 				<a href="{{ page.donate }}">{{ strings.donate }}</a>
 			</li>
 		{% endif %}
-		{% if page.flattr != "" and page.flattr != nil %}
+		{% if page.flattrID != "" and page.flattrID != nil %}
 			<li class="package-link">
-				<a href="https://flattr.com/thing/{{ page.flattr }}">{{ strings.flattr }}</a>
+				<a href="https://flattr/thing/{{ page.flattrID }}">{{ strings.flattr }}</a>
 			</li>
 		{% endif %}
 		<li class="package-link">
