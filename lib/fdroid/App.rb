@@ -87,7 +87,7 @@ module FDroid
         'bitcoin' => field('bitcoin'),
         'donate' => field('donate'),
         'flattrID' => field('flattrID'),
-        'liberapay' => field('liberapayID'),
+        'liberapayID' => field('liberapayID'),
         'categories' => field('categories'),
         'anti_features' => field('anti_features'),
         'suggested_version_code' => suggested_version_code,

@@ -234,7 +234,7 @@ here")
         "website" => "https://f-droid.org",
         "added" => 1295222400000,
         "last_updated" => 1499583764677,
-        "liberapay" => nil,
+        "liberapayID" => nil,
         "icon" => "icons-640/org.fdroid.fdroid.1000000.png",
         "title" => "F-Droid",
         "whats_new" => nil,
