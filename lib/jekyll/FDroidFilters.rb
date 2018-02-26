@@ -31,6 +31,7 @@ module Jekyll
     end
 
     # Hash with relation between Android SDK Level and Android version
+    # https://source.android.com/setup/build-numbers
     @@AndroidSdkLevelToVersionRelation = {
       '1' => '1.0',
       '2' => '1.1',
@@ -56,7 +57,9 @@ module Jekyll
       '22' => '5.1',
       '23' => '6.0',
       '24' => '7.0',
-      '25' => '7.1'
+      '25' => '7.1',
+      '26' => '8.0',
+      '27' => '8.1',
     }
 
     # Convert a file size to a human-readable String.
