@@ -85,6 +85,7 @@ module FDroid
         'author_website' => field('authorWebSite'),
         'translation' => field('translation'),
         'bitcoin' => field('bitcoin'),
+        'litecoin' => field('litecoin'),
         'donate' => field('donate'),
         'flattrID' => field('flattrID'),
         'liberapayID' => field('liberapayID'),
