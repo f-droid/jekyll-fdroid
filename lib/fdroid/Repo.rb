@@ -16,6 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 require 'loofah'
+require 'uri'
 
 module FDroid
   class Repo
@@ -28,11 +29,13 @@ module FDroid
     end
 
     def address
-      @repo['address']
+      url = @repo['address']
+      url =~ /\A#{URI::regexp}\z/ ? url : nil
     end
 
     def icon_url
-      "#{self.address}/icons/#{@repo['icon']}"
+      url = "#{self.address}/icons/#{@repo['icon']}"
+      url =~ /\A#{URI::regexp}\z/ ? url : nil
     end
 
     def description
@@ -40,7 +43,7 @@ module FDroid
     end
 
     def timestamp
-      @repo['timestamp']
+      Integer(@repo['timestamp']) rescue nil
     end
 
     def date
