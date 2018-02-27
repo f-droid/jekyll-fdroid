@@ -23,6 +23,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'therubyracer', '~> 0.12'
   s.add_runtime_dependency 'rubyzip'
   s.add_runtime_dependency 'json', '>= 1.8.5'
+  s.add_runtime_dependency 'loofah'
   s.add_development_dependency 'rspec'
   s.add_development_dependency 'rubocop', '~> 0.50.0'
   s.date        = '2017-10-30'

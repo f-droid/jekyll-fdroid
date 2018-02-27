@@ -15,6 +15,8 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+require 'loofah'
+
 module FDroid
   class Repo
     def initialize(repo)
@@ -22,7 +24,7 @@ module FDroid
     end
 
     def name
-      @repo['name']
+      Loofah.scrub_fragment(@repo['name'], :escape).to_s
     end
 
     def address
@@ -34,7 +36,7 @@ module FDroid
     end
 
     def description
-      @repo['description']
+      Loofah.scrub_fragment(@repo['description'], :escape).to_s
     end
 
     def timestamp

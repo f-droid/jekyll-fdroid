@@ -15,6 +15,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+require 'loofah'
 require_relative './Package'
 
 module FDroid
@@ -239,7 +240,17 @@ module FDroid
     private
 
     def field(name)
-      @app.key?(name) ? @app[name] : nil
+      if @app.key?(name)
+        value = @app[name]
+        case value
+        when Fixnum then return value
+        when Float then return value
+        when Integer then return value
+        when Array then return value.map { |i| Loofah.scrub_fragment(i, :escape).to_s }
+        else
+          return Loofah.scrub_fragment(value, :escape).to_s
+        end
+      end
     end
   end
 end
