@@ -45,8 +45,10 @@ module FDroid
       end
     end
 
+    # this must exist since all entries are sorted by name,
+    # it uses tildes since they sort last
     def name
-      field('name') || App.localized(@available_locales, @app['localized'], 'name')
+      field('name') || App.localized(@available_locales, @app['localized'], 'name') || '~missing name~'
     end
 
     def summary
