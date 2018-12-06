@@ -1489,8 +1489,8 @@
             "nativecode" : [
                "armeabi-v7a"
             ],
-            "targetSdkVersion" : "22",
-            "minSdkVersion" : "9",
+            "targetSdkVersion" : 22,
+            "minSdkVersion" : 9,
             "uses-permission" : [
                [
                   "android.permission.ACCESS_NETWORK_STATE",
@@ -1642,12 +1642,12 @@
                   null
                ]
             ],
-            "minSdkVersion" : "9",
+            "minSdkVersion" : 9,
             "sig" : "d70ac6a02b53ebdd1354ea7af7b9ceee",
             "nativecode" : [
                "armeabi-v7a"
             ],
-            "targetSdkVersion" : "22",
+            "targetSdkVersion" : 22,
             "hash" : "d43032e79c7c31cabb194b8c1c4b14fbf73dd2cfda958ba415879ddf2f38ace2"
          },
          {
@@ -1655,7 +1655,7 @@
             "nativecode" : [
                "armeabi-v7a"
             ],
-            "targetSdkVersion" : "22",
+            "targetSdkVersion" : 22,
             "uses-permission" : [
                [
                   "android.permission.RECEIVE_BOOT_COMPLETED",
@@ -1734,7 +1734,7 @@
                   null
                ]
             ],
-            "minSdkVersion" : "9",
+            "minSdkVersion" : 9,
             "sig" : "d70ac6a02b53ebdd1354ea7af7b9ceee",
             "size" : 30555657,
             "added" : 1480654800000,
@@ -1751,7 +1751,7 @@
                "armeabi",
                "x86"
             ],
-            "targetSdkVersion" : "25",
+            "targetSdkVersion" : 25,
             "uses-permission" : [
                [
                   "android.permission.INTERNET",
@@ -1786,7 +1786,7 @@
                   null
                ]
             ],
-            "minSdkVersion" : "16",
+            "minSdkVersion" : 16,
             "sig" : "8bd7e51b479aeba908ff46ada3305a29",
             "hash" : "b38683345188f6fbfdfd4d5db03f0a2d8cf510c320d056e63c4aff8824d267f3",
             "versionCode" : 15410000,
@@ -1841,8 +1841,8 @@
                   null
                ]
             ],
-            "minSdkVersion" : "23",
-            "targetSdkVersion" : "25",
+            "minSdkVersion" : 23,
+            "targetSdkVersion" : 25,
             "nativecode" : [
                "armeabi",
                "x86"
@@ -1857,8 +1857,8 @@
             "packageName" : "org.torproject.android",
             "versionCode" : 15420000,
             "hash" : "1394e73683cb3933233306946aa503443b5628680a9906a4528832aba56afc37",
-            "maxSdkVersion" : "23",
-            "targetSdkVersion" : "23",
+            "maxSdkVersion" : 23,
+            "targetSdkVersion" : 23,
             "nativecode" : [
                "armeabi",
                "x86"
@@ -1882,13 +1882,13 @@
                   null
                ]
             ],
-            "minSdkVersion" : "16"
+            "minSdkVersion" : 16
          }
       ],
       "org.witness.informacam.app" : [
          {
             "sig" : "d70ac6a02b53ebdd1354ea7af7b9ceee",
-            "minSdkVersion" : "16",
+            "minSdkVersion" : 16,
             "uses-permission" : [
                [
                   "android.permission.INTERNET",
@@ -1967,7 +1967,7 @@
                   null
                ]
             ],
-            "targetSdkVersion" : "21",
+            "targetSdkVersion" : 21,
             "nativecode" : [
                "armeabi",
                "armeabi-v7a",
@@ -1992,7 +1992,7 @@
             "versionCode" : 202,
             "hash" : "8b17cbe2a5cb777b49f5ef67a390f9d9d68765c90213ac64f3ca0456860dc9b7",
             "sig" : "d70ac6a02b53ebdd1354ea7af7b9ceee",
-            "minSdkVersion" : "16",
+            "minSdkVersion" : 16,
             "uses-permission" : [
                [
                   "android.permission.INTERNET",
@@ -2071,7 +2071,7 @@
                   null
                ]
             ],
-            "targetSdkVersion" : "21",
+            "targetSdkVersion" : 21,
             "nativecode" : [
                "armeabi",
                "armeabi-v7a",
@@ -2084,7 +2084,7 @@
                "armeabi-v7a",
                "x86"
             ],
-            "targetSdkVersion" : "21",
+            "targetSdkVersion" : 21,
             "uses-permission" : [
                [
                   "android.permission.INTERNET",
@@ -2163,7 +2163,7 @@
                   null
                ]
             ],
-            "minSdkVersion" : "16",
+            "minSdkVersion" : 16,
             "sig" : "d70ac6a02b53ebdd1354ea7af7b9ceee",
             "hash" : "508f453e26c8c83dba858b53b21d909d549fe5646d01eb198c96c22d8e521e7c",
             "packageName" : "org.witness.informacam.app",
@@ -2212,8 +2212,8 @@
                   null
                ]
             ],
-            "minSdkVersion" : "9",
-            "targetSdkVersion" : "15",
+            "minSdkVersion" : 9,
+            "targetSdkVersion" : 15,
             "nativecode" : [
                "armeabi",
                "x86"
@@ -2236,7 +2236,7 @@
             "packageName" : "info.guardianproject.courier",
             "versionCode" : 15,
             "hash" : "bf6566da1f90831887f5bf5605f8d816b1f7f694969459dec599b8bc01a827d3",
-            "targetSdkVersion" : "15",
+            "targetSdkVersion" : 15,
             "nativecode" : [
                "armeabi",
                "x86"
@@ -2276,12 +2276,12 @@
                   null
                ]
             ],
-            "minSdkVersion" : "9"
+            "minSdkVersion" : 9
          }
       ],
       "info.guardianproject.checkey" : [
          {
-            "minSdkVersion" : "8",
+            "minSdkVersion" : 8,
             "uses-permission" : [
                [
                   "android.permission.INTERNET",
@@ -2289,7 +2289,7 @@
                ]
             ],
             "sig" : "d70ac6a02b53ebdd1354ea7af7b9ceee",
-            "targetSdkVersion" : "21",
+            "targetSdkVersion" : 21,
             "hash" : "2d81f339bb69626af42e8868dc6928c9072ebcbae76e1ff5ac8172e78ebe9cdd",
             "versionCode" : 101,
             "packageName" : "info.guardianproject.checkey",
@@ -2307,9 +2307,9 @@
             "size" : 842881,
             "versionName" : "0.1.2",
             "apkName" : "Checkey-0.1.2.apk",
-            "targetSdkVersion" : "21",
+            "targetSdkVersion" : 21,
             "sig" : "d70ac6a02b53ebdd1354ea7af7b9ceee",
-            "minSdkVersion" : "8",
+            "minSdkVersion" : 8,
             "uses-permission" : [
                [
                   "android.permission.INTERNET",
@@ -2327,8 +2327,8 @@
                   null
                ]
             ],
-            "minSdkVersion" : "8",
-            "targetSdkVersion" : "19",
+            "minSdkVersion" : 8,
+            "targetSdkVersion" : 19,
             "apkName" : "Checkey-0.1.apk",
             "versionName" : "0.1",
             "added" : 1405137600000,
@@ -2362,13 +2362,13 @@
                   null
                ]
             ],
-            "minSdkVersion" : "9",
-            "targetSdkVersion" : "21",
+            "minSdkVersion" : 9,
+            "targetSdkVersion" : 21,
             "hash" : "949d65d6e8a1eadd0aa626bdc7c5a3e2b0dbe5a38dea1d725cce2a34ec84f0d4"
          },
          {
             "hash" : "103f4a98fa282923c07e445b2a383e946b6c15e10ed08005af3d0743249a0359",
-            "targetSdkVersion" : "19",
+            "targetSdkVersion" : 19,
             "sig" : "a0eeebb161f946e3516945fae8a92a3e",
             "uses-permission" : [
                [
@@ -2384,7 +2384,7 @@
                   null
                ]
             ],
-            "minSdkVersion" : "9",
+            "minSdkVersion" : 9,
             "added" : 1404100800000,
             "size" : 931433,
             "apkName" : "Orweb-release-0.6.1.apk",
@@ -2401,9 +2401,9 @@
             "added" : 1415854800000,
             "versionName" : "0.7",
             "apkName" : "Orweb-release-0.7.apk",
-            "targetSdkVersion" : "18",
+            "targetSdkVersion" : 18,
             "sig" : "a0eeebb161f946e3516945fae8a92a3e",
-            "minSdkVersion" : "9",
+            "minSdkVersion" : 9,
             "uses-permission" : [
                [
                   "android.permission.INTERNET",
@@ -2431,19 +2431,19 @@
             "added" : 1422507600000,
             "size" : 818384,
             "sig" : "d70ac6a02b53ebdd1354ea7af7b9ceee",
-            "minSdkVersion" : "8",
+            "minSdkVersion" : 8,
             "uses-permission" : [
                [
                   "android.permission.INTERNET",
                   null
                ]
             ],
-            "targetSdkVersion" : "21",
+            "targetSdkVersion" : 21,
             "hash" : "130cfcc8b916682d974aa4e13385b47bdc23d07b0de852640563b880aeb61d1f"
          },
          {
             "hash" : "3cad63152ef9b04e1c2b880c286a80c65c083880612aaa36c0c4480b96adfea8",
-            "minSdkVersion" : "9",
+            "minSdkVersion" : 9,
             "uses-permission" : [
                [
                   "android.permission.INTERNET",
@@ -2451,7 +2451,7 @@
                ]
             ],
             "sig" : "d70ac6a02b53ebdd1354ea7af7b9ceee",
-            "targetSdkVersion" : "22",
+            "targetSdkVersion" : 22,
             "apkName" : "LocationPrivacy-0.2.apk",
             "versionName" : "0.2",
             "size" : 1129409,
@@ -2462,8 +2462,8 @@
          },
          {
             "hash" : "ec2b2c6e3a99422fbe8229711dfc7b741961c2ba7bc171c745818d8b76fc4d63",
-            "targetSdkVersion" : "22",
-            "minSdkVersion" : "9",
+            "targetSdkVersion" : 22,
+            "minSdkVersion" : 9,
             "uses-permission" : [
                [
                   "android.permission.INTERNET",
@@ -2482,9 +2482,9 @@
       ],
       "info.guardianproject.ripple" : [
          {
-            "minSdkVersion" : "10",
+            "minSdkVersion" : 10,
             "sig" : "d70ac6a02b53ebdd1354ea7af7b9ceee",
-            "targetSdkVersion" : "23",
+            "targetSdkVersion" : 23,
             "hash" : "025894a5f3a39a288ee60bb6c9cc2c559d395f22fed020d1086308ba12df85a3",
             "versionCode" : 1,
             "packageName" : "info.guardianproject.ripple",
@@ -2496,8 +2496,8 @@
          },
          {
             "hash" : "9fd24cbb3552123e6ee119f912f1646dd21cd7a683734a8d502d8b44854a284b",
-            "targetSdkVersion" : "23",
-            "minSdkVersion" : "10",
+            "targetSdkVersion" : 23,
+            "minSdkVersion" : 10,
             "sig" : "d70ac6a02b53ebdd1354ea7af7b9ceee",
             "size" : 1670285,
             "added" : 1480654800000,
@@ -2515,16 +2515,16 @@
             "versionName" : "0.2",
             "size" : 1669315,
             "added" : 1480654800000,
-            "minSdkVersion" : "10",
+            "minSdkVersion" : 10,
             "sig" : "d70ac6a02b53ebdd1354ea7af7b9ceee",
-            "targetSdkVersion" : "23",
+            "targetSdkVersion" : 23,
             "hash" : "4b14b1b402f0197e1e6ffe2c11e052432fc8a52749f5f02d9cc67799658df239"
          }
       ],
       "info.guardianproject.pixelknot" : [
          {
             "sig" : "a0eeebb161f946e3516945fae8a92a3e",
-            "minSdkVersion" : "9",
+            "minSdkVersion" : 9,
             "uses-permission" : [
                [
                   "android.permission.CAMERA",
@@ -2539,7 +2539,7 @@
                   null
                ]
             ],
-            "targetSdkVersion" : "17",
+            "targetSdkVersion" : 17,
             "nativecode" : [
                "armeabi"
             ],
@@ -2554,7 +2554,7 @@
          },
          {
             "hash" : "6beede8519a9e87ba8edaa5a76f203cfefd5f39eb911e789031cc6e911714b89",
-            "targetSdkVersion" : "17",
+            "targetSdkVersion" : 17,
             "nativecode" : [
                "armeabi"
             ],
@@ -2573,7 +2573,7 @@
                   null
                ]
             ],
-            "minSdkVersion" : "14",
+            "minSdkVersion" : 14,
             "added" : 1435291200000,
             "size" : 4751233,
             "apkName" : "PixelKnot-release-0.3.3.apk",
@@ -2592,7 +2592,7 @@
                "x86",
                "x86_64"
             ],
-            "targetSdkVersion" : "25",
+            "targetSdkVersion" : 25,
             "uses-permission" : [
                [
                   "android.permission.READ_EXTERNAL_STORAGE",
@@ -2607,7 +2607,7 @@
                   18
                ]
             ],
-            "minSdkVersion" : "17",
+            "minSdkVersion" : 17,
             "sig" : "a0eeebb161f946e3516945fae8a92a3e",
             "hash" : "f97557cf7ec81ade50c308c5552dc6dc827d0e02ce90f84b1df6b7477d9f5a39",
             "packageName" : "info.guardianproject.pixelknot",
@@ -2622,7 +2622,7 @@
       "org.witness.sscphase1" : [
          {
             "hash" : "fc4b1e26b09ab79b1ab174e8985b89985a0110f9d97d2b0472e529c85e3a1d89",
-            "minSdkVersion" : "8",
+            "minSdkVersion" : 8,
             "uses-permission" : [
                [
                   "android.permission.WRITE_EXTERNAL_STORAGE",
@@ -2641,7 +2641,7 @@
             "nativecode" : [
                "armeabi"
             ],
-            "targetSdkVersion" : "8",
+            "targetSdkVersion" : 8,
             "apkName" : "ObscuraCam-1.2-FINAL.apk",
             "versionName" : "1.2-FINAL",
             "size" : 1728825,
@@ -2652,7 +2652,7 @@
          },
          {
             "hash" : "eeea54985c96769524ec82fb1d3599b193a2d20d1f57f3afc4c97b11bd48df8f",
-            "minSdkVersion" : "10",
+            "minSdkVersion" : 10,
             "uses-permission" : [
                [
                   "android.permission.READ_MEDIA_STORAGE",
@@ -2683,7 +2683,7 @@
             "nativecode" : [
                "armeabi"
             ],
-            "targetSdkVersion" : "11",
+            "targetSdkVersion" : 11,
             "versionName" : "2.0-RC2b",
             "apkName" : "ObscuraCam-2.0-RC2b.apk",
             "added" : 1383192000000,
