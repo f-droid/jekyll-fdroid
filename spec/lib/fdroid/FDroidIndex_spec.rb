@@ -176,7 +176,7 @@ here")
       expect(fdroid['packages'].map { |p| p['version_code'] }).to eql([1005050, 1005002, 1005001, 1005000, 1004050, 1004001, 1004000, 1003051, 1003050, 1003005, 1003004, 1003003])
 
       fdroid_package = fdroid['packages'][0]
-      fdroid['packages'] = nil
+      fdroid['packages'] = nil # remove packages for later app test
 
       expected_package = {
         "added" => Date.new(2018, 12, 27),
@@ -277,6 +277,29 @@ here")
 
       anysoftkeyboard = index.apps.detect { |app| app.package_name == 'com.menny.android.anysoftkeyboard' }.to_data
       expect(anysoftkeyboard['whats_new']).to eql("* Power-Saving mode improvements - you can pick which features to include in Power-Saving.<br />* Also, we allow switching to dark, simple theme in Power-Saving mode. But this is optional.<br />* New Workman layout, Terminal generic-top-row and long-press fixes. Done by Alex Griffin.<br />* Updated localization: AR, BE, EU, FR, HU, IT, KA, KN, KU, LT, NB, NL, PT, RO, RU, SC, UK.<br /><br />More here: https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/87")
+
+      subreddit = index.apps.detect { |app| app.package_name == 'subreddit.android.appstore' }.to_data
+      expected_app_anti_features = [
+        "NonFreeAdd",
+        "NonFreeNet",
+      ]
+      expect(subreddit['anti_features']).to eql(expected_app_anti_features)
+
+      droidnotify = index.apps.detect { |app| app.package_name == 'apps.droidnotify' }.to_data
+      droidnotify_package = droidnotify['packages'][0]
+      expected_package_anti_features = [
+        "NoSourceSince"
+      ]
+      expect(droidnotify_package['anti_features']).to eql(expected_package_anti_features)
+
+      perms_minsdk = index.apps.detect { |app| app.package_name == "protect.gift_card_guard" }.to_data
+      perms_minsdk_package = perms_minsdk['packages'][0]
+
+      expected_uses_permissions = [
+        { "permission" => "android.permission.WRITE_EXTERNAL_STORAGE", "min_sdk" => 18 },
+        { "permission" => "android.permission.READ_EXTERNAL_STORAGE", "min_sdk" => 18 },
+      ]
+      expect(perms_minsdk_package['uses_permission']).to eql(expected_uses_permissions)
     end
   end
 end
