@@ -157,7 +157,7 @@ here")
       expect(index.repo.name).to eql('F-Droid')
       expect(index.repo.address).to eql('https://f-droid.org/repo')
       expect(index.repo.icon_url).to eql('https://f-droid.org/repo/icons/fdroid-icon.png')
-      expect(index.repo.date).to eql(Date.new(2017, 07, 14))
+      expect(index.repo.date).to eql(Date.new(2018, 12, 27))
       expect(index.repo.description).to eql(
         'The official FDroid repository. Applications in this repository are ' +
         'built directly from the source code. (One, Firefox, is the official ' +
@@ -165,7 +165,7 @@ here")
         'source-built version. '
       )
 
-      expect(index.apps.count).to eql(1246)
+      expect(index.apps.count).to eql(1717)
 
       # Force each app to parse itself and make sure it doesn't crash.
       index.apps.each { |app| app.to_data }
@@ -173,45 +173,45 @@ here")
       fdroid = index.apps.detect { |app| app.package_name == 'org.fdroid.fdroid' }.to_data
 
       # Assert that packages are ordered in reverse-chronological order
-      expect(fdroid['packages'].map { |p| p['version_code'] }).to eql([1000000, 104050, 103250, 103150, 103050, 103003, 103002, 103001, 102350, 102250, 102150, 102050])
+      expect(fdroid['packages'].map { |p| p['version_code'] }).to eql([1005050, 1005002, 1005001, 1005000, 1004050, 1004001, 1004000, 1003051, 1003050, 1003005, 1003004, 1003003])
 
       fdroid_package = fdroid['packages'][0]
       fdroid['packages'] = nil
 
       expected_package = {
-        "added" => Date.new(2017, 7, 9),
+        "added" => Date.new(2018, 12, 27),
         "anti_features" => nil,
-        "apk_name" => "org.fdroid.fdroid_1000000.apk",
+        "apk_name" => "org.fdroid.fdroid_1005050.apk",
         "file_extension" => "APK",
-        "hash" => "bbbbd10bf93c8f670cc869e1f2a148b83821c80b566d0a1b7858b26b7a3660fa",
+        "hash" => "edbabb5d76bbb509151f4cdbbc1f340a095e169b41838f4619ecb0b10ea702c8",
         "hash_type" => "sha256",
-        "min_sdk_version" => 10,
+        "min_sdk_version" => "14",
         "max_sdk_version" => nil,
-        "target_sdk_version" => 24,
+        "target_sdk_version" => "25",
         "nativecode" => nil,
-        "srcname" => "org.fdroid.fdroid_1000000_src.tar.gz",
+        "srcname" => "org.fdroid.fdroid_1005050_src.tar.gz",
         "sig" => "9063aaadfff9cfd811a9c72fb5012f28",
         "signer" => "43238d512c1e5eb2d6569f4a3afbf5523418b82e0a3ed1552770abb9a9c9ccab",
-        "size" => 7135159,
+        "size" => 7675508,
         "uses_permission" =>
         [
-          { "permission" => "android.permission.INTERNET", "min_sdk" => nil },
-          { "permission" => "android.permission.ACCESS_NETWORK_STATE", "min_sdk" => nil },
-          { "permission" => "android.permission.ACCESS_WIFI_STATE", "min_sdk" => nil },
-          { "permission" => "android.permission.CHANGE_WIFI_MULTICAST_STATE", "min_sdk" => nil },
-          { "permission" => "android.permission.CHANGE_NETWORK_STATE", "min_sdk" => nil },
-          { "permission" => "android.permission.CHANGE_WIFI_STATE", "min_sdk" => nil },
-          { "permission" => "android.permission.BLUETOOTH", "min_sdk" => nil },
-          { "permission" => "android.permission.BLUETOOTH_ADMIN", "min_sdk" => nil },
-          { "permission" => "android.permission.RECEIVE_BOOT_COMPLETED", "min_sdk" => nil },
-          { "permission" => "android.permission.WRITE_EXTERNAL_STORAGE", "min_sdk" => nil },
-          { "permission" => "android.permission.WRITE_SETTINGS", "min_sdk" => nil },
-          { "permission" => "android.permission.NFC", "min_sdk" => nil },
-          { "permission" => "android.permission.ACCESS_SUPERUSER", "min_sdk" => nil },
-          { "permission" => "android.permission.READ_EXTERNAL_STORAGE", "min_sdk" => nil }
+          { "min_sdk" => nil, "permission" => "android.permission.INTERNET" },
+          { "min_sdk" => nil, "permission" => "android.permission.ACCESS_NETWORK_STATE" },
+          { "min_sdk" => nil, "permission" => "android.permission.ACCESS_WIFI_STATE" },
+          { "min_sdk" => nil, "permission" => "android.permission.CHANGE_WIFI_MULTICAST_STATE" },
+          { "min_sdk" => nil, "permission" => "android.permission.CHANGE_NETWORK_STATE" },
+          { "min_sdk" => nil, "permission" => "android.permission.CHANGE_WIFI_STATE" },
+          { "min_sdk" => nil, "permission" => "android.permission.BLUETOOTH" },
+          { "min_sdk" => nil, "permission" => "android.permission.BLUETOOTH_ADMIN" },
+          { "min_sdk" => nil, "permission" => "android.permission.RECEIVE_BOOT_COMPLETED" },
+          { "min_sdk" => nil, "permission" => "android.permission.READ_EXTERNAL_STORAGE" },
+          { "min_sdk" => nil, "permission" => "android.permission.WRITE_EXTERNAL_STORAGE" },
+          { "min_sdk" => nil, "permission" => "android.permission.WRITE_SETTINGS" },
+          { "min_sdk" => nil, "permission" => "android.permission.NFC" },
+          { "min_sdk" => nil, "permission" => "android.permission.WAKE_LOCK" }
         ],
-        "version_name" => "1.0-alpha0",
-        "version_code" => 1000000,
+        "version_name" => "1.5",
+        "version_code" => 1005050,
       }
 
       expected_app = {
@@ -225,21 +225,21 @@ here")
         "flattrID" => "343053",
         "categories" => ["System"],
         "anti_features" => nil,
-        "suggested_version_code" => 102350,
-        "suggested_version_name" => "0.102.3",
+        "suggested_version_code" => 1004050,
+        "suggested_version_name" => "1.4",
         "issue_tracker" => "https://gitlab.com/fdroid/fdroidclient/issues",
         "translation" => "https://hosted.weblate.org/projects/f-droid/f-droid",
         "changelog" => "https://gitlab.com/fdroid/fdroidclient/raw/HEAD/CHANGELOG.md",
-        "license" => "GPL-3.0+",
+        "license" => "GPL-3.0-or-later",
         "source_code" => "https://gitlab.com/fdroid/fdroidclient",
         "website" => "https://f-droid.org",
         "added" => 1295222400000,
-        "last_updated" => 1499583764677,
-        "liberapayID" => nil,
-        "icon" => "icons-640/org.fdroid.fdroid.1000000.png",
+        "last_updated" => 1545900545000,
+        "liberapayID" => "27859",
+        "icon" => "icons-640/org.fdroid.fdroid.1005050.png",
         "title" => "F-Droid",
-        "whats_new" => nil,
-        "summary" => "The app store that respects freedom and privacy\n",
+        "whats_new" => "* huge overhaul of the \"Versions\" list in the App Details screen, and many other UI improvements, thanks to new contributor @wsdfhjxc<br /><br />* fix keyboard/d-pad navigation in many places, thanks to new contributor @doeffinger<br /><br />* show \"Open\" button when media is installed and viewable<br /><br />* add Share button to \"Installed Apps\" to export CSV list<br /><br />* add clickable list of APKs to the swap HTML index page <br /><br />* retry index downloads from mirrors<br /><br />* fix \"Send F-Droid via Bluetooth\" on recent Android versions<br />",
+        "summary" => "The app store that respects freedom and privacy",
         "description" =>
         "F-Droid is an installable catalogue of FOSS (Free and Open Source<br />" +
         "Software) applications for the Android platform. The client makes it<br />" +
@@ -257,8 +257,16 @@ here")
         "* Find apps via categories and searchable descriptions<br />" +
         "* Access associated urls for donations, source code etc.<br />" +
         "* Stay safe by checking repo index signatures and apk hashes<br />",
-        "feature_graphic" => nil,
-        "phone_screenshots" => nil,
+        "feature_graphic" => "en-US/featureGraphic.jpg",
+        "phone_screenshots" => [
+          "en-US/phoneScreenshots/screenshot-app-details.png",
+          "en-US/phoneScreenshots/screenshot-dark-details.png",
+          "en-US/phoneScreenshots/screenshot-dark-home.png",
+          "en-US/phoneScreenshots/screenshot-dark-knownvuln.png",
+          "en-US/phoneScreenshots/screenshot-knownvuln.png",
+          "en-US/phoneScreenshots/screenshot-search.png",
+          "en-US/phoneScreenshots/screenshot-updates.png"
+        ],
         "seven_inch_screenshots" => nil,
         "packages" => nil,
         "beautiful_url" => "/packages/org.fdroid.fdroid"
@@ -267,20 +275,8 @@ here")
       expect(fdroid).to eql(expected_app)
       expect(fdroid_package).to eql(expected_package)
 
-      antennapod = index.apps.detect { |app| app.package_name == 'de.danoeh.antennapod' }.to_data
-      expect(antennapod['whats_new']).to eql(
-        "* New features:<br />" +
-        " * Subscription overview<br />" +
-        " * Proxy support<br />" +
-        " * Statistics<br />" +
-        " * Manual gpodder.net sync<br />" +
-        "* Fixes:<br />" +
-        " * Audioplayer controls<br />" +
-        " * Audio ducking<br />" +
-        " * Video control fade-out<br />" +
-        " * External media controls<br />" +
-        " * Feed parsing"
-      )
+      anysoftkeyboard = index.apps.detect { |app| app.package_name == 'com.menny.android.anysoftkeyboard' }.to_data
+      expect(anysoftkeyboard['whats_new']).to eql("* Power-Saving mode improvements - you can pick which features to include in Power-Saving.<br />* Also, we allow switching to dark, simple theme in Power-Saving mode. But this is optional.<br />* New Workman layout, Terminal generic-top-row and long-press fixes. Done by Alex Griffin.<br />* Updated localization: AR, BE, EU, FR, HU, IT, KA, KN, KU, LT, NB, NL, PT, RO, RU, SC, UK.<br /><br />More here: https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/87")
     end
   end
 end
