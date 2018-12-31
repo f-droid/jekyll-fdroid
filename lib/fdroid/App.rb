@@ -93,7 +93,7 @@ module FDroid
         'flattrID' => field('flattrID'),
         'liberapayID' => field('liberapayID'),
         'categories' => field('categories'),
-        'anti_features' => field('anti_features'),
+        'anti_features' => field('antiFeatures'),
         'suggested_version_code' => suggested_version_code,
         'suggested_version_name' => @packages.detect { |p| p.version_code == suggested_version_code }&.version_name,
         'issue_tracker' => field('issueTracker'),
