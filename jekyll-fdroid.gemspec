@@ -17,7 +17,7 @@
 
 Gem::Specification.new do |s|
   s.name        = 'jekyll-fdroid'
-  s.version     = '1.1'
+  s.version     = '1.1.1'
   s.add_runtime_dependency "jekyll-include-cache"
   s.add_runtime_dependency "jekyll-paginate-v2", "<= 1.7.3"
   s.add_runtime_dependency 'therubyracer', '~> 0.12'
@@ -26,7 +26,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'loofah'
   s.add_development_dependency 'rspec'
   s.add_development_dependency 'rubocop', '~> 0.50.0'
-  s.date        = '2017-10-30'
+  s.date        = '2018-12-31'
   s.summary     = "F-Droid - Free and Open Source Android App Repository"
   s.description = "Browse packages of a F-Droid repository."
   s.authors     = ["Nico Alt"]
