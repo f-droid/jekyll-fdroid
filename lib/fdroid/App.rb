@@ -113,6 +113,9 @@ module FDroid
         'feature_graphic' => App.localized_graphic_path(@available_locales, @app['localized'], 'featureGraphic'),
         'phone_screenshots' => App.localized_graphic_list_paths(@available_locales, @app['localized'], 'phoneScreenshots'),
         'seven_inch_screenshots' => App.localized_graphic_list_paths(@available_locales, @app['localized'], 'sevenInchScreenshots'),
+        'ten_inch_screenshots' => App.localized_graphic_list_paths(@available_locales, @app['localized'], 'tenInchScreenshots'),
+        'tv_screenshots' => App.localized_graphic_list_paths(@available_locales, @app['localized'], 'tvScreenshots'),
+        'wear_screenshots' => App.localized_graphic_list_paths(@available_locales, @app['localized'], 'wearScreenshots'),
 
         'packages' => @packages.sort.reverse.map { |p| p.to_data },
 

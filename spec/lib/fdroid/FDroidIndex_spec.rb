@@ -268,6 +268,9 @@ here")
           "en-US/phoneScreenshots/screenshot-updates.png"
         ],
         "seven_inch_screenshots" => nil,
+        "ten_inch_screenshots" => nil,
+        "tv_screenshots" => nil,
+        "wear_screenshots" => nil,
         "packages" => nil,
         "beautiful_url" => "/packages/org.fdroid.fdroid"
       }
