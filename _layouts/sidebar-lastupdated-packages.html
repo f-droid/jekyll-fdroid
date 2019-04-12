@@ -1,4 +1,14 @@
 {% assign updatedPackages = site.packages | sort: "title" | reverse | sort: "last_updated" | reverse %}
-{% for updatedPackage in updatedPackages limit:3 %}
-	{% include package-list-item.html package=updatedPackage %}
+{% assign remaining = 3 %}
+{% for updatedPackage in updatedPackages %}
+{% if updatedPackage.whats_new != nil %}
+{% include package-list-item.html package=updatedPackage %}
+{% assign remaining = remaining | minus: 1 %}
+{% endif %}
+{% if remaining <= 0 %}{% break %}{% endif %}
+{% endfor %}
+
+<!-- no nice ones found, failing back to any -->
+{% for updatedPackage in updatedPackages limit:remaining %}
+{% include package-list-item.html package=updatedPackage %}
 {% endfor %}
