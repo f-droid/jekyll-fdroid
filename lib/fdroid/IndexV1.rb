@@ -51,7 +51,13 @@ module FDroid
       Dir.mktmpdir do |dir|
         jar = File.join dir, 'index-v1.jar'
         open(jar, 'wb') do |file|
-          file.write(Net::HTTP.get(repo))
+          begin
+            file.write(Net::HTTP.get(repo))
+          rescue Net::ReadTimeout => e
+            puts "Timeout (#{e}), retrying in 1 second..."
+            sleep(1)
+            retry
+          end
         end
 
         Zip::File.open(jar) do |zip_file|
