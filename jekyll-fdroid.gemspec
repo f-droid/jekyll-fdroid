@@ -17,7 +17,7 @@
 
 Gem::Specification.new do |s|
   s.name        = 'jekyll-fdroid'
-  s.version     = '1.1.2'
+  s.version     = '1.1.3'
   s.add_runtime_dependency "jekyll-include-cache"
   s.add_runtime_dependency "jekyll-paginate-v2", "<= 1.7.3"
   s.add_runtime_dependency 'therubyracer', '~> 0.12'
