@@ -60,6 +60,7 @@ module Jekyll
       '25' => '7.1',
       '26' => '8.0',
       '27' => '8.1',
+      '28' => '9.0',
     }
 
     # Convert a file size to a human-readable String.
