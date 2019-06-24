@@ -75,6 +75,7 @@ module Jekyll
         extras = [
           'assets/fdroid-search-autocomplete.js',
           'assets/fdroid-search-autocomplete-init.js',
+          'assets/register-listener.js',
           'bower_components/lunr.js/lunr.js',
           'bower_components/mustache.js/mustache.min.js',
           'bower_components/awesomplete/awesomplete.min.js',
