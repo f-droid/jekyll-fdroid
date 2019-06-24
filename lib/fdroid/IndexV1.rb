@@ -53,7 +53,7 @@ module FDroid
         open(jar, 'wb') do |file|
           begin
             file.write(Net::HTTP.get(repo))
-          rescue Net::ReadTimeout => e
+          rescue Net::OpenTimeout, Net::ReadTimeout => e
             puts "Timeout (#{e}), retrying in 1 second..."
             sleep(1)
             retry
