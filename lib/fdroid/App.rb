@@ -251,9 +251,9 @@ module FDroid
         when Fixnum then return value
         when Float then return value
         when Integer then return value
-        when Array then return value.map { |i| Loofah.scrub_fragment(i, :escape).to_s }
+        when Array then return value.map { |i| Loofah.scrub_fragment(i, :escape).to_html(:save_with => 0) }
         else
-          return Loofah.scrub_fragment(value, :escape).to_s
+          return Loofah.scrub_fragment(value, :escape).to_html(:save_with => 0)
         end
       end
     end
