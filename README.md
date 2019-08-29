@@ -76,6 +76,18 @@ If you want to use this plugin with the old XML index,
 you can use the [release 0.1.1](https://rubygems.org/gems/jekyll-fdroid/versions/0.1.1)
 which is the last one supporting the old index.
 
+## Publishing a new version
+
+Jekyll-FDroid is distributed via [RubyGems.org](https://rubygems.org/gems/jekyll-fdroid).
+To quickly sum up [their extensive guides](https://guides.rubygems.org/):
+
+```bash
+# Build gem package
+gem build jekyll-fdroid.gemspec
+# Push to RubyGems
+gem push jekyll-fdroid-1.0.0.gem
+```
+
 ## License
 
 This program is Free Software:
