@@ -2,6 +2,7 @@
 liberapay: F-Droid-Data
 github:
     - eighthave
+tidelift: rubygems/jekyll-fdroid
 custom:
     - https://f-droid.org/about/
     - https://www.hellotux.com/f-droid
