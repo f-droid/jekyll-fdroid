@@ -92,6 +92,7 @@ module FDroid
         'donate' => field('donate'),
         'flattrID' => field('flattrID'),
         'liberapayID' => field('liberapayID'),
+        'openCollective' => field('openCollective'),
         'categories' => field('categories'),
         'anti_features' => field('antiFeatures'),
         'suggested_version_code' => suggested_version_code,
