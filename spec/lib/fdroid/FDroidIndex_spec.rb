@@ -221,7 +221,7 @@ here")
         "author_website" => nil,
         "bitcoin" => "15u8aAPK4jJ5N8wpWJ5gutAyyeHtKX5i18",
         "litecoin" => nil,
-        "openCollective" => "https://opencollective.com/f-droid-testing",
+        "openCollective" => "f-droid-testing",
         "donate" => "https://f-droid.org/about",
         "flattrID" => "343053",
         "categories" => ["System"],
