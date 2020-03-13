@@ -20,7 +20,6 @@ Gem::Specification.new do |s|
   s.version     = '1.1.5'
   s.add_runtime_dependency "jekyll-include-cache"
   s.add_runtime_dependency "jekyll-paginate-v2", "<= 1.7.3"
-  s.add_runtime_dependency 'therubyracer', '~> 0.12'
   s.add_runtime_dependency 'rubyzip'
   s.add_runtime_dependency 'json', '>= 1.8.5'
   s.add_runtime_dependency 'loofah'
