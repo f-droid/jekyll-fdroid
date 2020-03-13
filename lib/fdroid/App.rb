@@ -249,7 +249,6 @@ module FDroid
       if @app.key?(name)
         value = @app[name]
         case value
-        when Fixnum then return value
         when Float then return value
         when Integer then return value
         when Array then return value.map { |i| Loofah.scrub_fragment(i, :escape).to_html(:save_with => 0) }
