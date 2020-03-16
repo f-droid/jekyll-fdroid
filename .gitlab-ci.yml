@@ -24,8 +24,8 @@ debian_buster:
         'APT::Get::Assume-Yes "true";'
         'Dpkg::Use-Pty "0";'
         > /etc/apt/apt.conf.d/99gitlab
-    - echo "deb http://deb.debian.org/debian/ buster-backports main" >> /etc/apt/sources.list
-    - printf "Package\x3a ruby-jekyll-include-cache ruby-jekyll-paginate-v2\nPin\x3a release a=buster-backports\nPin-Priority\x3a 500\n" > /etc/apt/preferences.d/debian-buster-backports.pref
+    - echo "deb http://deb.debian.org/debian/ testing main" >> /etc/apt/sources.list
+    - printf "Package\x3a *\nPin\x3a release a=testing\nPin-Priority\x3a 100\n\nPackage\x3a ruby-jekyll-include-cache ruby-jekyll-paginate-v2\nPin\x3a release a=testing\nPin-Priority\x3a 500\n" > /etc/apt/preferences.d/debian-testing.pref
     - apt-get update
     - apt-get dist-upgrade
     - apt-get install
