@@ -18,7 +18,6 @@
 require "fdroid/IndexV1"
 require "jekyll/ReadYamlPage"
 require "jekyll/FDroidBrowsingPage"
-require "jekyll/FDroidFilters"
 require "jekyll/FDroidLastUpdatedPackagesTag"
 require "jekyll/FDroidLatestPackagesTag"
 require "jekyll/FDroidPackageDetailGenerator"
