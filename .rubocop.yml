@@ -4,3 +4,6 @@ AllCops:
 
 Layout:
   Enabled: true
+
+Layout/LineLength:
+  Max: 600

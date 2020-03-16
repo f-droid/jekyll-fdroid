@@ -181,6 +181,7 @@ module FDroid
     # @see localized
     def self.localized_graphic_path(available_locales, localized, field)
       return nil unless available_locales != nil
+
       available_locales.each do |l|
         if localized[l].key?(field)
           return "#{l}/#{localized[l][field]}"
@@ -195,6 +196,7 @@ module FDroid
     # @see localized_graphic_path
     def self.localized_graphic_list_paths(available_locales, localized, field)
       return nil unless available_locales != nil
+
       available_locales.each do |l|
         if localized[l].key?(field)
           return localized[l][field].map { |val| "#{l}/#{field}/#{val}" }

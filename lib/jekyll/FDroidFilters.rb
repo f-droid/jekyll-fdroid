@@ -27,6 +27,7 @@ module Jekyll
       if not sdkLevel.nil?
         return sdkLevel
       end
+
       return '?'
     end
 
@@ -89,6 +90,7 @@ module Jekyll
       if input.nil? or input.empty?
         return 'Unknown'
       end
+
       spdxLicense = @@SpdxLicenseNameToGnuUrlRelation[input]
       if input.end_with? "+"
         spdxLicense = @@SpdxLicenseNameToGnuUrlRelation[input.chomp('+')]
@@ -97,8 +99,10 @@ module Jekyll
         if input.end_with? "+"
           return spdxLicense['name'] + ' or later version'
         end
+
         return spdxLicense['name']
       end
+
       return input
     end
 
@@ -111,6 +115,7 @@ module Jekyll
       if input.nil? or input.empty?
         return ''
       end
+
       if input.end_with? "+"
         input = input.chomp('+')
       end
@@ -118,6 +123,7 @@ module Jekyll
       if not spdxLicense.nil?
         return spdxLicense['url']
       end
+
       return 'https://spdx.org/licenses/' + input + '.html'
     end
 
