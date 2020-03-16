@@ -47,14 +47,15 @@ module FDroid
     end
 
     it 'Formats app descriptions correctly' do
-      multi_line = App.format_description_to_html("This
+      text = "This
 is
 a
 
 multi-line
 
 string
-here")
+here"
+      multi_line = App.format_description_to_html(text)
       expect(multi_line).to eql("This<br />is<br />a<br /><br />multi-line<br /><br />string<br />here")
     end
   end
