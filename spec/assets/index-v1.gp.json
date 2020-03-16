@@ -1296,6 +1296,26 @@
       },
       {
          "localized" : {
+            "en-US" : {
+               "description" : "This is just a test that <script>alert('pwned!')</script> loofah is stripping.",
+               "name": "<script>alert('PWN!')</script>",
+               "summary" : "트리거 불안에 때 개인 정보를 보호하거나 상황을 패닉 앱<script>alert('pwned!')</script>",
+               "whatsNew": "Feature:\n* Add support for packs (@Rudloff)\n<script>alert('pwned!')</script>\nMinor:\n* Change name to Launcher\n"
+            }
+         },
+         "suggestedVersionCode" : "9999999",
+         "sourceCode" : "https://github.com/loofah/test",
+         "license" : "GPLv3",
+         "added" : 1480654800000,
+         "lastUpdated" : 1480654800000,
+         "packageName" : "loofah.test",
+         "icon" : "loofah.test.75.png",
+         "categories" : [
+            "Security"
+         ]
+      },
+      {
+         "localized" : {
             "sw" : {
                "summary" : "Trigger programu kulinda siri yako wakati katika wasiwasi au hofu hali"
             },
@@ -2476,6 +2496,27 @@
             "versionName" : "0.3",
             "apkName" : "LocationPrivacy-0.3.apk",
             "packageName" : "info.guardianproject.locationprivacy",
+            "versionCode" : 30,
+            "hashType" : "sha256"
+         }
+      ],
+      "loofah.test": [
+         {
+            "hash" : "ec2b2c6e3a99422fbe8229711dfc7b741961c2ba7bc171c745818d8b76fc4d63",
+            "targetSdkVersion" : 22,
+            "minSdkVersion" : 9,
+            "uses-permission" : [
+               [
+                  "android.permission.INTERNET",
+                  null
+               ]
+            ],
+            "sig" : "d70ac6a02b53ebdd1354ea7af7b9ceee",
+            "size" : 1130602,
+            "added" : 1480654800000,
+            "versionName" : "0.3",
+            "apkName" : "LoofahTest.apk",
+            "packageName" : "loofah.test",
             "versionCode" : 30,
             "hashType" : "sha256"
          }
