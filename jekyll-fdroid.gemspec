@@ -18,6 +18,7 @@
 Gem::Specification.new do |s|
   s.name        = 'jekyll-fdroid'
   s.version     = '1.1.5'
+  s.add_runtime_dependency 'jekyll', '< 4.0'
   s.add_runtime_dependency "jekyll-include-cache"
   s.add_runtime_dependency "jekyll-paginate-v2"
   s.add_runtime_dependency 'rubyzip'
