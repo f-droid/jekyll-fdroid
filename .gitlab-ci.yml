@@ -1,15 +1,40 @@
-image: ruby:2.3
 
-stages:
-  - test
-
-test:
-  stage: test
+ruby_latest:
+  image: ruby
   script:
     - ruby -v
     - for f in `find * -name \*.rb`; do printf "$f\t"; ruby -c $f; done
     - apt-get update
     - apt-get install -y bundler
-    - bundle install --path vendor
+    - bundle config set path 'vendor'
+    - bundle install
     - bundle exec rubocop lib spec
     - bundle exec rspec
+
+debian_buster:
+  image: debian:buster
+  variables:
+    DEBIAN_FRONTEND: noninteractive
+    LANG: C.UTF-8
+  script:
+    - echo 'quiet "1";' \
+        'APT::Install-Recommends "0";'
+        'APT::Install-Suggests "0";'
+        'APT::Acquire::Retries "20";'
+        'APT::Get::Assume-Yes "true";'
+        'Dpkg::Use-Pty "0";'
+        > /etc/apt/apt.conf.d/99gitlab
+    - echo "deb http://deb.debian.org/debian/ testing main" >> /etc/apt/sources.list
+    - printf "Package\x3a *\nPin\x3a release a=testing\nPin-Priority\x3a 100\n\nPackage\x3a ruby-jekyll-include-cache ruby-jekyll-paginate-v2\nPin\x3a release a=testing\nPin-Priority\x3a 500\n" > /etc/apt/preferences.d/debian-testing.pref
+    - apt-get update
+    - apt-get dist-upgrade
+    - apt-get install
+        rubocop
+        ruby-jekyll-include-cache
+        ruby-jekyll-paginate-v2
+        ruby-json
+        ruby-loofah
+        ruby-rspec
+        ruby-zip
+    - rubocop lib spec
+    - rspec

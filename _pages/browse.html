@@ -13,8 +13,6 @@ pagination:
   title: ':title'
 ---
 
-{% fdroid_search_full full-package-list %}
-
 <div id="full-package-list">
   {% for package in paginator.posts %}
     {% include package-list-item.html package=package %}

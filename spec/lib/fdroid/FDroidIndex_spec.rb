@@ -1,3 +1,5 @@
+# coding: utf-8
+
 require 'rspec'
 require 'pp'
 require 'json'
@@ -45,14 +47,15 @@ module FDroid
     end
 
     it 'Formats app descriptions correctly' do
-      multi_line = App.format_description_to_html("This
+      text = "This
 is
 a
 
 multi-line
 
 string
-here")
+here"
+      multi_line = App.format_description_to_html(text)
       expect(multi_line).to eql("This<br />is<br />a<br /><br />multi-line<br /><br />string<br />here")
     end
   end
@@ -104,7 +107,7 @@ here")
         'are released in the Google Play store. '
       )
 
-      expect(index.apps.count).to eql(10)
+      expect(index.apps.count).to eql(11)
 
       # Force each app to parse itself and make sure it doesn't crash.
       index.apps.each { |app| app.to_data }
@@ -118,6 +121,21 @@ here")
       index_json = JSON.parse(File.read(path))
       index = FDroid::IndexV1.new(index_json, locale)
       index.apps.detect { |app| app.package_name == 'org.witness.informacam.app' }
+    end
+
+    def parse_loofah_test_from_gp()
+      path = File.expand_path '../../assets/index-v1.gp.json', File.dirname(__FILE__)
+      index_json = JSON.parse(File.read(path))
+      index = FDroid::IndexV1.new(index_json, 'en_US')
+      index.apps.detect { |app| app.package_name == 'loofah.test' }
+    end
+
+    it 'Loofah runs on all text fields that can be rendered with HTML' do
+      loofah_test = parse_loofah_test_from_gp().to_data
+      expect(loofah_test['description']).to eq("This is just a test that &lt;script&gt;alert('pwned!')&lt;/script&gt; loofah is stripping.")
+      expect(loofah_test['summary']).to eq("트리거 불안에 때 개인 정보를 보호하거나 상황을 패닉 앱&lt;script&gt;alert('pwned!')&lt;/script&gt;")
+      expect(loofah_test['title']).to eq("&lt;script&gt;alert('PWN!')&lt;/script&gt;")
+      expect(loofah_test['whats_new']).to eq("Feature:<br />* Add support for packs (@Rudloff)<br />&lt;script&gt;alert('pwned!')&lt;/script&gt;<br />Minor:<br />* Change name to Launcher<br />")
     end
 
     it 'Parses the Guardian Project repo metadata correctly' do

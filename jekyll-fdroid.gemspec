@@ -18,19 +18,19 @@
 Gem::Specification.new do |s|
   s.name        = 'jekyll-fdroid'
   s.version     = '1.1.5'
+  s.add_runtime_dependency 'jekyll', '< 4.0'
   s.add_runtime_dependency "jekyll-include-cache"
-  s.add_runtime_dependency "jekyll-paginate-v2", "<= 1.7.3"
-  s.add_runtime_dependency 'therubyracer', '~> 0.12'
+  s.add_runtime_dependency "jekyll-paginate-v2"
   s.add_runtime_dependency 'rubyzip'
   s.add_runtime_dependency 'json', '>= 1.8.5'
   s.add_runtime_dependency 'loofah'
   s.add_development_dependency 'rspec'
-  s.add_development_dependency 'rubocop', '~> 0.50.0'
-  s.date        = '2018-12-31'
+  s.add_development_dependency 'rubocop'
+  s.date        = '2020-03-13'
   s.summary     = "F-Droid - Free and Open Source Android App Repository"
   s.description = "Browse packages of a F-Droid repository."
-  s.authors     = ["Nico Alt"]
-  s.email       = 'nicoalt@posteo.org'
+  s.authors     = ["F-Droid"]
+  s.email       = 'team@f-droid.org'
   s.files       = Dir['lib/**/*.rb']
   s.homepage    =
     'https://gitlab.com/fdroid/jekyll-fdroid'

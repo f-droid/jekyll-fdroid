@@ -48,11 +48,23 @@ module FDroid
     # this must exist since all entries are sorted by name,
     # it uses tildes since they sort last
     def name
-      field('name') || App.localized(@available_locales, @app['localized'], 'name') || '~missing name~'
+      n = field('name') || App.localized(@available_locales, @app['localized'], 'name') || '~missing name~'
+
+      if n != nil
+        n = Loofah.scrub_fragment(n, :escape).to_text()
+      end
+
+      return n
     end
 
     def summary
-      field('summary') || App.localized(@available_locales, @app['localized'], 'summary')
+      s = field('summary') || App.localized(@available_locales, @app['localized'], 'summary')
+
+      if s != nil
+        s = Loofah.scrub_fragment(s, :escape).to_text()
+      end
+
+      return s
     end
 
     def description
@@ -146,7 +158,7 @@ module FDroid
     # Ensure newlines in descriptions are preserved (converted to "<br />" tags)
     # Handles UNIX, Windows and MacOS newlines, with a one-to-one replacement
     def self.format_description_to_html(string)
-      string.gsub(/(?:\n\r?|\r\n?)/, '<br />')
+      Loofah.scrub_fragment(string, :escape).to_html(:save_with => 0).gsub(/(?:\n\r?|\r\n?)/, '<br />')
     end
 
     # @param [string] available_locales
@@ -169,6 +181,7 @@ module FDroid
     # @see localized
     def self.localized_graphic_path(available_locales, localized, field)
       return nil unless available_locales != nil
+
       available_locales.each do |l|
         if localized[l].key?(field)
           return "#{l}/#{localized[l][field]}"
@@ -183,6 +196,7 @@ module FDroid
     # @see localized_graphic_path
     def self.localized_graphic_list_paths(available_locales, localized, field)
       return nil unless available_locales != nil
+
       available_locales.each do |l|
         if localized[l].key?(field)
           return localized[l][field].map { |val| "#{l}/#{field}/#{val}" }
@@ -249,7 +263,6 @@ module FDroid
       if @app.key?(name)
         value = @app[name]
         case value
-        when Fixnum then return value
         when Float then return value
         when Integer then return value
         when Array then return value.map { |i| Loofah.scrub_fragment(i, :escape).to_html(:save_with => 0) }

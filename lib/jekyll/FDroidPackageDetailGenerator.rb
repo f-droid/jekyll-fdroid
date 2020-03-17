@@ -45,8 +45,6 @@ module Jekyll
 
         index = FDroid::IndexV1.download(site.config["fdroid-repo"], site.active_lang || 'en_US')
 
-        Jekyll::LunrJsSearch::Indexer.new.generate(site, index.apps)
-
         # Generate detail page for every package
         site.collections["packages"] = Collection.new(site, "packages")
         index.apps.each do |package|
