@@ -1,0 +1,13 @@
+---
+layout: page
+title: " "
+---
+
+{% assign filtered_packages = site.packages | where_exp: "item", "item.categories contains page.app_category" | sort: "last_updated" | reverse %}
+
+<h3>{{ site.data.strings.app_categories[page.app_category] }}</h3>
+<div id="package-list">
+  {% for package in filtered_packages %}
+    {% include package-list-item.html package=package %}
+  {% endfor %}
+</div>

@@ -37,12 +37,6 @@ module Jekyll
           site.config["sass"]["load_paths"] << (File.expand_path "../../_sass", File.dirname(__FILE__))
         end
 
-        # Enable pagination
-        if site.config["pagination"].nil? || site.config["pagination"].empty?
-          site.config["pagination"] = Hash.new
-        end
-        site.config["pagination"]["enabled"] = true
-
         index = FDroid::IndexV1.download(site.config["fdroid-repo"], site.active_lang || 'en_US')
 
         # Generate detail page for every package
@@ -56,6 +50,12 @@ module Jekyll
           site.pages << FDroidPackageDetailPage.new(site, site.source, package)
           site.collections["packages"].docs << FDroidPackageDetailPage.new(site, site.source, package)
         end
+
+        # Generate category pages with filtered package list
+        site.config["app_categories"].each do |category|
+          site.pages << FDroidCategoryDetailPage.new(site, site.source, category)
+        end
+
         # Generate browsing pages
         site.includes_load_paths << (File.expand_path "../../_includes", File.dirname(__FILE__))
         site.pages << FDroidBrowsingPage.new(site, site.source)
