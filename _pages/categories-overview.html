@@ -2,15 +2,17 @@
 layout: page
 title: " "
 ---
-{% for category in site.app_categories %}
-  {% assign filtered_packages = site.packages | where_exp: "item", "item.categories contains category" | sort: "last_updated" | reverse %}
+{% for app_category in site.app_categories %}
+  {% assign app_category_escaped = app_category | replace: '&', '&amp;' %}
+  {% assign filtered_packages = site.packages | where_exp: "item", "item.categories contains app_category_escaped" | sort: "last_updated" | reverse %}
   {% if filtered_packages.size > 0 %}
-    <h3>{{ site.data.strings.app_categories[category] }}</h3>
+    <h3>{{ site.data.strings.app_categories[app_category] }}</h3>
     <div id="package-list">
       {% for package in filtered_packages limit: 3 %}
         {% include package-list-item.html package=package %}
       {% endfor %}
     </div>
-    <p><a href="{{ site.baseurl }}/categories/{{ category }}/">{{ site.data.strings.app_categories.show_all_packages | replace: '%d', filtered_packages.size }}</a></p>
+    {% assign app_category_url = app_category | replace: ' & ', '_' %}
+    <p><a href="{{ site.baseurl }}/categories/{{ app_category_url }}/">{{ site.data.strings.app_categories.show_all_packages | replace: '%d', filtered_packages.size }}</a></p>
   {% endif %}
 {% endfor %}

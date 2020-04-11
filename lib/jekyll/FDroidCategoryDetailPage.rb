@@ -19,12 +19,16 @@ module Jekyll
   class FDroidCategoryDetailPage < ReadYamlPage
     # @param [Jekyll::Site]  site
     # @param [string]  base
-    # @param [string]  category
+    # @param [string]  app_category
     def initialize(site, base, app_category)
       @site = site
       @base = base
       @dir = 'categories'
-      @name = "#{app_category}/index.html"
+
+      # Avoid special characters in URL, otherwise language support doesn't work
+      app_category_url = app_category.dup
+      app_category_url.sub! ' & ', '_'
+      @name = "#{app_category_url}/index.html"
 
       self.process(@name)
       self.read_yaml(get_layout_dir, 'category-packages.html')
