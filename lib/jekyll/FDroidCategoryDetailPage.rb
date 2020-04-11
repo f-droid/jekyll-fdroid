@@ -29,7 +29,6 @@ module Jekyll
       self.process(@name)
       self.read_yaml(get_layout_dir, 'category-packages.html')
       self.data['app_category'] = app_category
-      #self.data['title'] = "#{app_category}"
     end
 
     def get_layout_dir()
