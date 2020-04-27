@@ -1,5 +1,9 @@
 <a class="package-header" href="{{ include.package.beautiful_url | prepend: site.baseurl }}">
+    {% if include.package.icon != "" and include.package.icon != nil %}
 	<img class="package-icon" src="{{ site.fdroid-repo }}/{{ include.package.icon }}" />
+	{% else %}
+	<img class="package-icon" src="{{ site.baseurl }}/assets/ic_repo_app_default.png " />
+	{% endif %}
 
 	<div class="package-info">
 		<h4 class="package-name">
