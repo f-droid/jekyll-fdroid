@@ -24,7 +24,7 @@ module Jekyll
       @name = "index.html"
 
       self.process(@name)
-      self.read_yaml((File.expand_path "../../_pages", File.dirname(__FILE__)), 'browse.html')
+      self.read_yaml((File.expand_path "../../_pages", File.dirname(__FILE__)), 'categories-overview.html')
     end
   end
 end

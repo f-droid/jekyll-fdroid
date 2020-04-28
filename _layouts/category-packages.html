@@ -1,0 +1,14 @@
+---
+layout: page
+title: " "
+---
+
+{% assign app_category_escaped = page.app_category | replace: '&', '&amp;' %}
+{% assign filtered_packages = site.packages | where_exp: "item", "item.categories contains app_category_escaped" | sort: "last_updated" | reverse %}
+
+<h3>{{ site.data.strings.app_categories[page.app_category] }}</h3>
+<div id="package-list">
+  {% for package in filtered_packages %}
+    {% include package-list-item.html package=package %}
+  {% endfor %}
+</div>
