@@ -2,6 +2,7 @@
  * F-Droid's Jekyll Plugin
  *
  * Copyright (C) 2017 Nico Alt
+ * Includes tweak by Dario Centrella in 2020
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -52,6 +53,7 @@
         height: $icon-size;
         margin-top: $spacing-unit / 4;
         margin-right: $spacing-unit / 2;
+        flex-shrink: 0;
     }
 
     .package-name {
