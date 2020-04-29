@@ -26,8 +26,7 @@ module Jekyll
       @dir = 'categories'
 
       # Avoid special characters in URL, otherwise language support doesn't work
-      app_category_url = app_category.dup
-      app_category_url.sub! ' & ', '_'
+      app_category_url = Utils.slugify(app_category)
       @name = "#{app_category_url}/index.html"
 
       self.process(@name)
