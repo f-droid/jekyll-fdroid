@@ -67,7 +67,11 @@ module Jekyll
             app_category_id = app_category.dup
             app_category_id.sub!('&amp;', '&')
             app_category_id = Utils.slugify(app_category_id)
-            site.collections[app_category_id].docs << FDroidPackageDetailPage.new(site, site.source, package)
+            if site.collections[app_category_id].nil?
+              puts("Warning: App '#{package.package_name}' has unknown category '#{app_category}', will be ignored")
+            else
+              site.collections[app_category_id].docs << FDroidPackageDetailPage.new(site, site.source, package)
+            end
           end
         end
 
