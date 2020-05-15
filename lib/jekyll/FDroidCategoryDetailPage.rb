@@ -32,6 +32,7 @@ module Jekyll
       self.process(@name)
       self.read_yaml(get_layout_dir, 'category-packages.html')
       self.data['app_category'] = app_category
+      self.data['permalink'] = "/categories/#{app_category_id}/"
       self.data['pagination']['collection'] = app_category_id
     end
 
