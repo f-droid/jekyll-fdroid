@@ -156,6 +156,9 @@ here"
       expect(checkey_en_US['description']).not_to eq(checkey_fi['description'])
 
       expect(checkey_en_US['phone_screenshots'].length).to eq(5)
+
+      expect(checkey_en_US['liberapay']).to eql('GuardianProject')
+      expect(checkey_en_US['liberapayID']).to eql('33617')
     end
 
     it 'Follows proper override rules for name/summary/description' do
@@ -165,6 +168,9 @@ here"
       expect(camerav_en_US['title']).to eq(camerav_th['title'])
       expect(camerav_en_US['summary']).to eq(camerav_th['summary'])
       expect(camerav_en_US['description']).to eq(camerav_th['description'])
+
+      expect(camerav_en_US['liberapay']).to eql('GuardianProject')
+      expect(camerav_en_US['liberapayID']).to eql(nil)
     end
 
     it 'Processes the F-Droid repo metadata correctly' do
@@ -254,6 +260,7 @@ here"
         "website" => "https://f-droid.org",
         "added" => 1295222400000,
         "last_updated" => 1545900545000,
+        "liberapay" => "~27859",
         "liberapayID" => "27859",
         "icon" => "icons-640/org.fdroid.fdroid.1005050.png",
         "title" => "F-Droid",
