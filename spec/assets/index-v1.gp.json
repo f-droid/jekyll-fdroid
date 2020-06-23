@@ -30,6 +30,7 @@
          "added" : 1386738000000,
          "authorWebSite" : " https://guardianproject.info",
          "lastUpdated" : 1446526800000,
+         "liberapay" : "GuardianProject",
          "license" : "GPLv3",
          "sourceCode" : "https://github.com/guardianproject/CameraV",
          "suggestedVersionCode" : "9999999",
@@ -166,6 +167,8 @@
       {
          "suggestedVersionCode" : "9999999",
          "sourceCode" : "https://github.com/guardianproject/checkey",
+         "liberapay" : "GuardianProject",
+         "liberapayID" : "33617",
          "license" : "GPLv3",
          "authorEmail" : "support@guardianproject.info",
          "issueTracker" : "https://dev.guardianproject.info/projects/checkey/issues",

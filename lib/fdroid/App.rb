@@ -92,6 +92,13 @@ module FDroid
     # The 'packages' key is an array of Package.to_data hashes.
     # @return [Hash]
     def to_data
+      liberapay = field('liberapay')
+      if liberapay == nil
+        liberapayID = field('liberapayID')
+        if liberapayID != nil
+          liberapay = "~#{liberapayID}"
+        end
+      end
       {
         # These fields are taken as is from the metadata. If not present, they are
         'package_name' => package_name,
@@ -103,6 +110,7 @@ module FDroid
         'litecoin' => field('litecoin'),
         'donate' => field('donate'),
         'flattrID' => field('flattrID'),
+        'liberapay' => liberapay,
         'liberapayID' => field('liberapayID'),
         'openCollective' => field('openCollective'),
         'categories' => field('categories'),
