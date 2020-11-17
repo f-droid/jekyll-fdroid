@@ -58,6 +58,31 @@ here"
       multi_line = App.format_description_to_html(text)
       expect(multi_line).to eql("This<br />is<br />a<br /><br />multi-line<br /><br />string<br />here")
     end
+
+    it 'Formats f-droid.org links in descriptions' do
+      text = "fdroid.app:com.linuxcounter.lico_update_003:"
+      multi_line = App.process_app_description(text)
+      expect(multi_line).to eql('<a href="/packages/com.linuxcounter.lico_update_003/"><tt>com.linuxcounter.lico_update_003</tt></a>:')
+
+      text = "pointing to https://f-droid.org/packages/com.banasiak.coinflip/:
+    This"
+      multi_line = App.process_app_description(text)
+      expect(multi_line).to eql('pointing to <a href="https://f-droid.org/packages/com.banasiak.coinflip/"><tt>com.banasiak.coinflip</tt></a>:<br />    This')
+
+      text = "https://f-droid.org/packages/SpeedoMeterApp.main.
+    (this"
+      multi_line = App.process_app_description(text)
+      expect(multi_line).to eql('<a href="https://f-droid.org/packages/SpeedoMeterApp.main/"><tt>SpeedoMeterApp.main</tt></a>.<br />    (this')
+
+      text = "works https://f-droid.org/packages/org.fitchfamily.android.wifi_backend_v2)
+    Do"
+      multi_line = App.process_app_description(text)
+      expect(multi_line).to eql('works <a href="https://f-droid.org/packages/org.fitchfamily.android.wifi_backend_v2/"><tt>org.fitchfamily.android.wifi_backend_v2</tt></a>)<br />    Do')
+
+      text = "forget https://f-droid.org/packages/org.microg.nlp"
+      multi_line = App.process_app_description(text)
+      expect(multi_line).to eql('forget <a href="https://f-droid.org/packages/org.microg.nlp/"><tt>org.microg.nlp</tt></a>')
+    end
   end
 
   RSpec.describe Permission do

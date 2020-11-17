@@ -160,11 +160,15 @@ module FDroid
       self.format_description_to_html(string)
     end
 
-    # Finds all "fdroid.app:" schemes in a particular string, and replaces with "/packages/".
+    # Finds all https://f-droid.org links that end with an Application ID, and
+    # replaces them with an HTML link.
     # @param [string]  string
     # @return [string]
     def self.replace_fdroid_app_links(string)
-      string.gsub /fdroid\.app:([\w._]*)/, '/packages/\1'
+      string.gsub(/fdroid\.app:([a-zA-Z0-9._]+)/,
+                  '<a href="/packages/\1/"><tt>\1</tt></a>')
+            .gsub(/(https:\/\/f-droid\.org\/[^\s?#]+\/)((?:[a-zA-Z_]+(?:\d*[a-zA-Z_]*)*)(?:\.[a-zA-Z_]+(?:\d*[a-zA-Z_]*)*)*)\/?/,
+                  '<a href="\1\2/"><tt>\2</tt></a>')
     end
 
     # Ensure newlines in descriptions are preserved (converted to "<br />" tags)
