@@ -20,20 +20,19 @@ module Jekyll
     # @param [Jekyll::Site]  site
     # @param [string]  base
     # @param [string]  app_category
-    # @param [string]  app_category_id
-    def initialize(site, base, app_category, app_category_id)
+    def initialize(site, base, app_category)
       @site = site
       @base = base
       @dir = 'categories'
 
       # Avoid special characters in URL, otherwise language support doesn't work
-      @name = "#{app_category_id}/index.html"
+      app_category_url = Utils.slugify(app_category)
+      @name = "#{app_category_url}/index.html"
 
       self.process(@name)
       self.read_yaml(get_layout_dir, 'category-packages.html')
       self.data['app_category'] = app_category
       self.data['permalink'] = "/categories/#{app_category_id}/"
-      self.data['pagination']['collection'] = app_category_id
     end
 
     def get_layout_dir()

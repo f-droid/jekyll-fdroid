@@ -37,20 +37,7 @@ module Jekyll
           site.config["sass"]["load_paths"] << (File.expand_path "../../_sass", File.dirname(__FILE__))
         end
 
-        # Enable pagination
-        if site.config["pagination"].nil? || site.config["pagination"].empty?
-          site.config["pagination"] = Hash.new
-        end
-        site.config["pagination"]["enabled"] = true
-
         index = FDroid::IndexV1.download(site.config["fdroid-repo"], site.active_lang || 'en_US')
-
-        # Generate collection and detail page for every category
-        site.config["app_categories"].each do |app_category|
-          app_category_id = Utils.slugify(app_category)
-          site.collections[app_category_id] = Collection.new(site, app_category_id)
-          site.pages << FDroidCategoryDetailPage.new(site, site.source, app_category, app_category_id)
-        end
 
         # Generate detail page for every package
         site.collections["packages"] = Collection.new(site, "packages")
@@ -62,17 +49,11 @@ module Jekyll
           # https://gitlab.com/fdroid/jekyll-fdroid/issues/38
           site.pages << FDroidPackageDetailPage.new(site, site.source, package)
           site.collections["packages"].docs << FDroidPackageDetailPage.new(site, site.source, package)
+        end
 
-          package.categories.each do |app_category|
-            app_category_id = app_category.dup
-            app_category_id.sub!('&amp;', '&')
-            app_category_id = Utils.slugify(app_category_id)
-            if site.collections[app_category_id].nil?
-              puts("Warning: App '#{package.package_name}' has unknown category '#{app_category}', will be ignored")
-            else
-              site.collections[app_category_id].docs << FDroidPackageDetailPage.new(site, site.source, package)
-            end
-          end
+        # Generate category pages with filtered package list
+        site.config["app_categories"].each do |category|
+          site.pages << FDroidCategoryDetailPage.new(site, site.source, category)
         end
 
         # Generate browsing pages

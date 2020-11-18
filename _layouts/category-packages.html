@@ -2,24 +2,14 @@
 layout: page
 title: " "
 permalink: filled_by_script
-pagination:
-  enabled: true
-  collection: filled_by_script
-  per_page: 30
-  trail:
-    before: 4
-    after: 4
-  permalink: '/:num/'
-  title: ':title'
-  sort_field: 'last_updated'
-  sort_reverse: true
 ---
+
+{% assign app_category_escaped = page.app_category | escape %}
+{% assign filtered_packages = site.packages | where_exp: "item", "item.categories contains app_category_escaped" | sort: "last_updated" | reverse %}
 
 <h3>{{ site.data.strings.app_categories[page.app_category] }}</h3>
 <div id="package-list">
-  {% for package in paginator.posts %}
+  {% for package in filtered_packages %}
     {% include package-list-item.html package=package %}
   {% endfor %}
-
-  {% include_cached browse-paginator-navigation.html paginator=paginator permalink=page.dir %}
 </div>
