@@ -85,6 +85,10 @@ module FDroid
       return code
     end
 
+    def categories
+      return field('categories')
+    end
+
     # Generates a hash of dumb strings to be used in templates.
     # If a specific value is not present, then it will have a nil value.
     # If a value can be localized, then it will choose the most appropriate
