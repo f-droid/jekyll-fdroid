@@ -69,10 +69,10 @@ here"
       multi_line = App.process_app_description(text)
       expect(multi_line).to eql('pointing to <a href="https://f-droid.org/packages/com.banasiak.coinflip/"><tt>com.banasiak.coinflip</tt></a>:<br />    This')
 
-      text = "https://f-droid.org/packages/SpeedoMeterApp.main.
+      text = "Starting with https://f-droid.org/packages/SpeedoMeterApp.main.
     (this"
       multi_line = App.process_app_description(text)
-      expect(multi_line).to eql('<a href="https://f-droid.org/packages/SpeedoMeterApp.main/"><tt>SpeedoMeterApp.main</tt></a>.<br />    (this')
+      expect(multi_line).to eql('Starting with <a href="https://f-droid.org/packages/SpeedoMeterApp.main/"><tt>SpeedoMeterApp.main</tt></a>.<br />    (this')
 
       text = "works https://f-droid.org/packages/org.fitchfamily.android.wifi_backend_v2)
     Do"
@@ -82,6 +82,14 @@ here"
       text = "forget https://f-droid.org/packages/org.microg.nlp"
       multi_line = App.process_app_description(text)
       expect(multi_line).to eql('forget <a href="https://f-droid.org/packages/org.microg.nlp/"><tt>org.microg.nlp</tt></a>')
+
+      text = '    * <a href="https://f-droid.org/en/packages/player.efis.data.usa.can/">North America, Canada</a>'
+      multi_line = App.process_app_description(text)
+      expect(multi_line).to eql(text)
+
+      text = '   <a href="https://f-droid.org/en/packages/player.efis.mfd//">Kwik DMAP</a> is a stand-alone digital'
+      multi_line = App.process_app_description(text)
+      expect(multi_line).to eql(text)
     end
   end
 
