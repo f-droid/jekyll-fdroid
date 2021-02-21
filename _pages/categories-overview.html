@@ -9,7 +9,22 @@ permalink: /packages/
   {% if filtered_packages.size > 0 %}
     <h3>{{ site.data.strings.app_categories[app_category] }}</h3>
     <div id="package-list">
-      {% for package in filtered_packages limit: 3 %}
+      {% assign remaining = 3 %}
+      {% for package in filtered_packages %}
+      {% if package.is_localized and package.icon and package.summary and package.whats_new %}
+        {% include package-list-item.html package=package %}
+        {% assign remaining = remaining | minus: 1 %}
+      {% endif %}
+      {% if remaining <= 0 %}{% break %}{% endif %}
+      {% endfor %}
+      {% for package in filtered_packages %}
+      {% if package.is_localized and package.icon and package.summary %}
+        {% include package-list-item.html package=package %}
+        {% assign remaining = remaining | minus: 1 %}
+      {% endif %}
+      {% if remaining <= 0 %}{% break %}{% endif %}
+      {% endfor %}
+      {% for package in filtered_packages limit: remaining %}
         {% include package-list-item.html package=package %}
       {% endfor %}
     </div>
