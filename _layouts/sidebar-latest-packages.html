@@ -1,14 +1,22 @@
-{% assign latestPackages = site.packages | sort: "title" | reverse | sort: "added" | reverse %}
+{% assign packages = site.packages | sort: "last_updated" | reverse | sort: "added" | reverse %}
 {% assign remaining = 3 %}
-{% for latestPackage in latestPackages %}
-{% if latestPackage.whats_new != nil %}
-{% include package-list-item.html package=latestPackage %}
+{% for package in packages %}
+{% if package.is_localized and package.icon and package.summary and package.whats_new %}
+{% include package-list-item.html package=package %}
 {% assign remaining = remaining | minus: 1 %}
 {% endif %}
 {% if remaining <= 0 %}{% break %}{% endif %}
 {% endfor %}
 
+{% for package in packages %}
+{% if remaining <= 0 %}{% break %}{% endif %}
+{% if package.is_localized and package.icon and package.summary %}
+{% include package-list-item.html package=package %}
+{% assign remaining = remaining | minus: 1 %}
+{% endif %}
+{% endfor %}
+
 <!-- no nice ones found, failing back to any -->
-{% for latestPackage in latestPackages limit:remaining %}
-{% include package-list-item.html package=latestPackage %}
+{% for package in packages limit:remaining %}
+{% include package-list-item.html package=package %}
 {% endfor %}

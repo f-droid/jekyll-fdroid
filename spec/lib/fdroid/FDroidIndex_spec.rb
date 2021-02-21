@@ -17,15 +17,31 @@ module FDroid
     it 'Decides which locales to use' do
       de_locales = App.available_locales('de-DE', localized)
       expect(de_locales).to eq(['de-DE', 'de', 'de-AT', 'en-US', 'en', 'en-AU'])
+      expect(App.is_localized('de-CH', de_locales)).to eq('de')
+      expect(App.is_localized('de', de_locales)).to eq('de')
+      expect(App.is_localized('de-DE', de_locales)).to eq('de-DE')
+      expect(App.is_localized('de-AT', de_locales)).to eq('de-AT')
+      expect(App.is_localized('en-AU', de_locales)).to eq('en-AU')
+      expect(App.is_localized('en-US', de_locales)).to eq('en-US')
+      expect(App.is_localized('en-GB', de_locales)).to eq('en')
+      expect(App.is_localized('zh-CN', de_locales)).to eq(nil)
 
       fr_locales = App.available_locales('fr-FR', localized)
       expect(fr_locales).to eq(['fr-CA', 'en-US', 'en', 'en-AU'])
+      expect(App.is_localized('fr-CA', fr_locales)).to eq('fr-CA')
+      expect(App.is_localized('fr-FR', fr_locales)).to eq('fr-CA')
+      expect(App.is_localized('zh-CN', fr_locales)).to eq(nil)
 
       en_locales = App.available_locales('en', localized)
       expect(en_locales).to eq(['en', 'en-US', 'en-AU'])
+      expect(App.is_localized('en-AU', en_locales)).to eq('en-AU')
+      expect(App.is_localized('en-ZA', en_locales)).to eq('en')
+      expect(App.is_localized('fr-FR', en_locales)).to eq(nil)
 
       zh_locales = App.available_locales('zh', localized)
       expect(zh_locales).to eq(['en-US', 'en', 'en-AU'])
+      expect(App.is_localized('fr-FR', zh_locales)).to eq(nil)
+      expect(App.is_localized('zh-CN', zh_locales)).to eq(nil)
     end
 
     it 'Calculates localized metadata correctly' do
@@ -176,6 +192,7 @@ here"
       checkey_en_AU = parse_checkey_from_gp('en_AU').to_data
       checkey_en = parse_checkey_from_gp('en').to_data
       checkey_unknown = parse_checkey_from_gp('unknown locale').to_data
+      checkey_unknown['is_localized'] = 'en-US' # fake this to keep the test simple
 
       expect(checkey_en_US).to eql(checkey_en_AU)
       expect(checkey_en_US).to eql(checkey_en)
@@ -296,6 +313,7 @@ here"
         "liberapay" => "~27859",
         "liberapayID" => "27859",
         "icon" => "icons-640/org.fdroid.fdroid.1005050.png",
+        "is_localized" => "en-US",
         "title" => "F-Droid",
         "whats_new" => "* huge overhaul of the \"Versions\" list in the App Details screen, and many other UI improvements, thanks to new contributor @wsdfhjxc<br /><br />* fix keyboard/d-pad navigation in many places, thanks to new contributor @doeffinger<br /><br />* show \"Open\" button when media is installed and viewable<br /><br />* add Share button to \"Installed Apps\" to export CSV list<br /><br />* add clickable list of APKs to the swap HTML index page <br /><br />* retry index downloads from mirrors<br /><br />* fix \"Send F-Droid via Bluetooth\" on recent Android versions<br />",
         "summary" => "The app store that respects freedom and privacy",

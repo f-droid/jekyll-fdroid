@@ -26,6 +26,7 @@ module FDroid
       @app = app
       @locale = locale
       @available_locales = app.key?('localized') ? App.available_locales(locale, app['localized']) : nil
+      @is_localized = App.is_localized(locale, @available_locales)
     end
 
     def package_name
@@ -128,6 +129,7 @@ module FDroid
         'website' => field('webSite'),
         'added' => field('added'),
         'last_updated' => field('lastUpdated'),
+        'is_localized' => @is_localized,
         'whats_new' => App.process_app_description(App.localized(@available_locales, @app['localized'], 'whatsNew')),
 
         'icon' => icon,
@@ -216,6 +218,30 @@ module FDroid
       available_locales.each do |l|
         if localized[l].key?(field)
           return localized[l][field].map { |val| "#{l}/#{field}/#{val}" }
+        end
+      end
+      return nil
+    end
+
+    # simple test for whether this app contains localized metadata for this app
+    def self.is_localized(locale, available_locales)
+      return nil unless locale != nil and available_locales != nil
+      return locale if locale == '_'
+
+      available_locales.each do |l|
+        if l == locale
+          return l
+        end
+      end
+      lang = locale.split(/[_-]/)[0]
+      available_locales.each do |l|
+        if l == lang
+          return l
+        end
+      end
+      available_locales.each do |l|
+        if l.start_with?(lang)
+          return l
         end
       end
       return nil
