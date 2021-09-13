@@ -147,7 +147,6 @@ here"
 
       expect(index.repo.name).to eql('Guardian Project Official Releases')
       expect(index.repo.address).to eql('https://guardianproject.info/fdroid/repo')
-      expect(index.repo.icon_url).to eql('https://guardianproject.info/fdroid/repo/icons/guardianproject.png')
       expect(index.repo.date).to eql(Date.new(2017, 07, 19))
       expect(index.repo.description).to eql(
         'The official app repository of The Guardian Project. Applications in ' +
