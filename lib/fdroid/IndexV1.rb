@@ -16,16 +16,18 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 require 'tmpdir'
+require 'fileutils'
 require 'open-uri'
 require 'net/http'
 require 'json'
+require 'set'
 require 'zip'
 require_relative './App'
 require_relative './Repo'
 
 module FDroid
   class IndexV1
-    attr_reader :apps, :repo
+    attr_reader :anti_features, :apps, :repo
 
     @@downloaded_repos = {}
 
@@ -68,12 +70,51 @@ module FDroid
       end
     end
 
+    def check_for_anti_features(app_json, packages_json)
+      if app_json.has_key?('antiFeatures')
+        app_json['antiFeatures'].each do |anti_feature|
+          if not @anti_features.has_key?(anti_feature)
+            @anti_features[anti_feature] = Set.new
+          end
+          @anti_features[anti_feature] << app_json['packageName']
+        end
+      end
+      packages_json.each do |package|
+        if package.has_key?('antiFeatures')
+          package['antiFeatures'].each do |anti_feature|
+            if not anti_features.has_key?(anti_feature)
+              @anti_features[anti_feature] = Set.new
+            end
+            @anti_features[anti_feature] << app_json['packageName']
+          end
+        end
+      end
+    end
+
+    def write_out_anti_features(timestamp)
+      @anti_features.each do |key, app_set|
+        @anti_features[key] = app_set.sort
+      end
+      data_dir = "_data"
+      Dir.mkdir(data_dir) unless File.exists?(data_dir)
+      afj = File.join data_dir, "anti_features.json"
+      # repo timestamp is a Java-style UNIX timestamp in milliseconds
+      if not File.exists? afj or File.mtime(afj) != (timestamp / 1000)
+        File.open(afj, "w") do |f|
+          f.write(@anti_features.to_json)
+        end
+        FileUtils.touch afj, mtime: (timestamp / 1000)
+      end
+    end
+
     def initialize(index, locale)
+      @anti_features = Hash.new
       @apps = index['apps'].map do |app_json|
         packages_json = index['packages'][app_json['packageName']]
+        check_for_anti_features(app_json, packages_json)
         App.new(app_json, packages_json, locale)
       end
-
+      write_out_anti_features(index['repo']['timestamp'])
       @repo = Repo.new(index['repo'])
     end
   end

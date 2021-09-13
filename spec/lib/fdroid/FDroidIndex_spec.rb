@@ -3,6 +3,7 @@
 require 'rspec'
 require 'pp'
 require 'json'
+require 'tmpdir'
 require_relative '../../../lib/fdroid/IndexV1'
 require_relative '../../../lib/fdroid/App'
 
@@ -220,6 +221,20 @@ here"
 
       expect(camerav_en_US['liberapay']).to eql('GuardianProject')
       expect(camerav_en_US['liberapayID']).to eql(nil)
+    end
+
+    it 'Find the Anti-Features in the F-Droid repo metadata correctly' do
+      path = File.expand_path '../../assets/index-v1.json', File.dirname(__FILE__)
+      index_json = JSON.parse(File.read(path))
+      Dir.mktmpdir do |dir|
+        Dir.chdir(dir) do
+          f = "_data/anti_features.json"
+          expect(File).not_to exist(f)
+          index = FDroid::IndexV1.new(index_json, 'en_US')
+          expect(index_json['repo']['timestamp'] / 1000).to eql(File.mtime(f).to_i)
+          expect(File).to exist(f)
+        end
+      end
     end
 
     it 'Processes the F-Droid repo metadata correctly' do
