@@ -52,7 +52,7 @@
         width: $icon-size;
         height: $icon-size;
         margin-top: $spacing-unit / 4;
-        margin-right: $spacing-unit / 2;
+        margin-inline-end: $spacing-unit / 2;
         flex-shrink: 0;
     }
 
@@ -156,7 +156,7 @@
  */
 .package-versions-list {
 	list-style:none;
-    padding-left:0;
+    padding-inline-start: 0;
 }
 
 .package-version {
