@@ -1,7 +1,7 @@
 {% assign packages = site.packages | sort: "last_updated" | reverse | sort: "added" | reverse %}
 {% assign remaining = 3 %}
 {% for package in packages %}
-{% if package.is_localized and package.icon and package.summary and package.whats_new %}
+{% if package.is_localized and package.icon and package.summary and package.whats_new and package.anti_features == null %}
 {% include package-list-item.html package=package %}
 {% assign remaining = remaining | minus: 1 %}
 {% endif %}
@@ -10,7 +10,7 @@
 
 {% for package in packages %}
 {% if remaining <= 0 %}{% break %}{% endif %}
-{% if package.is_localized and package.icon and package.summary %}
+{% if package.is_localized and package.icon and package.summary and package.anti_features == null %}
 {% include package-list-item.html package=package %}
 {% assign remaining = remaining | minus: 1 %}
 {% endif %}
