@@ -22,7 +22,7 @@ module Jekyll
     # We need do define it ourself because the templates are in the plugin's directory
     def read_yaml(base, name, opts = {})
       begin
-        self.content = File.read(File.join(base.to_s, name.to_s), (site ? site.file_read_opts : {}).merge(opts))
+        self.content = File.read(File.join(base.to_s, name.to_s), **(site ? site.file_read_opts : {}).merge(opts))
         if content =~ /\A(---\s*\n.*?\n?)^((---|\.\.\.)\s*$\n?)/m
           self.content = $POSTMATCH
           self.data = SafeYAML.load($1)
