@@ -4,10 +4,10 @@ require 'rspec'
 require 'pp'
 require 'json'
 require_relative '../../../lib/fdroid/IndexV1'
-require_relative '../../../lib/fdroid/App'
+require_relative '../../../lib/fdroid/Package'
 
 module FDroid
-  RSpec.describe App do
+  RSpec.describe Package do
     localized_path = File.expand_path '../../assets/localized.json', File.dirname(__FILE__)
     localized = JSON.parse(File.read(localized_path))
 
@@ -15,45 +15,45 @@ module FDroid
     gp_json = JSON.parse(File.read(gp_path))
 
     it 'Decides which locales to use' do
-      de_locales = App.available_locales('de-DE', localized)
+      de_locales = Package.available_locales('de-DE', localized)
       expect(de_locales).to eq(['de-DE', 'de', 'de-AT', 'en-US', 'en', 'en-AU'])
-      expect(App.is_localized('de-CH', de_locales)).to eq('de')
-      expect(App.is_localized('de', de_locales)).to eq('de')
-      expect(App.is_localized('de-DE', de_locales)).to eq('de-DE')
-      expect(App.is_localized('de-AT', de_locales)).to eq('de-AT')
-      expect(App.is_localized('en-AU', de_locales)).to eq('en-AU')
-      expect(App.is_localized('en-US', de_locales)).to eq('en-US')
-      expect(App.is_localized('en-GB', de_locales)).to eq('en')
-      expect(App.is_localized('zh-CN', de_locales)).to eq(nil)
+      expect(Package.is_localized('de-CH', de_locales)).to eq('de')
+      expect(Package.is_localized('de', de_locales)).to eq('de')
+      expect(Package.is_localized('de-DE', de_locales)).to eq('de-DE')
+      expect(Package.is_localized('de-AT', de_locales)).to eq('de-AT')
+      expect(Package.is_localized('en-AU', de_locales)).to eq('en-AU')
+      expect(Package.is_localized('en-US', de_locales)).to eq('en-US')
+      expect(Package.is_localized('en-GB', de_locales)).to eq('en')
+      expect(Package.is_localized('zh-CN', de_locales)).to eq(nil)
 
-      fr_locales = App.available_locales('fr-FR', localized)
+      fr_locales = Package.available_locales('fr-FR', localized)
       expect(fr_locales).to eq(['fr-CA', 'en-US', 'en', 'en-AU'])
-      expect(App.is_localized('fr-CA', fr_locales)).to eq('fr-CA')
-      expect(App.is_localized('fr-FR', fr_locales)).to eq('fr-CA')
-      expect(App.is_localized('zh-CN', fr_locales)).to eq(nil)
+      expect(Package.is_localized('fr-CA', fr_locales)).to eq('fr-CA')
+      expect(Package.is_localized('fr-FR', fr_locales)).to eq('fr-CA')
+      expect(Package.is_localized('zh-CN', fr_locales)).to eq(nil)
 
-      en_locales = App.available_locales('en', localized)
+      en_locales = Package.available_locales('en', localized)
       expect(en_locales).to eq(['en', 'en-US', 'en-AU'])
-      expect(App.is_localized('en-AU', en_locales)).to eq('en-AU')
-      expect(App.is_localized('en-ZA', en_locales)).to eq('en')
-      expect(App.is_localized('fr-FR', en_locales)).to eq(nil)
+      expect(Package.is_localized('en-AU', en_locales)).to eq('en-AU')
+      expect(Package.is_localized('en-ZA', en_locales)).to eq('en')
+      expect(Package.is_localized('fr-FR', en_locales)).to eq(nil)
 
-      zh_locales = App.available_locales('zh', localized)
+      zh_locales = Package.available_locales('zh', localized)
       expect(zh_locales).to eq(['en-US', 'en', 'en-AU'])
-      expect(App.is_localized('fr-FR', zh_locales)).to eq(nil)
-      expect(App.is_localized('zh-CN', zh_locales)).to eq(nil)
+      expect(Package.is_localized('fr-FR', zh_locales)).to eq(nil)
+      expect(Package.is_localized('zh-CN', zh_locales)).to eq(nil)
     end
 
     it 'Calculates localized metadata correctly' do
-      de_locales = App.available_locales('de-DE', localized)
+      de_locales = Package.available_locales('de-DE', localized)
 
-      name = App.localized(de_locales, localized, 'name')
+      name = Package.localized(de_locales, localized, 'name')
       expect(name).to eql('App [de-DE]')
 
-      feature_graphic = App.localized_graphic_path(de_locales, localized, 'featureGraphic')
+      feature_graphic = Package.localized_graphic_path(de_locales, localized, 'featureGraphic')
       expect(feature_graphic).to eql('de-DE/Feature Graphic [de-DE].png')
 
-      phone_screenshots = App.localized_graphic_list_paths(de_locales, localized, 'phoneScreenshots')
+      phone_screenshots = Package.localized_graphic_list_paths(de_locales, localized, 'phoneScreenshots')
       expect(phone_screenshots).to eql(
         [
           'de-DE/phoneScreenshots/Phone 1 [de-DE].jpg',
@@ -62,7 +62,7 @@ module FDroid
       )
     end
 
-    it 'Formats app descriptions correctly' do
+    it 'Formats package descriptions correctly' do
       text = "This
 is
 a
@@ -71,40 +71,40 @@ multi-line
 
 string
 here"
-      multi_line = App.format_description_to_html(text)
+      multi_line = Package.format_description_to_html(text)
       expect(multi_line).to eql("This<br />is<br />a<br /><br />multi-line<br /><br />string<br />here")
     end
 
     it 'Formats f-droid.org links in descriptions' do
       text = "fdroid.app:com.linuxcounter.lico_update_003:"
-      multi_line = App.process_app_description(text)
+      multi_line = Package.process_package_description(text)
       expect(multi_line).to eql('<a href="/packages/com.linuxcounter.lico_update_003/"><tt>com.linuxcounter.lico_update_003</tt></a>:')
 
       text = "pointing to https://f-droid.org/packages/com.banasiak.coinflip/:
     This"
-      multi_line = App.process_app_description(text)
+      multi_line = Package.process_package_description(text)
       expect(multi_line).to eql('pointing to <a href="https://f-droid.org/packages/com.banasiak.coinflip/"><tt>com.banasiak.coinflip</tt></a>:<br />    This')
 
-      text = "Starting with https://f-droid.org/packages/SpeedoMeterApp.main.
+      text = "Starting with https://f-droid.org/packages/SpeedoMeterPackage.main.
     (this"
-      multi_line = App.process_app_description(text)
-      expect(multi_line).to eql('Starting with <a href="https://f-droid.org/packages/SpeedoMeterApp.main/"><tt>SpeedoMeterApp.main</tt></a>.<br />    (this')
+      multi_line = Package.process_package_description(text)
+      expect(multi_line).to eql('Starting with <a href="https://f-droid.org/packages/SpeedoMeterPackage.main/"><tt>SpeedoMeterPackage.main</tt></a>.<br />    (this')
 
       text = "works https://f-droid.org/packages/org.fitchfamily.android.wifi_backend_v2)
     Do"
-      multi_line = App.process_app_description(text)
+      multi_line = Package.process_package_description(text)
       expect(multi_line).to eql('works <a href="https://f-droid.org/packages/org.fitchfamily.android.wifi_backend_v2/"><tt>org.fitchfamily.android.wifi_backend_v2</tt></a>)<br />    Do')
 
       text = "forget https://f-droid.org/packages/org.microg.nlp"
-      multi_line = App.process_app_description(text)
+      multi_line = Package.process_package_description(text)
       expect(multi_line).to eql('forget <a href="https://f-droid.org/packages/org.microg.nlp/"><tt>org.microg.nlp</tt></a>')
 
       text = '    * <a href="https://f-droid.org/en/packages/player.efis.data.usa.can/">North America, Canada</a>'
-      multi_line = App.process_app_description(text)
+      multi_line = Package.process_package_description(text)
       expect(multi_line).to eql(text)
 
       text = '   <a href="https://f-droid.org/en/packages/player.efis.mfd//">Kwik DMAP</a> is a stand-alone digital'
-      multi_line = App.process_app_description(text)
+      multi_line = Package.process_package_description(text)
       expect(multi_line).to eql(text)
     end
   end
@@ -137,7 +137,7 @@ here"
     it 'Downloads and extracts jar files', :network => true do
       repo = 'https://guardianproject.info/fdroid/repo'
       index = FDroid::IndexV1.download(repo, 'en_US')
-      expect(index.apps.count).to be >= 10
+      expect(index.packages.count).to be >= 10
     end
 
     def parse_checkey_from_gp(locale)
@@ -155,27 +155,27 @@ here"
         'are released in the Google Play store. '
       )
 
-      expect(index.apps.count).to eql(11)
+      expect(index.packages.count).to eql(11)
 
-      # Force each app to parse itself and make sure it doesn't crash.
-      index.apps.each { |app| app.to_data }
+      # Force each package to parse itself and make sure it doesn't crash.
+      index.packages.each { |package| package.to_data }
 
-      # Then return Checkey when we know that each app is able to be parsed.
-      index.apps.detect { |app| app.package_name == 'info.guardianproject.checkey' }
+      # Then return Checkey when we know that each package is able to be parsed.
+      index.packages.detect { |package| package.package_name == 'info.guardianproject.checkey' }
     end
 
     def parse_camerav_from_gp(locale)
       path = File.expand_path '../../assets/index-v1.gp.json', File.dirname(__FILE__)
       index_json = JSON.parse(File.read(path))
       index = FDroid::IndexV1.new(index_json, locale)
-      index.apps.detect { |app| app.package_name == 'org.witness.informacam.app' }
+      index.packages.detect { |package| package.package_name == 'org.witness.informacam.app' }
     end
 
     def parse_loofah_test_from_gp()
       path = File.expand_path '../../assets/index-v1.gp.json', File.dirname(__FILE__)
       index_json = JSON.parse(File.read(path))
       index = FDroid::IndexV1.new(index_json, 'en_US')
-      index.apps.detect { |app| app.package_name == 'loofah.test' }
+      index.packages.detect { |package| package.package_name == 'loofah.test' }
     end
 
     it 'Loofah runs on all text fields that can be rendered with HTML' do
@@ -238,12 +238,12 @@ here"
         'source-built version. '
       )
 
-      expect(index.apps.count).to eql(1717)
+      expect(index.packages.count).to eql(1717)
 
-      # Force each app to parse itself and make sure it doesn't crash.
-      index.apps.each { |app| app.to_data }
+      # Force each package to parse itself and make sure it doesn't crash.
+      index.packages.each { |package| package.to_data }
 
-      fdroid = index.apps.detect { |app| app.package_name == 'org.fdroid.fdroid' }.to_data
+      fdroid = index.packages.detect { |package| package.package_name == 'org.fdroid.fdroid' }.to_data
 
       # Assert that versions are ordered in reverse-chronological order
       expect(fdroid['versions'].map { |p| p['version_code'] }).to eql([1005050, 1005002, 1005001, 1005000, 1004050, 1004001, 1004000, 1003051, 1003050, 1003005, 1003004, 1003003])
@@ -287,7 +287,7 @@ here"
         "version_code" => 1005050,
       }
 
-      expected_app = {
+      expected_package = {
         "package_name" => "org.fdroid.fdroid",
         "author_email" => nil,
         "author_name" => nil,
@@ -351,27 +351,27 @@ here"
         "beautiful_url" => "/packages/org.fdroid.fdroid"
       }
 
-      expect(fdroid).to eql(expected_app)
+      expect(fdroid).to eql(expected_package)
       expect(fdroid_version).to eql(expected_version)
 
-      anysoftkeyboard = index.apps.detect { |app| app.package_name == 'com.menny.android.anysoftkeyboard' }.to_data
+      anysoftkeyboard = index.packages.detect { |package| package.package_name == 'com.menny.android.anysoftkeyboard' }.to_data
       expect(anysoftkeyboard['whats_new']).to eql("* Power-Saving mode improvements - you can pick which features to include in Power-Saving.<br />* Also, we allow switching to dark, simple theme in Power-Saving mode. But this is optional.<br />* New Workman layout, Terminal generic-top-row and long-press fixes. Done by Alex Griffin.<br />* Updated localization: AR, BE, EU, FR, HU, IT, KA, KN, KU, LT, NB, NL, PT, RO, RU, SC, UK.<br /><br />More here: https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/87")
 
-      subreddit = index.apps.detect { |app| app.package_name == 'subreddit.android.appstore' }.to_data
-      expected_app_anti_features = [
+      subreddit = index.packages.detect { |package| package.package_name == 'subreddit.android.appstore' }.to_data
+      expected_package_anti_features = [
         "NonFreeAdd",
         "NonFreeNet",
       ]
-      expect(subreddit['anti_features']).to eql(expected_app_anti_features)
+      expect(subreddit['anti_features']).to eql(expected_package_anti_features)
 
-      droidnotify = index.apps.detect { |app| app.package_name == 'apps.droidnotify' }.to_data
+      droidnotify = index.packages.detect { |package| package.package_name == 'apps.droidnotify' }.to_data
       droidnotify_version = droidnotify['versions'][0]
       expected_version_anti_features = [
         "NoSourceSince"
       ]
       expect(droidnotify_version['anti_features']).to eql(expected_version_anti_features)
 
-      perms_minsdk = index.apps.detect { |app| app.package_name == "protect.gift_card_guard" }.to_data
+      perms_minsdk = index.packages.detect { |package| package.package_name == "protect.gift_card_guard" }.to_data
       perms_minsdk_version = perms_minsdk['versions'][0]
 
       expected_uses_permissions = [

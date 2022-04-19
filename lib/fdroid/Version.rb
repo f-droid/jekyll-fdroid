@@ -73,7 +73,7 @@ module FDroid
     private
 
     def field(name)
-      @app.key?(name) ? name : nil
+      @package.key?(name) ? name : nil
     end
   end
 end

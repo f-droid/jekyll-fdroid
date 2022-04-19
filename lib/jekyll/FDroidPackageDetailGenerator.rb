@@ -54,7 +54,7 @@ module Jekyll
 
         # Generate detail page for every package
         site.collections["packages"] = Collection.new(site, "packages")
-        index.apps.each do |package|
+        index.packages.each do |package|
           # This page needs to be created twice, once for site.pages, and once for site.collections.
           # If not, then the i18n code in jekyll-polyglot will end up processing the page twice, as
           # it iterates over all pages and all packages. The end result is a double prefix for "/en/en"
@@ -68,7 +68,7 @@ module Jekyll
             app_category_id.sub!('&amp;', '&')
             app_category_id = Utils.slugify(app_category_id)
             if site.collections[app_category_id].nil?
-              puts("Warning: App '#{package.package_name}' has unknown category '#{app_category}', will be ignored")
+              puts("Warning: Package '#{package.package_name}' has unknown category '#{app_category}', will be ignored")
             else
               site.collections[app_category_id].docs << FDroidPackageDetailPage.new(site, site.source, package)
             end

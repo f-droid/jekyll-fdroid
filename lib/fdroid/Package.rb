@@ -19,14 +19,14 @@ require 'loofah'
 require_relative './Version'
 
 module FDroid
-  class App
-    def initialize(app, versions, locale)
+  class Package
+    def initialize(package, versions, locale)
       # Sort versions in reverse-chronological order
       @versions = versions.map { |p| Version.new(p) }
-      @app = app
+      @package = package
       @locale = locale
-      @available_locales = app.key?('localized') ? App.available_locales(locale, app['localized']) : nil
-      @is_localized = App.is_localized(locale, @available_locales)
+      @available_locales = package.key?('localized') ? Package.available_locales(locale, package['localized']) : nil
+      @is_localized = Package.is_localized(locale, @available_locales)
     end
 
     def package_name
@@ -38,7 +38,7 @@ module FDroid
     end
 
     def icon
-      localized = App.localized_graphic_path(@available_locales, @app['localized'], 'icon')
+      localized = Package.localized_graphic_path(@available_locales, @package['localized'], 'icon')
       if localized
         "#{package_name}/#{localized}"
       elsif field('icon')
@@ -49,7 +49,7 @@ module FDroid
     # this must exist since all entries are sorted by name,
     # it uses tildes since they sort last
     def name
-      n = field('name') || App.localized(@available_locales, @app['localized'], 'name') || '~missing name~'
+      n = field('name') || Package.localized(@available_locales, @package['localized'], 'name') || '~missing name~'
 
       if n != nil
         n = Loofah.scrub_fragment(n, :escape).to_text()
@@ -59,7 +59,7 @@ module FDroid
     end
 
     def summary
-      s = field('summary') || App.localized(@available_locales, @app['localized'], 'summary')
+      s = field('summary') || Package.localized(@available_locales, @package['localized'], 'summary')
 
       if s != nil
         s = Loofah.scrub_fragment(s, :escape).to_text()
@@ -69,10 +69,10 @@ module FDroid
     end
 
     def description
-      desc = field('description') || App.localized(@available_locales, @app['localized'], 'description')
+      desc = field('description') || Package.localized(@available_locales, @package['localized'], 'description')
 
       if desc != nil
-        desc = App.process_app_description(desc)
+        desc = Package.process_package_description(desc)
       end
 
       return desc
@@ -130,19 +130,19 @@ module FDroid
         'added' => field('added'),
         'last_updated' => field('lastUpdated'),
         'is_localized' => @is_localized,
-        'whats_new' => App.process_app_description(App.localized(@available_locales, @app['localized'], 'whatsNew')),
+        'whats_new' => Package.process_package_description(Package.localized(@available_locales, @package['localized'], 'whatsNew')),
 
         'icon' => icon,
         'title' => name,
         'summary' => summary,
 
         'description' => description,
-        'feature_graphic' => App.localized_graphic_path(@available_locales, @app['localized'], 'featureGraphic'),
-        'phone_screenshots' => App.localized_graphic_list_paths(@available_locales, @app['localized'], 'phoneScreenshots'),
-        'seven_inch_screenshots' => App.localized_graphic_list_paths(@available_locales, @app['localized'], 'sevenInchScreenshots'),
-        'ten_inch_screenshots' => App.localized_graphic_list_paths(@available_locales, @app['localized'], 'tenInchScreenshots'),
-        'tv_screenshots' => App.localized_graphic_list_paths(@available_locales, @app['localized'], 'tvScreenshots'),
-        'wear_screenshots' => App.localized_graphic_list_paths(@available_locales, @app['localized'], 'wearScreenshots'),
+        'feature_graphic' => Package.localized_graphic_path(@available_locales, @package['localized'], 'featureGraphic'),
+        'phone_screenshots' => Package.localized_graphic_list_paths(@available_locales, @package['localized'], 'phoneScreenshots'),
+        'seven_inch_screenshots' => Package.localized_graphic_list_paths(@available_locales, @package['localized'], 'sevenInchScreenshots'),
+        'ten_inch_screenshots' => Package.localized_graphic_list_paths(@available_locales, @package['localized'], 'tenInchScreenshots'),
+        'tv_screenshots' => Package.localized_graphic_list_paths(@available_locales, @package['localized'], 'tvScreenshots'),
+        'wear_screenshots' => Package.localized_graphic_list_paths(@available_locales, @package['localized'], 'wearScreenshots'),
 
         'versions' => @versions.sort.reverse.map { |p| p.to_data },
 
@@ -153,7 +153,7 @@ module FDroid
     # Any transformations which are required to turn the "description" into something which is
     # displayable via HTML is done here (e.g. replacing "fdroid.app:" schemes, formatting new lines,
     # etc.
-    def self.process_app_description(string)
+    def self.process_package_description(string)
       if string == nil
         return nil
       end
@@ -302,8 +302,8 @@ module FDroid
     private
 
     def field(name)
-      if @app.key?(name)
-        value = @app[name]
+      if @package.key?(name)
+        value = @package[name]
         case value
         when Float then return value
         when Integer then return value
