@@ -18,9 +18,9 @@
 require_relative './Permission'
 
 module FDroid
-  class Package
-    def initialize(package)
-      @package = package
+  class Version
+    def initialize(version)
+      @version = version
     end
 
     def <=>(other)
@@ -28,34 +28,34 @@ module FDroid
     end
 
     def version_code
-      @package['versionCode']
+      @version['versionCode']
     end
 
     def version_name
-      @package['versionName']
+      @version['versionName']
     end
 
     def to_data
       added = nil
-      if @package['added'] != nil then
-        added = Date.strptime("#{@package['added'] / 1000}", '%s')
+      if @version['added'] != nil then
+        added = Date.strptime("#{@version['added'] / 1000}", '%s')
       end
 
       {
         'added' => added,
-        'anti_features' => @package['antiFeatures'],
-        'apk_name' => @package['apkName'],
-        'file_extension' => File.extname(@package['apkName'].to_s).strip.upcase[1..-1],
-        'hash' => @package['hash'],
-        'hash_type' => @package['hashType'],
-        'max_sdk_version' => @package['maxSdkVersion'],
-        'min_sdk_version' => @package['minSdkVersion'],
-        'nativecode' => @package['nativecode'],
-        'srcname' => @package['srcname'],
-        'sig' => @package['sig'],
-        'signer' => @package['signer'],
-        'size' => @package['size'],
-        'target_sdk_version' => @package['targetSdkVersion'],
+        'anti_features' => @version['antiFeatures'],
+        'apk_name' => @version['apkName'],
+        'file_extension' => File.extname(@version['apkName'].to_s).strip.upcase[1..-1],
+        'hash' => @version['hash'],
+        'hash_type' => @version['hashType'],
+        'max_sdk_version' => @version['maxSdkVersion'],
+        'min_sdk_version' => @version['minSdkVersion'],
+        'nativecode' => @version['nativecode'],
+        'srcname' => @version['srcname'],
+        'sig' => @version['sig'],
+        'signer' => @version['signer'],
+        'size' => @version['size'],
+        'target_sdk_version' => @version['targetSdkVersion'],
         'uses_permission' => permission,
         'version_name' => version_name,
         'version_code' => version_code,
@@ -63,10 +63,10 @@ module FDroid
     end
 
     def permission
-      if @package['uses-permission'] == nil then
+      if @version['uses-permission'] == nil then
         []
       else
-        @package['uses-permission'].map { |perm| Permission.new(perm).to_data }
+        @version['uses-permission'].map { |perm| Permission.new(perm).to_data }
       end
     end
 

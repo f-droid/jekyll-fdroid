@@ -114,7 +114,7 @@ here"
       permission = Permission.new(["my-permission", nil]).to_data
       expect(permission).to eql({ "permission" => "my-permission", "min_sdk" => nil })
 
-      package = Package.new(
+      version = Version.new(
         {
           "uses-permission" =>
           [
@@ -124,7 +124,7 @@ here"
         }
       ).to_data
 
-      expect(package['uses_permission']).to eql(
+      expect(version['uses_permission']).to eql(
         [
           { "permission" => "perm1", "min_sdk" => nil },
           { "permission" => "perm2", "min_sdk" => 24 },
@@ -245,13 +245,13 @@ here"
 
       fdroid = index.apps.detect { |app| app.package_name == 'org.fdroid.fdroid' }.to_data
 
-      # Assert that packages are ordered in reverse-chronological order
-      expect(fdroid['packages'].map { |p| p['version_code'] }).to eql([1005050, 1005002, 1005001, 1005000, 1004050, 1004001, 1004000, 1003051, 1003050, 1003005, 1003004, 1003003])
+      # Assert that versions are ordered in reverse-chronological order
+      expect(fdroid['versions'].map { |p| p['version_code'] }).to eql([1005050, 1005002, 1005001, 1005000, 1004050, 1004001, 1004000, 1003051, 1003050, 1003005, 1003004, 1003003])
 
-      fdroid_package = fdroid['packages'][0]
-      fdroid['packages'] = nil # remove packages for later app test
+      fdroid_version = fdroid['versions'][0]
+      fdroid['versions'] = nil # remove versions for later app test
 
-      expected_package = {
+      expected_version = {
         "added" => Date.new(2018, 12, 27),
         "anti_features" => nil,
         "apk_name" => "org.fdroid.fdroid_1005050.apk",
@@ -347,12 +347,12 @@ here"
         "ten_inch_screenshots" => nil,
         "tv_screenshots" => nil,
         "wear_screenshots" => nil,
-        "packages" => nil,
+        "versions" => nil,
         "beautiful_url" => "/packages/org.fdroid.fdroid"
       }
 
       expect(fdroid).to eql(expected_app)
-      expect(fdroid_package).to eql(expected_package)
+      expect(fdroid_version).to eql(expected_version)
 
       anysoftkeyboard = index.apps.detect { |app| app.package_name == 'com.menny.android.anysoftkeyboard' }.to_data
       expect(anysoftkeyboard['whats_new']).to eql("* Power-Saving mode improvements - you can pick which features to include in Power-Saving.<br />* Also, we allow switching to dark, simple theme in Power-Saving mode. But this is optional.<br />* New Workman layout, Terminal generic-top-row and long-press fixes. Done by Alex Griffin.<br />* Updated localization: AR, BE, EU, FR, HU, IT, KA, KN, KU, LT, NB, NL, PT, RO, RU, SC, UK.<br /><br />More here: https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/87")
@@ -365,20 +365,20 @@ here"
       expect(subreddit['anti_features']).to eql(expected_app_anti_features)
 
       droidnotify = index.apps.detect { |app| app.package_name == 'apps.droidnotify' }.to_data
-      droidnotify_package = droidnotify['packages'][0]
-      expected_package_anti_features = [
+      droidnotify_version = droidnotify['versions'][0]
+      expected_version_anti_features = [
         "NoSourceSince"
       ]
-      expect(droidnotify_package['anti_features']).to eql(expected_package_anti_features)
+      expect(droidnotify_version['anti_features']).to eql(expected_version_anti_features)
 
       perms_minsdk = index.apps.detect { |app| app.package_name == "protect.gift_card_guard" }.to_data
-      perms_minsdk_package = perms_minsdk['packages'][0]
+      perms_minsdk_version = perms_minsdk['versions'][0]
 
       expected_uses_permissions = [
         { "permission" => "android.permission.WRITE_EXTERNAL_STORAGE", "min_sdk" => 18 },
         { "permission" => "android.permission.READ_EXTERNAL_STORAGE", "min_sdk" => 18 },
       ]
-      expect(perms_minsdk_package['uses_permission']).to eql(expected_uses_permissions)
+      expect(perms_minsdk_version['uses_permission']).to eql(expected_uses_permissions)
     end
   end
 end

@@ -70,8 +70,8 @@ module FDroid
 
     def initialize(index, locale)
       @apps = index['apps'].map do |app_json|
-        packages_json = index['packages'][app_json['packageName']]
-        App.new(app_json, packages_json, locale)
+        versions_json = index['packages'][app_json['packageName']]
+        App.new(app_json, versions_json, locale)
       end
 
       @repo = Repo.new(index['repo'])

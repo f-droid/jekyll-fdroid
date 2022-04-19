@@ -16,13 +16,13 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 require 'loofah'
-require_relative './Package'
+require_relative './Version'
 
 module FDroid
   class App
-    def initialize(app, packages, locale)
-      # Sort packages in reverse-chronological order
-      @packages = packages.map { |p| Package.new(p) }
+    def initialize(app, versions, locale)
+      # Sort versions in reverse-chronological order
+      @versions = versions.map { |p| Version.new(p) }
       @app = app
       @locale = locale
       @available_locales = app.key?('localized') ? App.available_locales(locale, app['localized']) : nil
@@ -94,7 +94,7 @@ module FDroid
     # If a specific value is not present, then it will have a nil value.
     # If a value can be localized, then it will choose the most appropriate
     # translation based on @available_locales and @locale.
-    # The 'packages' key is an array of Package.to_data hashes.
+    # The 'versions' key is an array of Version.to_data hashes.
     # @return [Hash]
     def to_data
       liberapay = field('liberapay')
@@ -121,7 +121,7 @@ module FDroid
         'categories' => field('categories'),
         'anti_features' => field('antiFeatures'),
         'suggested_version_code' => suggested_version_code,
-        'suggested_version_name' => @packages.detect { |p| p.version_code == suggested_version_code }&.version_name,
+        'suggested_version_name' => @versions.detect { |p| p.version_code == suggested_version_code }&.version_name,
         'issue_tracker' => field('issueTracker'),
         'changelog' => field('changelog'),
         'license' => field('license'),
@@ -144,7 +144,7 @@ module FDroid
         'tv_screenshots' => App.localized_graphic_list_paths(@available_locales, @app['localized'], 'tvScreenshots'),
         'wear_screenshots' => App.localized_graphic_list_paths(@available_locales, @app['localized'], 'wearScreenshots'),
 
-        'packages' => @packages.sort.reverse.map { |p| p.to_data },
+        'versions' => @versions.sort.reverse.map { |p| p.to_data },
 
         'beautiful_url' => "/packages/#{package_name}"
       }
