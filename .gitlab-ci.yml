@@ -59,6 +59,11 @@ fdroid-website:
     - jekyll build -d $CI_PROJECT_DIR/public --trace
     - ./tools/prepare-multi-lang.sh $CI_PROJECT_DIR/public --no-type-maps
 
+    # TODO kludge to get css until someone figures out why sass is not compiling the css
+    - apt-get install curl
+    - mkdir -p $CI_PROJECT_DIR/public/css
+    - curl https://fdroid.gitlab.io/fdroid-website/css/main.css > $CI_PROJECT_DIR/public/css/main.css
+
 
 pages:
   stage: deploy
