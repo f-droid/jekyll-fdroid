@@ -19,7 +19,7 @@ module Jekyll
   class FDroidPackageDetailPage < ReadYamlPage
     # @param [Jekyll::Site]  site
     # @param [string]  base
-    # @param [FDroid::App]  package
+    # @param [FDroid::Package]  package
     def initialize(site, base, package)
       @site = site
       @base = base

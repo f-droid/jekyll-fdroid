@@ -20,12 +20,12 @@ require 'open-uri'
 require 'net/http'
 require 'json'
 require 'zip'
-require_relative './App'
+require_relative './Package'
 require_relative './Repo'
 
 module FDroid
   class IndexV1
-    attr_reader :apps, :repo
+    attr_reader :packages, :repo
 
     @@downloaded_repos = {}
 
@@ -68,10 +68,12 @@ module FDroid
       end
     end
 
+    # What IndexV2 calls "packages", IndexV1 calls "apps"
+    # What IndexV2 calls "versions", IndexV1 calls "packages"
     def initialize(index, locale)
-      @apps = index['apps'].map do |app_json|
+      @packages = index['apps'].map do |app_json|
         packages_json = index['packages'][app_json['packageName']]
-        App.new(app_json, packages_json, locale)
+        Package.new(app_json, packages_json, locale)
       end
 
       @repo = Repo.new(index['repo'])
