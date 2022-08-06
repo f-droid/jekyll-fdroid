@@ -44,6 +44,14 @@ module FDroid
       expect(Package.is_localized('zh-CN', zh_locales)).to eq(nil)
     end
 
+    it 'Handles locale aliases' do
+      localized_zh = { 'en-US' => {}, 'zh-CN' => {}, 'zh-TW' => {} }
+      zh_Hant = Package.available_locales('zh_Hant', localized_zh)
+      expect(zh_Hant).to eq(['zh-TW', 'zh-CN', 'en-US'])
+      zh_Hans = Package.available_locales('zh_Hans', localized_zh)
+      expect(zh_Hans).to eq(['zh-CN', 'zh-TW', 'en-US'])
+    end
+
     it 'Calculates localized metadata correctly' do
       de_locales = Package.available_locales('de-DE', localized)
 

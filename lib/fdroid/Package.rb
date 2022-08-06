@@ -1,6 +1,7 @@
 # F-Droid's Jekyll Plugin
 #
 # Copyright (C) 2017 Nico Alt
+# Copyright (C) 2022 FC Stegerman <flx@obfusk.net>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
@@ -255,6 +256,7 @@ module FDroid
     #
     # These will be sorted in order of preference:
     #  * Exact matches (language and region)
+    #  * Language portion matches and region matches an "alias" (e.g. zh_Hant and zh-TW).
     #  * Language portion matches but region is absent/doesn't match.
     #  * en-US
     #  * en
@@ -268,8 +270,12 @@ module FDroid
     # @param [Hash]  localized_data
     # @return [Array]
     def self.available_locales(desired_locale, localized_data)
+      # website uses zh_Hant/zh_Hans, but zh-TW/zh-CN are common in localized data
+      aliases = { 'zh' => { 'Hant' => ['TW'], 'Hans' => ['CN'] } }
+
       parts = desired_locale.split(/[_-]/)
       desired_lang = parts[0]
+      desired_region = parts.length > 1 ? parts[1] : nil
 
       locales = localized_data.keys.select do |available_locale|
         parts = available_locale.split(/[_-]/)
@@ -284,13 +290,17 @@ module FDroid
         if locale == desired_locale
           return 1
         elsif lang == desired_lang
-          return 2
+          if aliases.fetch(lang, {}).fetch(desired_region, []).include?(region)
+            return 2
+          else
+            return 3
+          end
         elsif locale == 'en-US'
-          return 3
-        elsif lang == 'en' && region.nil?
           return 4
-        elsif lang == 'en'
+        elsif lang == 'en' && region.nil?
           return 5
+        elsif lang == 'en'
+          return 6
         end
       end
 
