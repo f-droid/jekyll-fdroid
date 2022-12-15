@@ -125,9 +125,9 @@ here"
       END
       output = <<~'END'.gsub("\n", '<br />')
         <b>bold text</b>
-        &lt;img src="https://example.com/image.png"&gt;
-        &lt;video src="https://example.com/video.ogg"&gt;&lt;/video&gt;
-        &lt;svg&gt;&lt;path d=""&gt;&lt;/path&gt;&lt;script&gt;alert("oops")&lt;/script&gt;&lt;/svg&gt;
+
+
+        alert("oops")
       END
       scrubbed = Package.process_package_description(input)
       expect(scrubbed).to eql(output)
@@ -205,10 +205,10 @@ here"
 
     it 'Loofah runs on all text fields that can be rendered with HTML' do
       loofah_test = parse_loofah_test_from_gp().to_data
-      expect(loofah_test['description']).to eq("This is just a test that &lt;script&gt;alert('pwned!')&lt;/script&gt; loofah is stripping.")
-      expect(loofah_test['summary']).to eq("트리거 불안에 때 개인 정보를 보호하거나 상황을 패닉 앱&lt;script&gt;alert('pwned!')&lt;/script&gt;")
-      expect(loofah_test['title']).to eq("&lt;script&gt;alert('PWN!')&lt;/script&gt;")
-      expect(loofah_test['whats_new']).to eq("Feature:<br />* Add support for packs (@Rudloff)<br />&lt;script&gt;alert('pwned!')&lt;/script&gt;<br />Minor:<br />* Change name to Launcher<br />")
+      expect(loofah_test['description']).to eq("This is just a test that alert('pwned!') loofah is stripping.")
+      expect(loofah_test['summary']).to eq("트리거 불안에 때 개인 정보를 보호하거나 상황을 패닉 앱alert('pwned!')")
+      expect(loofah_test['title']).to eq("alert('PWN!')")
+      expect(loofah_test['whats_new']).to eq("Feature:<br />* Add support for packs (@Rudloff)<br />alert('pwned!')<br />Minor:<br />* Change name to Launcher<br />")
     end
 
     it 'Parses the Guardian Project repo metadata correctly' do
