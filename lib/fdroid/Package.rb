@@ -23,7 +23,7 @@ require_relative './Version'
 module Loofah::HTML5::Scrub
   OVERRIDDEN_SAFE_ELEMENTS = Set.new(
     ["a", "b", "big", "blockquote", "br", "cite", "em", "i", "small",
-     "strike", "strong", "sub", "sup", "tt", "u"] + ["li", "ul"]
+     "strike", "strong", "sub", "sup", "tt", "u"] + ["li", "ol", "ul"]
   )
 
   def self.allowed_element?(element_name)
