@@ -19,6 +19,18 @@
 require 'loofah'
 require_relative './Version'
 
+# override the HTML elements loofah allows; be more restrictive
+module Loofah::HTML5::Scrub
+  OVERRIDDEN_SAFE_ELEMENTS = Set.new(
+    ["b", "big", "blockquote", "br", "cite", "em", "i", "small",
+     "strike", "strong", "sub", "sup", "tt", "u"]
+  )
+
+  def self.allowed_element?(element_name)
+    OVERRIDDEN_SAFE_ELEMENTS.include?(element_name)
+  end
+end
+
 module FDroid
   class Package
     def initialize(package, versions, locale)

@@ -115,6 +115,23 @@ here"
       multi_line = Package.process_package_description(text)
       expect(multi_line).to eql(text)
     end
+
+    it 'Scrubs <img>, <video>, <svg>, <script> tags' do
+      input = <<~'END'
+        <b>bold text</b>
+        <img src="https://example.com/image.png" />
+        <video src="https://example.com/video.ogg" />
+        <svg><path d=""/><script>alert("oops")</script></svg>
+      END
+      output = <<~'END'.gsub("\n", '<br />')
+        <b>bold text</b>
+        &lt;img src="https://example.com/image.png"&gt;
+        &lt;video src="https://example.com/video.ogg"&gt;&lt;/video&gt;
+        &lt;svg&gt;&lt;path d=""&gt;&lt;/path&gt;&lt;script&gt;alert("oops")&lt;/script&gt;&lt;/svg&gt;
+      END
+      scrubbed = Package.process_package_description(input)
+      expect(scrubbed).to eql(output)
+    end
   end
 
   RSpec.describe Permission do
