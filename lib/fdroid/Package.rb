@@ -19,6 +19,18 @@
 require 'loofah'
 require_relative './Version'
 
+# override the HTML elements loofah allows; be more restrictive
+module Loofah::HTML5::Scrub
+  OVERRIDDEN_SAFE_ELEMENTS = Set.new(
+    ["a", "b", "big", "blockquote", "br", "cite", "em", "i", "small",
+     "strike", "strong", "sub", "sup", "tt", "u"] + ["li", "ol", "ul"]
+  )
+
+  def self.allowed_element?(element_name)
+    OVERRIDDEN_SAFE_ELEMENTS.include?(element_name)
+  end
+end
+
 module FDroid
   class Package
     def initialize(package, versions, locale)
@@ -53,7 +65,7 @@ module FDroid
       n = field('name') || Package.localized(@available_locales, @package['localized'], 'name') || '~missing name~'
 
       if n != nil
-        n = Loofah.scrub_fragment(n, :escape).to_text()
+        n = Loofah.scrub_fragment(n, :strip).to_text()
       end
 
       return n
@@ -63,7 +75,7 @@ module FDroid
       s = field('summary') || Package.localized(@available_locales, @package['localized'], 'summary')
 
       if s != nil
-        s = Loofah.scrub_fragment(s, :escape).to_text()
+        s = Loofah.scrub_fragment(s, :strip).to_text()
       end
 
       return s
@@ -177,7 +189,7 @@ module FDroid
     # Ensure newlines in descriptions are preserved (converted to "<br />" tags)
     # Handles UNIX, Windows and MacOS newlines, with a one-to-one replacement
     def self.format_description_to_html(string)
-      Loofah.scrub_fragment(string, :escape).to_html(:save_with => 0).gsub(/(?:\n\r?|\r\n?)/, '<br />')
+      Loofah.scrub_fragment(string, :strip).to_html(:save_with => 0).gsub(/(?:\n\r?|\r\n?)/, '<br />')
     end
 
     # @param [string] available_locales
@@ -317,9 +329,9 @@ module FDroid
         case value
         when Float then return value
         when Integer then return value
-        when Array then return value.map { |i| Loofah.scrub_fragment(i, :escape).to_html(:save_with => 0) }
+        when Array then return value.map { |i| Loofah.scrub_fragment(i, :strip).to_html(:save_with => 0) }
         else
-          return Loofah.scrub_fragment(value, :escape).to_html(:save_with => 0)
+          return Loofah.scrub_fragment(value, :strip).to_html(:save_with => 0)
         end
       end
     end
