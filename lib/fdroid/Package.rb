@@ -17,6 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 require 'loofah'
+require 'uri'
 require_relative './Version'
 
 # override the HTML elements loofah allows; be more restrictive
@@ -30,6 +31,39 @@ module Loofah::HTML5::Scrub
     OVERRIDDEN_SAFE_ELEMENTS.include?(element_name)
   end
 end
+
+module Loofah::Scrubbers
+  class FDroid < Loofah::Scrubber
+    def initialize
+      @direction = :top_down
+    end
+
+    def scrub(node)
+      return CONTINUE unless (node.type == Nokogiri::XML::Node::ELEMENT_NODE) && (node.name == 'a')
+
+      node.keys.each do |attribute|
+        if attribute != 'href'
+          node.delete attribute
+        end
+      end
+
+      begin
+        url = URI.parse(node.attributes['href'].to_s)
+        return STOP if url.host == nil || url.host.empty? || url.host == 'f-droid.org'
+      rescue URI::Error
+        # treat this URL as external
+      end
+
+      append_attribute(node, 'rel', 'external')
+      append_attribute(node, 'rel', 'nofollow')
+      append_attribute(node, 'rel', 'noopener')
+      append_attribute(node, 'target', '_blank')
+      return STOP
+    end
+  end
+end
+
+Loofah::Scrubbers::MAP[:fdroid] = Loofah::Scrubbers::FDroid
 
 module FDroid
   class Package
@@ -189,7 +223,11 @@ module FDroid
     # Ensure newlines in descriptions are preserved (converted to "<br />" tags)
     # Handles UNIX, Windows and MacOS newlines, with a one-to-one replacement
     def self.format_description_to_html(string)
-      Loofah.scrub_fragment(string, :strip).to_html(:save_with => 0).gsub(/(?:\n\r?|\r\n?)/, '<br />')
+      Loofah.fragment(string)
+            .scrub!(:strip)
+            .scrub!(:fdroid)
+            .to_html(:save_with => 0)
+            .gsub(/(?:\n\r?|\r\n?)/, '<br />')
     end
 
     # @param [string] available_locales

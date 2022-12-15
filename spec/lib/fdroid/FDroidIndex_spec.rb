@@ -132,6 +132,29 @@ here"
       scrubbed = Package.process_package_description(input)
       expect(scrubbed).to eql(output)
     end
+
+    it 'Scrubs attributes from <a>' do
+      text = '<a href="https://f-droid.org/packages/An.stop/" ping="http://tracker.com">CLICK ME!</a>'
+      multi_line = Package.process_package_description(text)
+      expect(multi_line).to eql('<a href="https://f-droid.org/packages/An.stop/">CLICK ME!</a>')
+
+      text = '<a href="https://f-droid.org/packages/An.stop/" class="CSS tricks?">CLICK ME!</a>'
+      multi_line = Package.process_package_description(text)
+      expect(multi_line).to eql('<a href="https://f-droid.org/packages/An.stop/">CLICK ME!</a>')
+    end
+
+    it 'strips attributes and adds "rel" stuff to <a> tags' do
+      input = <<~'END'
+        <b>bold text</b>
+        <a href="https://example.com/" rel="canonical" ping="http://tracker.com">link</a>
+      END
+      output = <<~'END'.gsub("\n", '<br />')
+        <b>bold text</b>
+        <a href="https://example.com/" rel="external nofollow noopener" target="_blank">link</a>
+      END
+      scrubbed = Package.process_package_description(input)
+      expect(scrubbed).to eql(output)
+    end
   end
 
   RSpec.describe Permission do
