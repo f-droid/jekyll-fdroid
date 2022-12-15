@@ -22,7 +22,7 @@ require_relative './Version'
 # override the HTML elements loofah allows; be more restrictive
 module Loofah::HTML5::Scrub
   OVERRIDDEN_SAFE_ELEMENTS = Set.new(
-    ["b", "big", "blockquote", "br", "cite", "em", "i", "small",
+    ["a", "b", "big", "blockquote", "br", "cite", "em", "i", "small",
      "strike", "strong", "sub", "sup", "tt", "u"]
   )
 
