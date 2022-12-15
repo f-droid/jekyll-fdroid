@@ -25,7 +25,7 @@ module FDroid
     end
 
     def name
-      Loofah.scrub_fragment(@repo['name'], :escape).to_s
+      Loofah.scrub_fragment(@repo['name'], :strip).to_s
     end
 
     def address
@@ -39,7 +39,7 @@ module FDroid
     end
 
     def description
-      Loofah.scrub_fragment(@repo['description'], :escape).to_s
+      Loofah.scrub_fragment(@repo['description'], :strip).to_s
     end
 
     def timestamp
