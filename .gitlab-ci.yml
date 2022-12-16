@@ -42,7 +42,7 @@ fdroid-website:
     - ruby -e "require 'yaml'; d=YAML.load_file('.gitlab-ci.yml');
           puts d['.apt-template'].gsub(/\\\\\\n/, ' ');
           puts d['.setup_for_jekyll'].gsub(/\\\\\\n/, ' ')"
-          | bash
+          | bash -e
 
     - cd $CI_PROJECT_DIR
     - rubocop lib spec
