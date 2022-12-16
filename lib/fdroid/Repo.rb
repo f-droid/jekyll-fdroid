@@ -15,7 +15,6 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-require 'loofah'
 require 'uri'
 
 module FDroid
@@ -25,21 +24,21 @@ module FDroid
     end
 
     def name
-      Loofah.scrub_fragment(@repo['name'], :strip).to_s
+      escape_html @repo['name']
     end
 
     def address
       url = @repo['address']
-      url =~ /\A#{URI::regexp}\z/ ? url : nil
+      url =~ /\A#{URI::regexp}\z/ ? escape_html(url) : nil
     end
 
     def icon_url
       url = "#{self.address}/icons/#{@repo['icon']}"
-      url =~ /\A#{URI::regexp}\z/ ? url : nil
+      url =~ /\A#{URI::regexp}\z/ ? escape_html(url) : nil
     end
 
     def description
-      Loofah.scrub_fragment(@repo['description'], :strip).to_s
+      escape_html @repo['description']
     end
 
     def timestamp
@@ -47,7 +46,17 @@ module FDroid
     end
 
     def date
-      added = Date.strptime("#{@repo['timestamp'] / 1000}", '%s')
+      Date.strptime("#{@repo['timestamp'] / 1000}", '%s')
     end
+
+    private
+
+    def escape_html(value)
+      value.gsub(/[<>"'&]/, ESCAPES)
+    end
+
+    ESCAPES = {
+      '<' => '&lt;', '>' => '&gt;', '"' => '&quot;', "'" => '&#x27;', '&' => '&amp;'
+    }
   end
 end
