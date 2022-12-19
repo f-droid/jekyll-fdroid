@@ -276,7 +276,7 @@ module FDroid
 
     # simple test for whether this app contains localized metadata for this app
     def self.is_localized(locale, available_locales)
-      return nil unless locale != nil and available_locales != nil
+      return nil unless locale != nil && available_locales != nil
       return locale if locale == '_'
 
       available_locales.each do |l|
