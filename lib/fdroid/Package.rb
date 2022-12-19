@@ -76,6 +76,7 @@ module FDroid
       @is_localized = Package.is_localized(locale, @available_locales)
     end
 
+    # NB: safe (has strict checks on it and was the subject of a previous audit)
     def package_name
       @package['packageName']
     end
@@ -84,33 +85,7 @@ module FDroid
       package_name
     end
 
-    def icon
-      localized = Package.localized_graphic_path(@available_locales, @package['localized'], 'icon')
-      if localized
-        "#{package_name}/#{localized}"
-      elsif @package['icon']
-        "icons-640/#{@package['icon']}"
-      end
-    end
-
-    # this must exist since all entries are sorted by name,
-    # it uses tildes since they sort last
-    def name
-      @package['name'] || Package.localized(@available_locales, @package['localized'], 'name') || '~missing name~'
-    end
-
-    def summary
-      @package['summary'] || Package.localized(@available_locales, @package['localized'], 'summary')
-    end
-
-    def description
-      @package['description'] || Package.localized(@available_locales, @package['localized'], 'description')
-    end
-
-    def suggested_version_code
-      Integer(@package['suggestedVersionCode']) rescue nil
-    end
-
+    # NB: safe (can contain '&' but must be in site.config["app_categories"])
     def categories
       @package['categories']
     end
@@ -335,8 +310,6 @@ module FDroid
       end
     end
 
-    private
-
     # used to recursively sanitise the hash returned by to_data, except for any
     # data already passed through process_package_description (and thus scrubbed
     # by loofah)
@@ -358,5 +331,34 @@ module FDroid
     ESCAPES = {
       '<' => '&lt;', '>' => '&gt;', '"' => '&quot;', "'" => '&#x27;', '&' => '&amp;'
     }
+
+    private
+
+    def icon
+      localized = Package.localized_graphic_path(@available_locales, @package['localized'], 'icon')
+      if localized
+        "#{package_name}/#{localized}"
+      elsif @package['icon']
+        "icons-640/#{@package['icon']}"
+      end
+    end
+
+    # this must exist since all entries are sorted by name,
+    # it uses tildes since they sort last
+    def name
+      @package['name'] || Package.localized(@available_locales, @package['localized'], 'name') || '~missing name~'
+    end
+
+    def summary
+      @package['summary'] || Package.localized(@available_locales, @package['localized'], 'summary')
+    end
+
+    def description
+      @package['description'] || Package.localized(@available_locales, @package['localized'], 'description')
+    end
+
+    def suggested_version_code
+      Integer(@package['suggestedVersionCode']) rescue nil
+    end
   end
 end

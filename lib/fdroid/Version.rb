@@ -69,11 +69,5 @@ module FDroid
         @version['uses-permission'].map { |perm| Permission.new(perm).to_data }
       end
     end
-
-    private
-
-    def field(name)
-      @package.key?(name) ? name : nil
-    end
   end
 end
