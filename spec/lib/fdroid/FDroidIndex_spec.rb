@@ -155,6 +155,20 @@ here"
       scrubbed = Package.process_package_description(input)
       expect(scrubbed).to eql(output)
     end
+
+    it 'sanitises' do
+      input = {
+        'description' => '<b>bold/b>',
+        'summary' => '<b>bold</b>',
+        'foo' => ['<oops>'],
+      }
+      output = {
+        'description' => '<b>bold/b>',
+        'summary' => '&lt;b&gt;bold&lt;/b&gt;',
+        'foo' => ['&lt;oops&gt;'],
+      }
+      expect(Package.sanitise(input, skip = ['description'])).to eql(output)
+    end
   end
 
   RSpec.describe Permission do
@@ -229,8 +243,8 @@ here"
     it 'Loofah runs on all text fields that can be rendered with HTML' do
       loofah_test = parse_loofah_test_from_gp().to_data
       expect(loofah_test['description']).to eq("This is just a test that alert('pwned!') loofah is stripping.")
-      expect(loofah_test['summary']).to eq("트리거 불안에 때 개인 정보를 보호하거나 상황을 패닉 앱alert('pwned!')")
-      expect(loofah_test['title']).to eq("alert('PWN!')")
+      expect(loofah_test['summary']).to eq("트리거 불안에 때 개인 정보를 보호하거나 상황을 패닉 앱&lt;script&gt;alert(&#x27;pwned!&#x27;)&lt;/script&gt;")
+      expect(loofah_test['title']).to eq("&lt;script&gt;alert(&#x27;PWN!&#x27;)&lt;/script&gt;")
       expect(loofah_test['whats_new']).to eq("Feature:<br />* Add support for packs (@Rudloff)<br />alert('pwned!')<br />Minor:<br />* Change name to Launcher<br />")
     end
 

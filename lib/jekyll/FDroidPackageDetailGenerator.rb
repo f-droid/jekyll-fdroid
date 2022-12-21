@@ -64,9 +64,7 @@ module Jekyll
           site.collections["packages"].docs << FDroidPackageDetailPage.new(site, site.source, package)
 
           package.categories.each do |app_category|
-            app_category_id = app_category.dup
-            app_category_id.sub!('&amp;', '&')
-            app_category_id = Utils.slugify(app_category_id)
+            app_category_id = Utils.slugify(app_category)
             if site.collections[app_category_id].nil?
               puts("Warning: Package '#{package.package_name}' has unknown category '#{app_category}', will be ignored")
             else

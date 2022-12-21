@@ -76,65 +76,18 @@ module FDroid
       @is_localized = Package.is_localized(locale, @available_locales)
     end
 
+    # NB: safe (has strict checks on it and was the subject of a previous audit)
     def package_name
-      field 'packageName'
+      @package['packageName']
     end
 
     def to_s
       package_name
     end
 
-    def icon
-      localized = Package.localized_graphic_path(@available_locales, @package['localized'], 'icon')
-      if localized
-        "#{package_name}/#{localized}"
-      elsif field('icon')
-        "icons-640/#{field('icon')}"
-      end
-    end
-
-    # this must exist since all entries are sorted by name,
-    # it uses tildes since they sort last
-    def name
-      n = field('name') || Package.localized(@available_locales, @package['localized'], 'name') || '~missing name~'
-
-      if n != nil
-        n = Loofah.scrub_fragment(n, :strip).to_text()
-      end
-
-      return n
-    end
-
-    def summary
-      s = field('summary') || Package.localized(@available_locales, @package['localized'], 'summary')
-
-      if s != nil
-        s = Loofah.scrub_fragment(s, :strip).to_text()
-      end
-
-      return s
-    end
-
-    def description
-      desc = field('description') || Package.localized(@available_locales, @package['localized'], 'description')
-
-      if desc != nil
-        desc = Package.process_package_description(desc)
-      end
-
-      return desc
-    end
-
-    def suggested_version_code
-      code = field('suggestedVersionCode')
-      if code != nil
-        code = Integer(code)
-      end
-      return code
-    end
-
+    # NB: safe (can contain '&' but must be in site.config["app_categories"])
     def categories
-      return field('categories')
+      @package['categories']
     end
 
     # Generates a hash of dumb strings to be used in templates.
@@ -144,69 +97,67 @@ module FDroid
     # The 'versions' key is an array of Version.to_data hashes.
     # @return [Hash]
     def to_data
-      liberapay = field('liberapay')
+      liberapay = @package['liberapay']
       if liberapay == nil
-        liberapayID = field('liberapayID')
+        liberapayID = @package['liberapayID']
         if liberapayID != nil
           liberapay = "~#{liberapayID}"
         end
       end
-      {
+      data = {
         # These fields are taken as is from the metadata. If not present, they are
         'package_name' => package_name,
-        'author_email' => field('authorEmail'),
-        'author_name' => field('authorName'),
-        'author_website' => field('authorWebSite'),
-        'translation' => field('translation'),
-        'bitcoin' => field('bitcoin'),
-        'litecoin' => field('litecoin'),
-        'donate' => field('donate'),
-        'flattrID' => field('flattrID'),
+        'author_email' => @package['authorEmail'],
+        'author_name' => @package['authorName'],
+        'author_website' => @package['authorWebSite'],
+        'translation' => @package['translation'],
+        'bitcoin' => @package['bitcoin'],
+        'litecoin' => @package['litecoin'],
+        'donate' => @package['donate'],
+        'flattrID' => @package['flattrID'],
         'liberapay' => liberapay,
-        'liberapayID' => field('liberapayID'),
-        'openCollective' => field('openCollective'),
-        'categories' => field('categories'),
-        'anti_features' => field('antiFeatures'),
+        'liberapayID' => @package['liberapayID'],
+        'openCollective' => @package['openCollective'],
+        'categories' => @package['categories'],
+        'anti_features' => @package['antiFeatures'],
         'suggested_version_code' => suggested_version_code,
         'suggested_version_name' => @versions.detect { |p| p.version_code == suggested_version_code }&.version_name,
-        'issue_tracker' => field('issueTracker'),
-        'changelog' => field('changelog'),
-        'license' => field('license'),
-        'source_code' => field('sourceCode'),
-        'website' => field('webSite'),
-        'added' => field('added'),
-        'last_updated' => field('lastUpdated'),
+        'issue_tracker' => @package['issueTracker'],
+        'changelog' => @package['changelog'],
+        'license' => @package['license'],
+        'source_code' => @package['sourceCode'],
+        'website' => @package['webSite'],
+        'added' => @package['added'],
+        'last_updated' => @package['lastUpdated'],
         'is_localized' => @is_localized,
         'whats_new' => Package.process_package_description(Package.localized(@available_locales, @package['localized'], 'whatsNew')),
-
         'icon' => icon,
         'title' => name,
         'summary' => summary,
-
-        'description' => description,
+        'description' => Package.process_package_description(description),
         'feature_graphic' => Package.localized_graphic_path(@available_locales, @package['localized'], 'featureGraphic'),
         'phone_screenshots' => Package.localized_graphic_list_paths(@available_locales, @package['localized'], 'phoneScreenshots'),
         'seven_inch_screenshots' => Package.localized_graphic_list_paths(@available_locales, @package['localized'], 'sevenInchScreenshots'),
         'ten_inch_screenshots' => Package.localized_graphic_list_paths(@available_locales, @package['localized'], 'tenInchScreenshots'),
         'tv_screenshots' => Package.localized_graphic_list_paths(@available_locales, @package['localized'], 'tvScreenshots'),
         'wear_screenshots' => Package.localized_graphic_list_paths(@available_locales, @package['localized'], 'wearScreenshots'),
-
         'versions' => @versions.sort.reverse.map { |p| p.to_data },
-
         'beautiful_url' => "/packages/#{package_name}"
       }
+
+      # recursively sanitise data before returning, except for description and
+      # whats_new, which have already passed through process_package_description
+      # (and were thus scrubbed by loofah via format_description_to_html)
+      return Package.sanitise(data, skip = ['description', 'whats_new'])
     end
 
     # Any transformations which are required to turn the "description" into something which is
     # displayable via HTML is done here (e.g. replacing "fdroid.app:" schemes, formatting new lines,
     # etc.
     def self.process_package_description(string)
-      if string == nil
-        return nil
-      end
+      return nil if string == nil
 
-      string = self.replace_fdroid_app_links(string)
-      self.format_description_to_html(string)
+      format_description_to_html(replace_fdroid_app_links(string))
     end
 
     # Finds all https://f-droid.org links that end with an Application ID, and
@@ -359,19 +310,55 @@ module FDroid
       end
     end
 
+    # used to recursively sanitise the hash returned by to_data, except for any
+    # data already passed through process_package_description (and thus scrubbed
+    # by loofah)
+    def self.sanitise(value, skip = [])
+      case value
+      when String
+        value.gsub(/[<>"'&]/, ESCAPES)
+      when Hash
+        value.map { |k, v| skip.include?(k) ? [k, v] : [k, sanitise(v)] }.to_h
+      when Array
+        value.map { |x| sanitise(x) }
+      when Date, Float, Integer, nil
+        value
+      else
+        raise "cannot sanitise #{value.inspect}"
+      end
+    end
+
+    ESCAPES = {
+      '<' => '&lt;', '>' => '&gt;', '"' => '&quot;', "'" => '&#x27;', '&' => '&amp;'
+    }
+
     private
 
-    def field(name)
-      if @package.key?(name)
-        value = @package[name]
-        case value
-        when Float then return value
-        when Integer then return value
-        when Array then return value.map { |i| Loofah.scrub_fragment(i, :strip).to_html(:save_with => 0) }
-        else
-          return Loofah.scrub_fragment(value, :strip).to_html(:save_with => 0)
-        end
+    def icon
+      localized = Package.localized_graphic_path(@available_locales, @package['localized'], 'icon')
+      if localized
+        "#{package_name}/#{localized}"
+      elsif @package['icon']
+        "icons-640/#{@package['icon']}"
       end
+    end
+
+    # this must exist since all entries are sorted by name,
+    # it uses tildes since they sort last
+    def name
+      @package['name'] || Package.localized(@available_locales, @package['localized'], 'name') || '~missing name~'
+    end
+
+    def summary
+      @package['summary'] || Package.localized(@available_locales, @package['localized'], 'summary')
+    end
+
+    def description
+      @package['description'] || Package.localized(@available_locales, @package['localized'], 'description')
+    end
+
+    def suggested_version_code
+      Integer(@package['suggestedVersionCode']) rescue nil
     end
   end
 end
