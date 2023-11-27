@@ -18,10 +18,7 @@ ruby_latest:
 
 # this job aims to reproduce the production setup
 fdroid-website:
-  image: debian:buster
-  variables:
-    DEBIAN_FRONTEND: noninteractive
-    LANG: C.UTF-8
+  image: debian:bookworm
   artifacts:
     paths:
       - public
@@ -52,12 +49,15 @@ fdroid-website:
     # This is where GitLab pages will deploy to by default (e.g. "https://fdroid.gitlab.io/jekyll-fdroid")
     # so we need to make sure that the Jekyll configuration understands this.
     - sed -Ei
-          -e "s,^(url\x3a).*,\1 'https://$CI_PROJECT_NAMESPACE.gitlab.io',"
-          -e "s,^(baseurl\x3a).*,\1 '/$CI_PROJECT_NAME',"
-          _config.yml
+        -e "s,^(url\x3a).*,\1 'https://$CI_PROJECT_NAMESPACE.gitlab.io',"
+        -e "s,^(baseurl\x3a).*,\1 '/$CI_PROJECT_NAME',"
+        _config.yml
     - echo "Jekyll config used for CI:" && cat _config.yml
-    - jekyll build -d $CI_PROJECT_DIR/public --trace
-    - ./tools/prepare-multi-lang.sh $CI_PROJECT_DIR/public --no-type-maps
+    # "public" needs to be a subdir of this gitlab project to deploy to pages.
+    - mkdir $CI_PROJECT_DIR/public
+    - ln -s $CI_PROJECT_DIR/public
+    - jekyll build -d public --trace --future
+    - ./tools/prepare-multi-lang.sh public --no-type-maps
 
     # TODO kludge to get css until someone figures out why sass is not compiling the css
     - apt-get install curl
