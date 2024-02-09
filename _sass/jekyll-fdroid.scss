@@ -18,6 +18,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+$icon-size: null;
 @if global-variable-exists(icon-size) != true {
 	$icon-size: 48px !global;
 }
@@ -42,7 +43,7 @@
     display: flex;
     align-items: top;
     color: $text-color;
-    margin-bottom: $spacing-unit / 3;
+    margin-bottom: calc(#{$spacing-unit} / 3);
 
     &:hover {
         text-decoration: none;
@@ -51,8 +52,8 @@
     .package-icon {
         width: $icon-size;
         height: $icon-size;
-        margin-top: $spacing-unit / 4;
-        margin-inline-end: $spacing-unit / 2;
+        margin-top: calc(#{$spacing-unit} / 4);
+        margin-inline-end: calc(#{$spacing-unit} / 2);
         flex-shrink: 0;
     }
 
@@ -73,17 +74,17 @@
  */
  .sidebar-widget .package-header {
     .package-icon {
-        width: $icon-size * 5 / 6;
-        height: $icon-size * 5 / 6;
+        width: calc(#{$icon-size} * 5 / 6);
+        height: calc(#{$icon-size} * 5 / 6);
     }
 
     .package-name {
-        font-size: $base-font-size * 1.1;
+        font-size: calc(#{$base-font-size} * 1.1);
     }
 
     .package-summary, .package-license {
         color: $text-color-light;
-        font-size: $base-font-size * 0.9;
+        font-size: calc(#{$base-font-size} * 0.9);
     }
 }
 
