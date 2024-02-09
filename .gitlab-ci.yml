@@ -10,7 +10,7 @@ ruby_latest:
     - ruby -v
     - for f in `find * -name \*.rb`; do printf "$f\t"; ruby -c $f; done
     - apt-get update
-    - apt-get install -y bundler
+    - apt-get install -y bundler ruby-google-protobuf
     - bundle config set path 'vendor'
     - bundle install
     - bundle exec rubocop lib spec
