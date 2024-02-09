@@ -1,3 +1,4 @@
+---
 
 variables:
   LC_ALL: C.UTF-8
@@ -36,10 +37,7 @@ fdroid-website:
     - perl -i -pe "BEGIN{undef $/;} s@\n *gem 'jekyll-fdroid'.*?\n\s*:ref *=> *'[^']+'\n@\n@smg" Gemfile
     - sed -i "s@^end@    gem 'jekyll-fdroid', path\x3a '$CI_PROJECT_DIR'\nend@" Gemfile
     # run fdroid-website setup
-    - ruby -e "require 'yaml'; d=YAML.load_file('.gitlab-ci.yml');
-          puts d['.apt-template'].gsub(/\\\\\\n/, ' ');
-          puts d['.setup_for_jekyll'].gsub(/\\\\\\n/, ' ')"
-          | bash -e
+    - $CI_PROJECT_DIR/.ci-get-from-fdroid-website.rb | bash -e
 
     - cd $CI_PROJECT_DIR
     - rubocop lib spec
