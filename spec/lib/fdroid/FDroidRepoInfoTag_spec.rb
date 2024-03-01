@@ -30,7 +30,7 @@ module Jekyll
 
     it 'renders fdroid_repo_info correctly', { :network => true, :tag => true } do
       template = Liquid::Template.parse('Repo: {% fdroid_repo_info %}').render make_context
-      expect(template).to match(/Repo: Guardian Project Official Releases \d\d\d\d-\d\d-\d\d/)
+      expect(template).to match(/Repo: Guardian Project \d\d\d\d-\d\d-\d\d/)
     end
   end
 end
