@@ -9,7 +9,11 @@ permalink: /packages/
   {% if filtered_packages.size > 0 %}
     <h3>{{ site.data.strings.app_categories[app_category] }}</h3>
     <div id="package-list">
-      {% assign remaining = 3 %}
+      {% if filtered_packages.size >= 3 %}
+        {% assign remaining = 3 %}
+      {% else %}
+        {% assign remaining = filtered_packages.size %}
+      {% endif %}
       {% for package in filtered_packages %}
       {% if package.is_localized and package.icon and package.summary and package.whats_new %}
         {% include package-list-item.html package=package %}
