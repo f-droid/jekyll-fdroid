@@ -22,7 +22,7 @@ permalink: /packages/
       {% if remaining <= 0 %}{% break %}{% endif %}
       {% endfor %}
       {% for package in filtered_packages %}
-      {% if package.is_localized and package.icon and package.summary %}
+      {% if package.is_localized and package.icon and package.summary and package.whats_new == nil %}
         {% include package-list-item.html package=package %}
         {% assign remaining = remaining | minus: 1 %}
       {% endif %}
