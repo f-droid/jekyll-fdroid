@@ -73,6 +73,10 @@ module Jekyll
         # Generate categories pages
         site.includes_load_paths << (File.expand_path "../../_includes", File.dirname(__FILE__))
         site.pages << FDroidCateogryPage.new(site, site.source)
+
+        # Generate package pages
+        site.includes_load_paths << (File.expand_path "../../_includes", File.dirname(__FILE__))
+        site.pages << FDroidPackagePage.new(site, site.source)
       end
     end
   end
