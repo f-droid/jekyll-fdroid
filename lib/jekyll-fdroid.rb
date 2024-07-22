@@ -19,11 +19,15 @@ require "fdroid/index"
 require "fdroid/IndexV1"
 require "fdroid/v2/index"
 require "jekyll/ReadYamlPage"
+# Tags
 require "jekyll/FDroidLastUpdatedPackagesTag"
 require "jekyll/FDroidLatestPackagesTag"
-require "jekyll/FDroidPackageDetailPage"
-require "jekyll/FDroidCategoryDetailPage"
 require "jekyll/FDroidRepoInfoTag"
+# /categories/ & /packages/
 require "jekyll/FDroidGeneratePage"
+# /categories/*
 require "jekyll/FDroidCategoryPage"
+require "jekyll/FDroidCategoryDetailPage"
+# /packages/*
 require "jekyll/FDroidPackagePage"
+require "jekyll/FDroidPackageDetailPage"
