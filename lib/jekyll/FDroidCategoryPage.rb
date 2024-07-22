@@ -16,11 +16,11 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 module Jekyll
-  class FDroidBrowsingPage < ReadYamlPage
+  class FDroidCateogryPage < ReadYamlPage
     def initialize(site, base)
       @site = site
       @base = base
-      @dir = "packages"
+      @dir = "categories"
       @name = "index.html"
 
       self.process(@name)
