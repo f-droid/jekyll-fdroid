@@ -9,7 +9,11 @@ permalink: /packages/
   {% if filtered_packages.size > 0 %}
     <h3>{{ site.data.strings.app_categories[app_category] }}</h3>
     <div id="package-list">
-      {% assign remaining = 3 %}
+      {% if filtered_packages.size >= 3 %}
+        {% assign remaining = 3 %}
+      {% else %}
+        {% assign remaining = filtered_packages.size %}
+      {% endif %}
       {% for package in filtered_packages %}
       {% if package.is_localized and package.icon and package.summary and package.whats_new %}
         {% include package-list-item.html package=package %}
@@ -18,7 +22,7 @@ permalink: /packages/
       {% if remaining <= 0 %}{% break %}{% endif %}
       {% endfor %}
       {% for package in filtered_packages %}
-      {% if package.is_localized and package.icon and package.summary %}
+      {% if package.is_localized and package.icon and package.summary and package.whats_new == nil %}
         {% include package-list-item.html package=package %}
         {% assign remaining = remaining | minus: 1 %}
       {% endif %}
@@ -28,6 +32,6 @@ permalink: /packages/
         {% include package-list-item.html package=package %}
       {% endfor %}
     </div>
-    <p><a href="{{ site.baseurl }}/categories/{{ app_category | slugify }}/">{{ site.data.strings.app_categories.show_all_packages | replace: '%d', filtered_packages.size }}</a></p>
+    <p><a href="{{ site.baseurl }}/categories/{{ app_category | slugify }}/">{{ site.data.strings.app_categories.show_all_packages | replace: '%d', filtered_packages.size | replace: 'Show all 1 packages', site.data.strings.app_categories.show_package }}</a></p>
   {% endif %}
 {% endfor %}
