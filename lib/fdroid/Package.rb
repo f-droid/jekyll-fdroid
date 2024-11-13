@@ -157,7 +157,18 @@ module FDroid
     def self.process_package_description(string)
       return nil if string == nil
 
-      format_description_to_html(replace_fdroid_app_links(string))
+      format_description_to_html(replace_fdroid_app_links(strip_lang_from_app_links(string)))
+    end
+
+    # https://f-droid.org/ru/packages/org.fdroid.fdroid/ -> https://f-droid.org/packages/org.fdroid.fdroid/
+    # https://f-droid.org/zh_Hans/packages/org.fdroid.fdroid/ -> https://f-droid.org/packages/org.fdroid.fdroid/
+    # @param [string]  string
+    # @return [string]
+    def self.strip_lang_from_app_links(string)
+      string.gsub(
+        /https:\/\/f-droid\.org\/[^\/]+\/packages\//,
+        'https://f-droid.org/packages/'
+      )
     end
 
     # Finds all https://f-droid.org links that end with an Application ID, and

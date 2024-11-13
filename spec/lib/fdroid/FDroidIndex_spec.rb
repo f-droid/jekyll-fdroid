@@ -109,11 +109,11 @@ here"
 
       text = '    * <a href="https://f-droid.org/en/packages/player.efis.data.usa.can/">North America, Canada</a>'
       multi_line = Package.process_package_description(text)
-      expect(multi_line).to eql(text)
+      expect(multi_line).to eql('    * <a href="https://f-droid.org/packages/player.efis.data.usa.can/">North America, Canada</a>')
 
       text = '   <a href="https://f-droid.org/en/packages/player.efis.mfd//">Kwik DMAP</a> is a stand-alone digital'
       multi_line = Package.process_package_description(text)
-      expect(multi_line).to eql(text)
+      expect(multi_line).to eql('   <a href="https://f-droid.org/packages/player.efis.mfd//">Kwik DMAP</a> is a stand-alone digital')
     end
 
     it 'Scrubs <img>, <video>, <svg>, <script> tags' do
