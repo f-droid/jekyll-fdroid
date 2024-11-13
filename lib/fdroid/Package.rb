@@ -171,14 +171,14 @@ module FDroid
       )
     end
 
-    # Finds all https://f-droid.org links that end with an Application ID, and
+    # Finds all https://f-droid.org/packages/ links that end with an Application ID, and
     # replaces them with an HTML link.
     # @param [string]  string
     # @return [string]
     def self.replace_fdroid_app_links(string)
       string.gsub(/fdroid\.app:([a-zA-Z0-9._]+)/,
                   '<a href="/packages/\1/"><tt>\1</tt></a>')
-            .gsub(/([^"])(https:\/\/f-droid\.org\/[^\s?#]+\/)((?:[a-zA-Z_]+(?:\d*[a-zA-Z_]*)*)(?:\.[a-zA-Z_]+(?:\d*[a-zA-Z_]*)*)*)\/?/,
+            .gsub(/([^">])(https:\/\/f-droid\.org\/packages\/)((?:[a-zA-Z_]+(?:\d*[a-zA-Z_]*)*)(?:\.[a-zA-Z_]+(?:\d*[a-zA-Z_]*)*)*)\/?/,
                   '\1<a href="\2\3/"><tt>\3</tt></a>')
     end
 
