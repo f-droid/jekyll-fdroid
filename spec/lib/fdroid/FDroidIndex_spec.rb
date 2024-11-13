@@ -410,6 +410,7 @@ here"
         "tv_screenshots" => nil,
         "wear_screenshots" => nil,
         "versions" => nil,
+        "video" => nil,
         "beautiful_url" => "/packages/org.fdroid.fdroid"
       }
 
