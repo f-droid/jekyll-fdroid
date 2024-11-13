@@ -135,6 +135,7 @@ module FDroid
         'title' => name,
         'summary' => summary,
         'description' => Package.process_package_description(description),
+        'video' => Package.localized(@available_locales, @package['localized'], 'video'),
         'feature_graphic' => Package.localized_graphic_path(@available_locales, @package['localized'], 'featureGraphic'),
         'phone_screenshots' => Package.localized_graphic_list_paths(@available_locales, @package['localized'], 'phoneScreenshots'),
         'seven_inch_screenshots' => Package.localized_graphic_list_paths(@available_locales, @package['localized'], 'sevenInchScreenshots'),
