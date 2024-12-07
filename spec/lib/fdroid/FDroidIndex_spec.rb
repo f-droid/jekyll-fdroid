@@ -33,7 +33,7 @@ module FDroid
       expect(Package.is_localized('zh-CN', fr_locales)).to eq(nil)
 
       en_locales = Package.available_locales('en', localized)
-      expect(en_locales).to eq(['en', 'en-US', 'en-AU'])
+      expect(en_locales).to eq(['en-US', 'en', 'en-AU'])
       expect(Package.is_localized('en-AU', en_locales)).to eq('en-AU')
       expect(Package.is_localized('en-ZA', en_locales)).to eq('en')
       expect(Package.is_localized('fr-FR', en_locales)).to eq(nil)
@@ -42,6 +42,34 @@ module FDroid
       expect(zh_locales).to eq(['en-US', 'en', 'en-AU'])
       expect(Package.is_localized('fr-FR', zh_locales)).to eq(nil)
       expect(Package.is_localized('zh-CN', zh_locales)).to eq(nil)
+    end
+
+    it 'Uses correct locale priority for English content' do
+      en_content = {
+        'en' => { 'description' => 'Generic description' },
+        'en-AU' => { 'description' => 'AU description' },
+        'en-GB' => { 'description' => 'GB description' },
+        'en-US' => { 'description' => 'US description' }
+      }
+      description = Package.localized(Package.available_locales('en', en_content), en_content, 'description')
+      expect(description).to eql('US description')
+
+      en_content = {
+        'en-AU' => { 'description' => 'AU description' },
+        'en-CA' => { 'description' => 'CA description' },
+        'en' => { 'description' => 'Generic description' },
+        'en-GB' => { 'description' => 'GB description' }
+      }
+      description = Package.localized(Package.available_locales('en', en_content), en_content, 'description')
+      expect(description).to eql('Generic description')
+
+      en_content = {
+        'en-CA' => { 'description' => 'CA description' },
+        'en-AU' => { 'description' => 'AU description' },
+        'en-GB' => { 'description' => 'GB description' }
+      }
+      description = Package.localized(Package.available_locales('en', en_content), en_content, 'description')
+      expect(description).to eql('CA description')
     end
 
     it 'Handles locale aliases' do
