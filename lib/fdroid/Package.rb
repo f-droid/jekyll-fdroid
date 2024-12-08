@@ -47,9 +47,19 @@ module Loofah::Scrubbers
         end
       end
 
+      if node.keys.empty?
+        node.name = '_remove'
+        Strip.new.scrub(node)
+        return STOP
+      end
+
       begin
         url = URI.parse(node.attributes['href'].to_s)
-        return STOP if url.host == nil || url.host.empty? || url.host == 'f-droid.org'
+        # the only official domain names used for this site, everything else redirects
+        return STOP if (url.host == nil ||
+                        url.host.empty? ||
+                        url.host == 'f-droid.org' ||
+                        url.host == 'staging.f-droid.org')
       rescue URI::Error
         # treat this URL as external
       end
@@ -58,6 +68,7 @@ module Loofah::Scrubbers
       append_attribute(node, 'rel', 'nofollow')
       append_attribute(node, 'rel', 'noopener')
       append_attribute(node, 'target', '_blank')
+      node.after Nokogiri::XML::Text.new("🔗", node.document)
       return STOP
     end
   end
