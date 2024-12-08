@@ -178,10 +178,16 @@ here"
       END
       output = <<~'END'.gsub("\n", '<br />')
         <b>bold text</b>
-        <a href="https://example.com/" rel="external nofollow noopener" target="_blank">link</a>
+        <a href="https://example.com/" rel="external nofollow noopener" target="_blank">link</a>🔗
       END
       scrubbed = Package.process_package_description(input)
       expect(scrubbed).to eql(output)
+    end
+
+    it 'strips <a> w/o href' do
+      text = '<a class="foo"><b>link</b></a>'
+      scrubbed = Package.process_package_description(text)
+      expect(scrubbed).to eql('<b>link</b>')
     end
 
     it 'sanitises' do
