@@ -279,7 +279,7 @@ module FDroid
     #  * Any English language (so if the desired language is not there it will suffice)
     #
     # These will be sorted in order of preference:
-    #  * Special handling when the desired locale is en: prefer en-US and en
+    #  * Special handling when the desired locale is en: prefer en-US
     #  * Exact matches (language and region)
     #  * Language portion matches and region matches an "alias" (e.g. zh_Hant and zh-TW).
     #  * Language portion matches but region is absent/doesn't match.
@@ -314,22 +314,20 @@ module FDroid
         region = parts.length > 1 ? parts[1] : nil
         if desired_locale == 'en' && locale == 'en-US'
           return 1
-        elsif desired_locale == 'en' && locale == 'en'
-          return 2
         elsif locale == desired_locale
-          return 3
+          return 2
         elsif lang == desired_lang
           if aliases.fetch(lang, {}).fetch(desired_region, []).include?(region)
-            return 4
+            return 3
           else
-            return 5
+            return 4
           end
         elsif locale == 'en-US'
-          return 6
+          return 5
         elsif locale == 'en'
-          return 7
+          return 6
         elsif lang == 'en'
-          return 8
+          return 7
         end
       end
 
