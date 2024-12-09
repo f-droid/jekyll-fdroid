@@ -68,7 +68,6 @@ module Loofah::Scrubbers
       append_attribute(node, 'rel', 'nofollow')
       append_attribute(node, 'rel', 'noopener')
       append_attribute(node, 'target', '_blank')
-      node.after Nokogiri::XML::Text.new("🔗", node.document)
       return STOP
     end
   end

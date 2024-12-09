@@ -178,7 +178,7 @@ here"
       END
       output = <<~'END'.gsub("\n", '<br />')
         <b>bold text</b>
-        <a href="https://example.com/" rel="external nofollow noopener" target="_blank">link</a>🔗
+        <a href="https://example.com/" rel="external nofollow noopener" target="_blank">link</a>
       END
       scrubbed = Package.process_package_description(input)
       expect(scrubbed).to eql(output)
