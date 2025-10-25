@@ -151,7 +151,7 @@ here"
         <video src="https://example.com/video.ogg" />
         <svg><path d=""/><script>alert("oops")</script></svg>
       END
-      output = <<~'END'.gsub("\n", '<br>')
+      output = <<~'END'.strip.gsub("\n", '<br>')
         <b>bold text</b>
 
 
@@ -176,7 +176,7 @@ here"
         <b>bold text</b>
         <a href="https://example.com/" rel="canonical" ping="http://tracker.com">link</a>
       END
-      output = <<~'END'.gsub("\n", '<br>')
+      output = <<~'END'.strip.gsub("\n", '<br>')
         <b>bold text</b>
         <a href="https://example.com/" rel="external nofollow noopener" target="_blank">link</a>
       END
@@ -279,7 +279,7 @@ here"
       expect(loofah_test['description']).to eq("This is just a test that alert('pwned!') loofah is stripping.")
       expect(loofah_test['summary']).to eq("트리거 불안에 때 개인 정보를 보호하거나 상황을 패닉 앱&lt;script&gt;alert(&#x27;pwned!&#x27;)&lt;/script&gt;")
       expect(loofah_test['title']).to eq("&lt;script&gt;alert(&#x27;PWN!&#x27;)&lt;/script&gt;")
-      expect(loofah_test['whats_new']).to eq("Feature:<br>* Add support for packs (@Rudloff)<br>alert('pwned!')<br>Minor:<br>* Change name to Launcher<br>")
+      expect(loofah_test['whats_new']).to eq("Feature:<br>* Add support for packs (@Rudloff)<br>alert('pwned!')<br>Minor:<br>* Change name to Launcher")
     end
 
     it 'Parses the Guardian Project repo metadata correctly' do
@@ -410,7 +410,7 @@ here"
         "icon" => "icons-640/org.fdroid.fdroid.1005050.png",
         "is_localized" => "en-US",
         "title" => "F-Droid",
-        "whats_new" => "* huge overhaul of the \"Versions\" list in the App Details screen, and many other UI improvements, thanks to new contributor @wsdfhjxc<br><br>* fix keyboard/d-pad navigation in many places, thanks to new contributor @doeffinger<br><br>* show \"Open\" button when media is installed and viewable<br><br>* add Share button to \"Installed Apps\" to export CSV list<br><br>* add clickable list of APKs to the swap HTML index page <br><br>* retry index downloads from mirrors<br><br>* fix \"Send F-Droid via Bluetooth\" on recent Android versions<br>",
+        "whats_new" => "* huge overhaul of the \"Versions\" list in the App Details screen, and many other UI improvements, thanks to new contributor @wsdfhjxc<br><br>* fix keyboard/d-pad navigation in many places, thanks to new contributor @doeffinger<br><br>* show \"Open\" button when media is installed and viewable<br><br>* add Share button to \"Installed Apps\" to export CSV list<br><br>* add clickable list of APKs to the swap HTML index page <br><br>* retry index downloads from mirrors<br><br>* fix \"Send F-Droid via Bluetooth\" on recent Android versions",
         "summary" => "The app store that respects freedom and privacy",
         "description" =>
         "F-Droid is an installable catalogue of FOSS (Free and Open Source<br>" +
@@ -428,7 +428,7 @@ here"
         "* Filter apps that aren't compatible with the device<br>" +
         "* Find apps via categories and searchable descriptions<br>" +
         "* Access associated urls for donations, source code etc.<br>" +
-        "* Stay safe by checking repo index signatures and apk hashes<br>",
+        "* Stay safe by checking repo index signatures and apk hashes",
         "feature_graphic" => "en-US/featureGraphic.jpg",
         "phone_screenshots" => [
           "en-US/phoneScreenshots/screenshot-app-details.png",
