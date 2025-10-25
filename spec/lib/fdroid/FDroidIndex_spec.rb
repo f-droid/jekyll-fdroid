@@ -108,7 +108,7 @@ multi-line
 string
 here"
       multi_line = Package.format_description_to_html(text)
-      expect(multi_line).to eql("This<br />is<br />a<br /><br />multi-line<br /><br />string<br />here")
+      expect(multi_line).to eql("This<br>is<br>a<br><br>multi-line<br><br>string<br>here")
     end
 
     it 'Formats f-droid.org links in descriptions' do
@@ -119,17 +119,17 @@ here"
       text = "pointing to https://f-droid.org/packages/com.banasiak.coinflip/:
     This"
       multi_line = Package.process_package_description(text)
-      expect(multi_line).to eql('pointing to <a href="https://f-droid.org/packages/com.banasiak.coinflip/"><tt>com.banasiak.coinflip</tt></a>:<br />    This')
+      expect(multi_line).to eql('pointing to <a href="https://f-droid.org/packages/com.banasiak.coinflip/"><tt>com.banasiak.coinflip</tt></a>:<br>    This')
 
       text = "Starting with https://f-droid.org/packages/SpeedoMeterPackage.main.
     (this"
       multi_line = Package.process_package_description(text)
-      expect(multi_line).to eql('Starting with <a href="https://f-droid.org/packages/SpeedoMeterPackage.main/"><tt>SpeedoMeterPackage.main</tt></a>.<br />    (this')
+      expect(multi_line).to eql('Starting with <a href="https://f-droid.org/packages/SpeedoMeterPackage.main/"><tt>SpeedoMeterPackage.main</tt></a>.<br>    (this')
 
       text = "works https://f-droid.org/packages/org.fitchfamily.android.wifi_backend_v2)
     Do"
       multi_line = Package.process_package_description(text)
-      expect(multi_line).to eql('works <a href="https://f-droid.org/packages/org.fitchfamily.android.wifi_backend_v2/"><tt>org.fitchfamily.android.wifi_backend_v2</tt></a>)<br />    Do')
+      expect(multi_line).to eql('works <a href="https://f-droid.org/packages/org.fitchfamily.android.wifi_backend_v2/"><tt>org.fitchfamily.android.wifi_backend_v2</tt></a>)<br>    Do')
 
       text = "forget https://f-droid.org/packages/org.microg.nlp"
       multi_line = Package.process_package_description(text)
@@ -151,7 +151,7 @@ here"
         <video src="https://example.com/video.ogg" />
         <svg><path d=""/><script>alert("oops")</script></svg>
       END
-      output = <<~'END'.gsub("\n", '<br />')
+      output = <<~'END'.gsub("\n", '<br>')
         <b>bold text</b>
 
 
@@ -176,7 +176,7 @@ here"
         <b>bold text</b>
         <a href="https://example.com/" rel="canonical" ping="http://tracker.com">link</a>
       END
-      output = <<~'END'.gsub("\n", '<br />')
+      output = <<~'END'.gsub("\n", '<br>')
         <b>bold text</b>
         <a href="https://example.com/" rel="external nofollow noopener" target="_blank">link</a>
       END
@@ -279,7 +279,7 @@ here"
       expect(loofah_test['description']).to eq("This is just a test that alert('pwned!') loofah is stripping.")
       expect(loofah_test['summary']).to eq("트리거 불안에 때 개인 정보를 보호하거나 상황을 패닉 앱&lt;script&gt;alert(&#x27;pwned!&#x27;)&lt;/script&gt;")
       expect(loofah_test['title']).to eq("&lt;script&gt;alert(&#x27;PWN!&#x27;)&lt;/script&gt;")
-      expect(loofah_test['whats_new']).to eq("Feature:<br />* Add support for packs (@Rudloff)<br />alert('pwned!')<br />Minor:<br />* Change name to Launcher<br />")
+      expect(loofah_test['whats_new']).to eq("Feature:<br>* Add support for packs (@Rudloff)<br>alert('pwned!')<br>Minor:<br>* Change name to Launcher<br>")
     end
 
     it 'Parses the Guardian Project repo metadata correctly' do
@@ -410,25 +410,25 @@ here"
         "icon" => "icons-640/org.fdroid.fdroid.1005050.png",
         "is_localized" => "en-US",
         "title" => "F-Droid",
-        "whats_new" => "* huge overhaul of the \"Versions\" list in the App Details screen, and many other UI improvements, thanks to new contributor @wsdfhjxc<br /><br />* fix keyboard/d-pad navigation in many places, thanks to new contributor @doeffinger<br /><br />* show \"Open\" button when media is installed and viewable<br /><br />* add Share button to \"Installed Apps\" to export CSV list<br /><br />* add clickable list of APKs to the swap HTML index page <br /><br />* retry index downloads from mirrors<br /><br />* fix \"Send F-Droid via Bluetooth\" on recent Android versions<br />",
+        "whats_new" => "* huge overhaul of the \"Versions\" list in the App Details screen, and many other UI improvements, thanks to new contributor @wsdfhjxc<br><br>* fix keyboard/d-pad navigation in many places, thanks to new contributor @doeffinger<br><br>* show \"Open\" button when media is installed and viewable<br><br>* add Share button to \"Installed Apps\" to export CSV list<br><br>* add clickable list of APKs to the swap HTML index page <br><br>* retry index downloads from mirrors<br><br>* fix \"Send F-Droid via Bluetooth\" on recent Android versions<br>",
         "summary" => "The app store that respects freedom and privacy",
         "description" =>
-        "F-Droid is an installable catalogue of FOSS (Free and Open Source<br />" +
-        "Software) applications for the Android platform. The client makes it<br />" +
-        "easy to browse, install, and keep track of updates on your device.<br /><br />" +
-        "It connects to any F-Droid compatible repositories. The default repo<br />" +
-        "is hosted at f-droid.org, which contains only bona fide Free and Open<br />" +
-        "Source Software.<br /><br />" +
-        "Android itself is open in the sense that you are free to install apks<br />" +
-        "from anywhere you wish, but there are many good reasons for using<br />" +
-        "F-Droid as your free software app manager:<br /><br />" +
-        "* Be notified when updates are available<br />" +
-        "* optionally download and install updates automatically<br />" +
-        "* Keep track of older and beta versions<br />" +
-        "* Filter apps that aren't compatible with the device<br />" +
-        "* Find apps via categories and searchable descriptions<br />" +
-        "* Access associated urls for donations, source code etc.<br />" +
-        "* Stay safe by checking repo index signatures and apk hashes<br />",
+        "F-Droid is an installable catalogue of FOSS (Free and Open Source<br>" +
+        "Software) applications for the Android platform. The client makes it<br>" +
+        "easy to browse, install, and keep track of updates on your device.<br><br>" +
+        "It connects to any F-Droid compatible repositories. The default repo<br>" +
+        "is hosted at f-droid.org, which contains only bona fide Free and Open<br>" +
+        "Source Software.<br><br>" +
+        "Android itself is open in the sense that you are free to install apks<br>" +
+        "from anywhere you wish, but there are many good reasons for using<br>" +
+        "F-Droid as your free software app manager:<br><br>" +
+        "* Be notified when updates are available<br>" +
+        "* optionally download and install updates automatically<br>" +
+        "* Keep track of older and beta versions<br>" +
+        "* Filter apps that aren't compatible with the device<br>" +
+        "* Find apps via categories and searchable descriptions<br>" +
+        "* Access associated urls for donations, source code etc.<br>" +
+        "* Stay safe by checking repo index signatures and apk hashes<br>",
         "feature_graphic" => "en-US/featureGraphic.jpg",
         "phone_screenshots" => [
           "en-US/phoneScreenshots/screenshot-app-details.png",
@@ -452,7 +452,7 @@ here"
       expect(fdroid_version).to eql(expected_version)
 
       anysoftkeyboard = index.packages.detect { |package| package.package_name == 'com.menny.android.anysoftkeyboard' }.to_data
-      expect(anysoftkeyboard['whats_new']).to eql("* Power-Saving mode improvements - you can pick which features to include in Power-Saving.<br />* Also, we allow switching to dark, simple theme in Power-Saving mode. But this is optional.<br />* New Workman layout, Terminal generic-top-row and long-press fixes. Done by Alex Griffin.<br />* Updated localization: AR, BE, EU, FR, HU, IT, KA, KN, KU, LT, NB, NL, PT, RO, RU, SC, UK.<br /><br />More here: https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/87")
+      expect(anysoftkeyboard['whats_new']).to eql("* Power-Saving mode improvements - you can pick which features to include in Power-Saving.<br>* Also, we allow switching to dark, simple theme in Power-Saving mode. But this is optional.<br>* New Workman layout, Terminal generic-top-row and long-press fixes. Done by Alex Griffin.<br>* Updated localization: AR, BE, EU, FR, HU, IT, KA, KN, KU, LT, NB, NL, PT, RO, RU, SC, UK.<br><br>More here: https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/87")
 
       subreddit = index.packages.detect { |package| package.package_name == 'subreddit.android.appstore' }.to_data
       expected_package_anti_features = [

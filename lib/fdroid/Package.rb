@@ -193,14 +193,14 @@ module FDroid
                   '\1<a href="\2\3/"><tt>\3</tt></a>')
     end
 
-    # Ensure newlines in descriptions are preserved (converted to "<br />" tags)
+    # Ensure newlines in descriptions are preserved (converted to "<br>" tags)
     # Handles UNIX, Windows and MacOS newlines, with a one-to-one replacement
     def self.format_description_to_html(string)
       Loofah.fragment(string)
             .scrub!(:strip)
             .scrub!(:fdroid)
             .to_html(:save_with => 0)
-            .gsub(/(?:\n\r?|\r\n?)/, '<br />')
+            .gsub(/(?:\n\r?|\r\n?)/, '<br>')
     end
 
     # @param [string] available_locales
