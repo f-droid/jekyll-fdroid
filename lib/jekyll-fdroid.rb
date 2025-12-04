@@ -15,7 +15,9 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+require "fdroid/index"
 require "fdroid/IndexV1"
+require "fdroid/v2/index"
 require "jekyll/ReadYamlPage"
 require "jekyll/FDroidBrowsingPage"
 require "jekyll/FDroidLastUpdatedPackagesTag"

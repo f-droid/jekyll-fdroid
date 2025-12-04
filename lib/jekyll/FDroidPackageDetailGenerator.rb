@@ -43,7 +43,8 @@ module Jekyll
         end
         site.config["pagination"]["enabled"] = true
 
-        index = FDroid::IndexV1.download(site.config["fdroid-repo"], site.active_lang || 'en_US')
+        fdroid_index = FDroid::Index.class(site.config.dig("jekyll-fdroid", "index_version"))
+        index = fdroid_index.download(site.config["fdroid-repo"], site.active_lang || 'en_US')
 
         # Generate collection and detail page for every category
         site.config["app_categories"].each do |app_category|
