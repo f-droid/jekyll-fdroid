@@ -1,0 +1,317 @@
+{
+  "repo": {
+    "name": {
+      "en-US": "Guardian Project"
+    },
+    "description": {
+      "en-US": "The official repository of The Guardian Project apps for use with the F-Droid\nclient. Applications in this repository are official binaries built by the\noriginal application developers and signed by the same key as the APKs that\nare released in the Google Play Store.\n"
+    },
+    "icon": {
+      "en-US": {
+        "name": "/icons/guardianproject.png",
+        "sha256": "8ce480562d75897b85e717977b783ecaa8aadc685a7e4994b1755fa76884b01f",
+        "size": 36214
+      }
+    },
+    "address": "https://guardianproject.info/fdroid/repo",
+    "mirrors": [
+      {
+        "countryCode": "US",
+        "isPrimary": true,
+        "url": "https://guardianproject.info/fdroid/repo"
+      },
+      {
+        "url": "https://s3.amazonaws.com/guardianproject/fdroid/repo",
+        "countryCode": "US"
+      },
+      {
+        "url": "https://guardianproject.s3.amazonaws.com/fdroid/repo",
+        "countryCode": "US"
+      },
+      {
+        "url": "https://s3.dualstack.us-east-1.amazonaws.com/guardianproject/fdroid/repo",
+        "countryCode": "US"
+      },
+      {
+        "url": "https://guardianproject.gitlab.io/fdroid-repo/fdroid/repo"
+      },
+      {
+        "url": "https://gitlab.com/guardianproject/fdroid-repo/-/raw/master/fdroid/repo"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/guardianproject/fdroid-repo/master/fdroid/repo"
+      }
+    ],
+    "timestamp": 1743835332000,
+    "antiFeatures": {
+      "NonFreeComp": {
+        "description": {
+          "en-US": "This app includes non-free components or software libraries."
+        },
+        "icon": {
+          "en-US": {
+            "name": "/icons/NonFreeComp.png",
+            "sha256": "fdeb1b35495caee5e4c2a289679c978201ad46ab7627a30e501a8b5d4f295fbb",
+            "size": 897
+          }
+        },
+        "name": {
+          "en-US": "Non-Free Components"
+        }
+      }
+    },
+    "categories": {
+      "Development": {
+        "name": {
+          "en-US": "Development"
+        }
+      },
+      "Guardian Project": {
+        "name": {
+          "en-US": "Guardian Project"
+        }
+      },
+      "Internet": {
+        "name": {
+          "en-US": "Internet"
+        }
+      },
+      "Multimedia": {
+        "name": {
+          "en-US": "Multimedia"
+        }
+      },
+      "Navigation": {
+        "name": {
+          "en-US": "Navigation"
+        }
+      },
+      "Phone & SMS": {
+        "name": {
+          "en-US": "Phone & SMS"
+        }
+      },
+      "Security": {
+        "name": {
+          "en-US": "Security"
+        }
+      }
+    }
+  },
+  "packages": {
+    "info.guardianproject.checkey": {
+      "metadata": {
+        "added": 1405123200000,
+        "categories": ["Development", "Guardian Project"],
+        "issueTracker": "https://gitlab.com/guardianproject/checkey/issues",
+        "lastUpdated": 1422403200000,
+        "license": "GPL-3.0-or-later",
+        "sourceCode": "https://gitlab.com/guardianproject/checkey",
+        "translation": "https://hosted.weblate.org/projects/guardianproject/checkey/",
+        "webSite": "https://dev.guardianproject.info/projects/checkey",
+        "featureGraphic": {
+          "en-US": {
+            "name": "/info.guardianproject.checkey/en-US/featureGraphic_L0ZXhf0Q5-AqCgylFIZk6wtQ8x6n0u3zzqxopgxuNR8=.png",
+            "sha256": "2f465785fd10e7e02a0a0ca5148664eb0b50f31ea7d2edf3ceac68a60c6e351f",
+            "size": 1273358
+          }
+        },
+        "screenshots": {
+          "phone": {
+            "en-US": [
+              {
+                "name": "/info.guardianproject.checkey/en-US/phoneScreenshots/TbqNtNkkPMILBH2HCHD5cjRnXR4XtaQ5z4mbttDcbBAVkJlZdTQK2uDmRriLMskbH9__.png",
+                "sha256": "ed6b99eb35b029153110ebcbab6953f622481faae083bbe7c59399d71d0a8301",
+                "size": 90830
+              },
+              {
+                "name": "/info.guardianproject.checkey/en-US/phoneScreenshots/WZgIkxH4IACsYCLBy49XzLUBkl_TAcUtIefuO_TQOlDmp8znPLEFsv_c2WniSzqWDA.png",
+                "sha256": "79f8fd348fa1a2d470fd465a310f817f8b74497e429d3dd3c10db351f8be7f58",
+                "size": 69476
+              },
+              {
+                "name": "/info.guardianproject.checkey/en-US/phoneScreenshots/YCYv6nqOg_oXuBFTDxcu9Tp4Qe_hMa9ndEa_5oOWwugjlHRo5sUe1fHXhRk4jkojdb8.png",
+                "sha256": "b9c938b8e7688ebcb5d41ea09f7daeaff38063522c953c80610fefa887effd82",
+                "size": 55128
+              },
+              {
+                "name": "/info.guardianproject.checkey/en-US/phoneScreenshots/checkey-phone.png",
+                "sha256": "d6c74622d17c2567544ea65b0a2185668af67a4d22d31369388b93b452dc0b00",
+                "size": 159051
+              },
+              {
+                "name": "/info.guardianproject.checkey/en-US/phoneScreenshots/checkey.png",
+                "sha256": "b150520048920d5ddec3bf762ae518d21d6066b7c39ff39ab594e117d2f90eb6",
+                "size": 190521
+              }
+            ]
+          },
+          "sevenInch": {
+            "en-US": [
+              {
+                "name": "/info.guardianproject.checkey/en-US/sevenInchScreenshots/checkey-tablet.png",
+                "sha256": "d726cc2e40079326e0aa81e61e2ad124fef83f7025fcb24ac0f93db6c81e539e",
+                "size": 156563
+              }
+            ]
+          }
+        },
+        "authorEmail": "support@guardianproject.info",
+        "authorName": "Guardian Project",
+        "authorWebSite": "https://guardianproject.info",
+        "liberapayID": "GuardianProject",
+        "openCollective": "GuardianProject",
+        "name": {
+          "az-AZ": "Checkey: tətbiqetmələr haqda",
+          "cs-CZ": "Checkey: info o lokálních apps",
+          "de-DE": "Checkey: Info über lokale Apps",
+          "el-GR": "Checkey: πληροφορίες εφαρμογών",
+          "en-US": "Checkey: info on local apps",
+          "eo": "Checkey",
+          "es-ES": "Checkey: Info de apps locales",
+          "fi-FI": "Checkey: tietoa sovelluksista",
+          "fr-FR": "Checkey : infos applis locales",
+          "hi-IN": "Checkey: स्थानीय ऐप्स की जानका",
+          "hr": "Checkey: podaci o programima",
+          "ja-JP": "Checkey: ローカルアプリの情報",
+          "ko-KR": "Checkey: 로컬 앱에 대한 정보 얻기",
+          "no-NO": "Checkey: Info om lokale apper",
+          "pl-PL": "Checkey: info o lokalnych apps",
+          "pt": "Checkey: info sobre app locais",
+          "pt-BR": "Checkey: info sobre app locais",
+          "pt-PT": "Checkey: info sobre app locais",
+          "ru-RU": "Checkey: имеются программы",
+          "sl": "Checkey: info o aplikacijah",
+          "tr-TR": "Checkey: yerel uyg. bilgileri",
+          "uk": "Checkey: є застосунки",
+          "ur": "چیکی: مقامی ایپس پر معلومات",
+          "zh-CN": "Checkey：本地应用的信息"
+        },
+        "summary": {
+          "af": "nut om inligting oor die APKs wat op jou toestel geïnstalleer is",
+          "ar": "أداة للحصول على معلومات حول ملفات APK التي تم تثبيتها على جهازك",
+          "az-AZ": "və alətinizə yüklənən alətlərin APK məlumatlarını əldə etmək üçündür",
+          "bg": "помощна програма за осигуряване на информация за APK файлове, които са инсталира",
+          "ca": "utilitat per obtenir informació sobre els arxius APK que estan instal·lades al d",
+          "cs-CZ": "nástroj pro získávání informací o aplikacích, které máte nainstalovány",
+          "da-DK": "hjælpeprogram til at få oplysninger om APK'er der er installeret på din enhed",
+          "de-DE": "Dienstprogramm zum Abrufen von Informationen über die installierten APKs",
+          "el-GR": "βοηθητικό πρόγραμμα για τη λήψη πληροφοριών σχετικά με τα εγκατεστημένα APK σας",
+          "en-US": "utility for getting information about the APKs that are installed on your device",
+          "eo": "Ricevi informojn pri instalitaj APK-pakaĵoj",
+          "es-ES": "utilidad para obtener información sobre los APKs instalados en su dispositivo",
+          "et": "kasuliku info saamine APK-d, mis on seadmesse installitud",
+          "fi-FI": "ohjelma tietojen hakemiseksi laitteeseesi asennetuista APK-pakkaustiedostoista",
+          "fr-FR": "utilitaire pour obtenir des informations sur les APKs qui sont installés sur vot",
+          "hi-IN": "आपके डिवाइस पर स्थापित कर रहे हैं कि APKs के बारे में जानकारी प्राप्त करने के लि",
+          "hr": "alat za dobivanje informacija o APK-ovi koji su instalirani na vašem uređaju",
+          "hu-HU": "segédprogram egyre információt APK, hogy telepítve van a készüléken",
+          "id": "utilitas untuk mendapatkan informasi tentang APK yang diinstal pada perangkat An",
+          "it-IT": "utility per ottenere informazioni sulle APKs installati sul dispositivo",
+          "ja-JP": "お使いのデバイスにインストールされている APK の情報を取得するユーティリティ",
+          "ko-KR": "당신의 장치에 설치되어있는 APK가에 대한 정보를 취득하기위한 유틸리티",
+          "lt": "įrankis gauti informaciją apie APK, kad yra įdiegtas jūsų prietaise",
+          "lv": "lietderība, lai iegūtu informāciju par APKs kas ir instalēti jūsu ierīcē",
+          "nl-NL": "hulpprogramma voor het verkrijgen van informatie over de APK die zijn geïnstalle",
+          "no-NO": "verktøy for innhenting av informasjon om APK-ene som er installert på din enhet",
+          "pl-PL": "narzędzie do uzyskiwania informacji o APKs, które są zainstalowane w urządzeniu",
+          "pt": "Utilitário para obter informação sobre as APKs instaladas no seu aparelho",
+          "pt-BR": "Utilitário para obter informação sobre as APKs instaladas no seu dispositivo",
+          "pt-PT": "Utilitário para obter informação sobre as APKs instaladas no seu aparelho",
+          "ro": "utilitate pentru a obține informații despre fișiere APK care sunt instalate pe d",
+          "ru-RU": "Программа для сбора информации об APK КОТОРЫЕ установлены на Вашем устройстве",
+          "sk": "nástroj pre získavanie informácií o APKs, ktoré sú nainštalované na vašom zariad",
+          "sl": "orodje za pridobivanje informacij o APK paketih, ki so nameščeni na vaši napravi",
+          "sv-SE": "verktyg för att få information om de APKs som är installerade på din enhet",
+          "sw": "shirika kwa ajili ya kupata taarifa kuhusu APK ambayo imewekwa kwenye kifaa chak",
+          "th": "ยูทิลิตี้สำหรับการรับข้อมูลเกี่ยวกับ APKs ที่ติดตั้งอยู่บนอุปกรณ์ของคุณ",
+          "tr-TR": "cihazınızda yüklü olan APKlar hakkında bilgi almaya yarayan bir araç",
+          "uk": "утиліта для отримання відомостей про APK, встановлених на вашому пристрої",
+          "ur": "آپ کے آلہ پر انسٹال کردہ APKs کے بارے میں معلومات حاصل کرنے کی افادیت",
+          "vi": "tiện ích để nhận thông tin về các APK được cài đặt trên thiết bị của bạn",
+          "zh-CN": "一个实用工具，获取已安装在您的设备上的应用的有关信息"
+        },
+        "description": {
+          "az-AZ": "Checkey alətinizə yüklədiyiniz tətbiqetmələrinin APK-sı haqda məlumatları üzə çıxarmaq üçündür. Alətinizdəki tətbiqetmələrinin siyahısına baxmaqdan başlayaraq, bir toxunuşla APK imzalarını göstərəcək və virustotal.com və androidobservatory.org ilə o APK-lərin profillərini izləmək imkanı verəcək. O, həm də Trustedİntents kitabxanası vasitəsilə imzalanmış sertifikatları ixrac etmək və ApkSignaturePin pin fayllar yaratmağa imkan verəcək.\n★ SİZİN DİLİNİZDƏ DANIŞIRIQ: bu dilləri bilən dostlar üçün əlçatımlıdır:\nDeutsch, English, español, suomi, 日本語, 한국어, Norsk, português (Portugal), Русский, Slovenščina, Türkçe\nÖz dilinizi tapmadınız? Bizə qoşul və tətbiqetməni tərcümə et:\nhttps://hosted.weblate.org/projects/guardianproject/checkey/\nhttps://hosted.weblate.org/projects/guardianproject/checkey-metadata/\n\n***Ətraflı***\n★ HAQQIMIZDA: Guardian Project təhlükəsiz mobil tətbiqetmələr və açıq kodların yaxşı gələcək üçün yaradan proqramçılar qrupudur\n★ SAYTIMIZ: https://GuardianProject.info\n★ TWITTER-də: https://twitter.com/guardianproject\n★ PULSUZ PROQRAM: Checkey Pulsuz proqramdır. Siz mənbə kodumuza baxa bilər və ya Checkey-i daha yaxşı etmək üçün kömək edə bilərsiniz:\nhttps://gitlab.com/guardianproject/checkey\n★ BİZƏ YAZIN: İstədiyiniz imkanı tapa bilmədiniz? Zəhlətökən xəta tapdınız? Zəhmət olmasa, bizə deyin! Sizi eşitməkdən şad olarıq. Bizə email göndərin: support@guardianproject.info və ya çat otağında bizi tapın https://guardianproject.info/contact\n",
+          "cs-CZ": "Checkey je utilita pro získávání informací o aplikacích nainstalovaných na vašem zařízení. Začíná seznamem všech aplikací, které máte nainstalovány. Jedním klikem zobrazí podpis aplikace a poskytuje odkazy na virustotal.com a androidobservatory.org pro snadný přístup k profilům dané aplikace. Také umožňuje exportovat podpisový certifikát a vygenerovat ApkSignaturePin pin soubory pro použití v knihovně TrustedIntents.\n\n★ OPEN SOURCE: Náš kód je transparentní. Můžete si ho prohlédnout nebo se můžete přidat a pomoct udělat Checkey ještě lepší: https://gitlab.com/guardianproject/checkey\n★ MLUVÍME VAŠÍM JAZYKEM: Checkey je dostupný kamarádům, kteří hovoří: Deutsch, English, español, suomi, 日本語, 한국어, Norsk, português (Portugal), Русский, Slovenščina, Türkçe\n\nNevidíte svůj jazyk? Připojte se a pomozte aplikaci přeložit:\nhttps://hosted.weblate.org/projects/guardianproject/checkey/\nhttps://hosted.weblate.org/projects/guardianproject/checkey-metadata/\n\n\n***Chci vědět více***\n★ O NÁS: Projekt Guardian je skupina vývojářů, kteří tvoří bezpečné mobilní aplikace a open source pro lepší budoucnost\n★ NÁŠ WEB: https://GuardianProject.info kde se dozvíte více\n★ TWITTER: https://twitter.com/guardianproject\n★ FREE SOFTWARE: Checkey je volný software. Může se podívat na naše zdrojové kódy nebo přispět a udělat Checkey ještě lepší: https://gitlab.com/guardianproject/checkey\n★ NAPIŠTE NÁM: Chybí nám váše oblíbená vlastnost? Našli jste otravnou chybu? Řekněte nám o tom, prosím. Rádi vás vyslechneme. Pošlete nám email: support@guardianproject.info nebo nás hledejte na našem chatu https://guardianproject.info/contact\n",
+          "de-DE": "Checkey ist ein Dienstprogramm, um Informationen über die APKs zu erhalten, die auf Ihrem Gerät installiert sind. Ausgehend von einer Liste aller Apps, die Sie auf Ihrem Gerät installiert haben, zeigt es Ihnen die APK-Signatur mit einem einzigen Tastendruck an und bietet Links zu virustotal.com und androidobservatory.org, um einfach auf die Profile dieser APK zuzugreifen. Außerdem können Sie das Signaturzertifikat exportieren und ApkSignaturePin-Pin-Dateien für die Verwendung mit der TrustedIntents-Bibliothek generieren.\n\n★ OPEN-SOURCE: Unser Quelltext ist transparent. Sie können einen Blick darauf werfen oder der Community beitreten, um Checkey noch besser zu machen: https://gitlab.com/guardianproject/checkey\n★ WIR SPRECHEN IHRE SPRACHE: Checkey steht für Freunde in folgenden Sprachen zur Verfügung: Deutsch, English, Español, suomi, 日本語, 한국어, Norsk, português (Portugal), Русский, Slovenščina, Türkçe\n\nSehen Sie Ihre Sprache nicht? Kommen Sie zu uns und helfen Sie bei der Übersetzung der App:\nhttps://hosted.weblate.org/projects/guardianproject/checkey/\nhttps://hosted.weblate.org/projects/guardianproject/checkey-metadata/\n\n\n***Mehr darüber erfahren***\n★ ÜBER UNS: Guardian Project ist eine Gruppe von Entwicklern, die sichere mobile Anwendungen und Open-Source-Code für eine bessere Zukunft entwickeln.\n★ UNSERE WEBSITE: https://GuardianProject.info, um mehr über uns zu erfahren.\n★ AUF TWITTER: https://twitter.com/guardianproject\n★ FREIE SOFTWARE: Checkey ist freie Software. Sie können einen Blick auf unseren Quellcode werfen oder dazu beitragen, Checkey noch besser zu machen: https://gitlab.com/guardianproject/checkey\n★ UNS BENACHRICHTIGEN: Fehlt Ihr Lieblingsfeature? Haben Sie einen lästigen Fehler gefunden? Bitte sagen Sie es uns! Wir würden uns freuen, von Ihnen zu hören. Schicken Sie uns eine E-Mail: support@guardianproject.info oder finden Sie uns in unserem Chatroom https://guardianproject.info/contact\n",
+          "el-GR": "Το Checkey είναι ένα βοηθητικό πρόγραμμα για τη λήψη πληροφοριών σχετικά με τα APK που είναι εγκατεστημένα στη συσκευή σας. Ξεκινώντας με μια λίστα όλων των εφαρμογών που έχετε εγκαταστήσει στη συσκευή σας, θα σας δείξει την υπογραφή του APK με ένα μόνο άγγιγμα και θα παρέχει συνδέσμους στο virustotal.com και το androidobservatory.org για εύκολη πρόσβαση στα προφίλ αυτού του APK. Θα σας επιτρέψει επίσης να εξάγετε το πιστοποιητικό υπογραφής και να δημιουργήσετε αρχεία pin ApkSignaturePin για χρήση με τη βιβλιοθήκη TrustedIntents.\n★ MIΛAME TH ΓΛΩΣΣΑ σας: Το Checkey είναι διαθέσιμο για φίλους που μιλούν:\nDeutsch, English, español, suomi, 日本語, 한국어, Norsk, português (Portugal), Русский, Slovenščina, Türkçe\nΔεν βλέπετε τη γλώσσα σας; Γίνετε μέλος και βοηθήστε στη μετάφραση της εφαρμογής:\nhttps://hosted.weblate.org/projects/guardianproject/checkey/\nhttps://hosted.weblate.org/projects/guardianproject/checkey-metadata/\n\n***Μάθετε Περισσότερα***\n★ ΣΧΕΤΙΚΑ ΜΕ ΕΜΑΣ: Το Guardian Project είναι μια ομάδα δημιουργών που κάνουν ασφαλείς εφαρμογές για κινητά και open-source κώδικα για ένα καλύτερο αύριο\n★ Η ΙΣΤΟΣΕΛΙΔΑ ΜΑΣ: https://GuardianProject.info\n★ ΣΤΟ TWITTER: https://twitter.com/guardianproject\n★ ΕΛΕΥΘΕΡΟ ΛΟΓΙΣΜΙΚΟ: Το Checkey είναι ελεύθερο λογισμικό. Μπορείτε να ρίξτε μια ματιά στον πηγαίο κώδικα μας ή γίνετε μέλος της κοινότητάς μας για να κάνουμε το Checkey ακόμα καλύτερο:\nhttps://gitlab.com/guardianproject/checkey\n★ ΣΤΕΙΛΤΕ ΜΑΣ ΜΗΝΥΜΑ: Μας λείπει το αγαπημένο σας χαρακτηριστικό; Βρήκατε ένα ενοχλητικό σφάλμα; Πείτε μας! Θα θέλαμε να σας ακούσουμε. Στείλτε μας ένα μήνυμα στο: support@guardianproject.info ή βρείτε μας στο chat room https://guardianproject.info/contact\n",
+          "en-US": "Checkey is a utility for getting information about the APKs that are installed on your device. Starting with a list of all of the apps that you have installed on your device, it will show you the APK signature with a single touch, and provides links to virustotal.com and androidobservatory.org to easily access the profiles of that APK. It will also let you export the signing certificate and generate ApkSignaturePin pin files for use with the TrustedIntents library.\n\n★ OPEN-SOURCE: Our code is transparent. You can take a look or join the community to help make Checkey even better: https://gitlab.com/guardianproject/checkey\n★ WE SPEAK YOUR LANGUAGE: Checkey is available for friends who speak: Deutsch, English, español, suomi, 日本語, 한국어, Norsk, português (Portugal), Русский, Slovenščina, Türkçe\n\nDon’t see your language? Join us and help translate the app:\nhttps://hosted.weblate.org/projects/guardianproject/checkey/\nhttps://hosted.weblate.org/projects/guardianproject/checkey-metadata/\n\n\n***Learn More***\n★ ABOUT US: Guardian Project is a group of developers that make secure mobile apps and open-source code for a better tomorrow\n★ OUR WEBSITE: https://GuardianProject.info to learn more about us\n★ ON TWITTER: https://twitter.com/guardianproject\n★ FREE SOFTWARE: Checkey is free software. You can take a look at our source code, or contribute to help make Checkey even better: https://gitlab.com/guardianproject/checkey\n★ MESSAGE US: Are we missing your favorite feature? Found an annoying bug? Please tell us! We’d love to hear from you. Send us an email: support@guardianproject.info or find us in our chat room https://guardianproject.info/contact\n",
+          "eo": "Checkey estas ilo por akiri informojn pri instalitaj APK-pakaĵojn en via aparato. Ĝi montras liston de ĉiuj instalitajn aplikaĵojn, subskribon de ĉiu apo kaj ligiloj al virustotal.com kaj androidobservatory.org por rapide vidigi profilojn pri tiuj aplikaĵoj. La programo ankaŭ ebligas elporti subskriban atestilon kaj generi alpinglitajn dosierojn ApkSignaturePin por uzi kun la biblioteko TrustedIntents.\n\n★ Malferma kodo: la fontkodo estas memklara. Vi povas analizi ĝin aŭ aliĝi al la komunumo por igi Checkey pli bona: https://gitlab.com/guardianproject/checkey\n★ Plurlingva: Checkey estas disponebla en la jenaj lingvoj: Deutsch, English, español, suomi, 日本語, 한국어, Norsk, português, Русский, Slovenščina, Türkçe kaj pli\n\nPor traduki la aplikaĵon, vizitu:\nhttps://hosted.weblate.org/projects/guardianproject/checkey/\nhttps://hosted.weblate.org/projects/guardianproject/checkey-metadata/\n\n***PLIAJ INFORMOJ***\n★ Pri: Guardian Project estas grupo da programistoj laborantaj pri sekuraj malfermkodaj poŝtelefonaj aplikaĵoj por li bona estonteco.\n★ Retejo: https://GuardianProject.info\n★ Twitter: https://twitter.com/guardianproject\n★ Libera programaro: Checkey estas libera programaro. Vi povas kontroli la fontkodon aŭ kontribui por igi la aplikaĵon pli bona: https://gitlab.com/guardianproject/checkey\n★ Kontakti: Ĉu iu eblaĵo mankas? Ĉu vi trovis eraron? Bonvolu sciigi nin! Ni tre volus aŭskulti vin. Skribu al ni retleteron: support@guardianproject.info aŭ trovu nin en la babilejo: https://guardianproject.info/contact\n",
+          "es-ES": "Checkey es una utilidad para obtener información sobre los APKs que están instalados en su dispositivo. A partir de una lista de todas las aplicaciones que tienes instaladas en tu dispositivo, te mostrará la firma APK con un solo toque, y te proporciona enlaces a virustotal.com y androidobservatory.org para acceder fácilmente a los perfiles de ese APK. También le permitirá exportar el certificado de firma y generar archivos pin ApkSignaturePin para su uso con la biblioteca TrustedIntents.\n\n★ OPEN-SOURCE: Nuestro código es transparente. Puedes echar un vistazo o unirte a la comunidad para ayudar a que Checkey sea aún mejor: https://gitlab.com/guardianproject/checkey\n★ HABLAMOS TU IDIOMA: Checkey está disponible para los amigos que hablan: Alemán, Inglés, Español, Suomi, , Norsk, Portugués (Portugal),\n\n¿No ves tu idioma? Acompáñanos y ayuda a traducir la aplicación:\nhttps://hosted.weblate.org/projects/guardianproject/checkey/\nhttps://hosted.weblate.org/projects/guardianproject/checkey-metadata/\n\n\nMás información***\n★ ACERCA DE NOSOTROS: Guardian Project es un grupo de desarrolladores que hacen aplicaciones móviles seguras y código abierto para un mejor mañana\n★ NUESTRO SITIO WEB: https://GuardianProject.info para obtener más información sobre nosotros\n★ EN TWITTER: https://twitter.com/guardianproject\n★ SOFTWARE GRATUITO: Checkey es un software gratuito. Puede echar un vistazo a nuestro código fuente, o contribuir para ayudar a que Checkey sea aún mejor: https://gitlab.com/guardianproject/checkey\n★ MENSAJE: ¿Nos falta tu función favorita? ¿Encontraste un bicho molesto? ¡Por favor, díganos! Nos encantaría saber de ti. Envíenos un correo electrónico: support@guardianproject.info o enviándonos en nuestra sala de chat https://guardianproject.info/contact\n",
+          "fi-FI": "Checkey on apuohjelma, jolla saa tietoja laiteeseen asennetuista APK-pakkaustiedostoista. Ohjelma luettelee aluksi kaikki laitteeseen asennetut sovellukset ja näyttää APK-allekirjoituksen yhdellä kosketuksella sekä tarjoaa linkit virustotal.com- ja androidobservatory.com-sivuistoille, joilta saa helposti kyseisen APK-pakkaustiedoston profiilit. Ohjelma sallii sinun myös viedä allekirjoitusvarmenteen ja tuottaa ApkSignaturePin-pin-tieodostoja käytettäväksi TrustedIntents-kirjastossa. \n★ PUHUMME KIELTÄSI: Checkey on saataville ystäville, jotka puhuvat seuraavia kieliä:\nDeutsch, English, español, suomi, 日本語, 한국어, Norsk, português (Portugal), Русский, Slovenščina, Türkçe\nEtkö näe kieltäsi? Liity meihin ja auta sovelluksen kotoistamisessa:\nhttps://hosted.weblate.org/projects/guardianproject/checkey/\nhttps://hosted.weblate.org/projects/guardianproject/checkey-metadata/\n\n***Opi lisää***\n★ TIETOA MEISTÄ: Guardian Project on kehittäjien ryhmä, joka tekee turvallisia mobiilisovelluksia ja avointa lähdekoodia parempaa huomista varten\n★ WEBBISIVUMME: https://GuardianProject.info\n★ TWITTERISSÄ: https://twitter.com/guardianproject\n★ ILMAINEN OHJELMA: Checkey on ilmainen ohjelma. Voit vilkaista lähdekoodia tai avustaa Checkey-ohjelman tekemiseksi vielä paremmaksi:\nhttps://gitlab.com/guardianproject/checkey\n★ VIESTITÄ MEILLE: Kaipaatko suosikkiominaisuuttasi? Löysitkö harmillisen ohjelmointivirheen? Kerro meille! Kuulemme sinusta mielellään. Lähetä meille sähköpostia: support@guardianproject.info tai etsi meidät juttelukanavalla https://guardianproject.info/contact\n",
+          "fr-FR": "Checkey est un utilitaire permettant de recueillir des informations sur les APK installés sur votre appareil. En partant d'une liste de toutes les applis installées sur votre appareil, Vériclé vous présentera la signature de l'APK en un seul toucher, et vous offrira des liens vers virustotal.com et androidobservatory.org afin d'accéder aisément aux profils de cet APK. Il vous permettra aussi d'exporter le certificat de signature et de générer des fichiers NIP ApkSignaturePin pour les utiliser avec la bibliothèque TrustedIntents.\n★ NOUS PARLONS VOTRE LANGUE : Checkey est proposé à nos amis parlant :\nDeutsch, English, español, suomi, 日本語, 한국어, Norsk bokmål, português (Portugal), Русский, Slovenščina, Türkçe, français\nVous ne voyez pas votre langue ? Rejoignez-nous et aidez-nous à traduire l'appli :\nhttps://hosted.weblate.org/projects/guardianproject/checkey/\nhttps://hosted.weblate.org/projects/guardianproject/checkey-metadata/\n\n***En apprendre davantage***\n★ À PROPOS DE NOUS : le Projet Guardian est un groupe de développeurs créant des applis mobiles sécurisées et du code ouvert pour des lendemains meilleurs.\n★ NOTRE SITE WEB : https://GuardianProject.info\n★ SUR TWITTER: https://twitter.com/guardianproject\n★ LOGICIEL LIBRE : Checkey est un logiciel libre. Vous pouvez regarder notre code source, ou contribuer en aidant à encore améliorer Checkey :\nhttps://gitlab.com/guardianproject/checkey\n★ CONTACTEZ-NOUS : votre fonction favorite est-elle absente ? Avez-vous avez trouvé un bogue gênant ? Nous aimerions que vous nous en fassiez part ! Envoyez-nous un courriel : support@guardianproject.info ou trouvez-nous dans notre salon de discussion https://guardianproject.info/contact\n",
+          "hi-IN": "Checkey आपके डिवाइस पर स्थापित APK के बारे में जानकारी प्राप्त करने के लिए एक उपयोगिता है। उन सभी ऐप्स की सूची के साथ शुरू करना, जिन्हें आपने अपने डिवाइस पर इंस्टॉल किया है, यह आपको एक टच के साथ एपीके सिग्नेचर दिखाएगा, और उस एपीके के प्रोफाइल को आसानी से एक्सेस करने के लिए virustotal.com और androidobservatory.org लिंक प्रदान करता है। यह आपको हस्ताक्षर प्रमाण पत्र का निर्यात करने और ट्रस्टेडइंटेंट्स लाइब्रेरी के साथ उपयोग के लिए ApkSignaturePin पिन फ़ाइलों को उत्पन्न करने देगा।\n\n★ खुले स्रोत: हमारा कोड पारदर्शी है। आप Checkey को और बेहतर बनाने में मदद के लिए एक नज़र डाल सकते हैं या समुदाय में शामिल हो सकते हैं: https://gitlab.com/guardianproject/checkey\n★ हम आपकी भाषा को स्पष्ट करते हैं: Checkey उन दोस्तों के लिए उपलब्ध है जो बोलते हैं: Deutsch, अंग्रेजी, español, suomi, 日本語, L, cs, português (पुर्तगाल), Русский, Slovenščina, Türkçe\n\nक्या आप अपनी भाषा नहीं देखते हैं? हमसे जुड़ें और एप्लिकेशन का अनुवाद करने में मदद करें:\nhttps://hosted.weblate.org/projects/guardianproject/checkey/\nhttps://hosted.weblate.org/projects/guardianproject/checkey-metadata/\n\n\n***और अधिक जानें***\n★ अमेरिका के बारे में: गार्जियन प्रोजेक्ट डेवलपर्स का एक समूह है जो एक बेहतर कल के लिए सुरक्षित मोबाइल ऐप और ओपन-सोर्स कोड बनाता है\n★ हमारे वेबसाइट: https://GuardianProject.info हमारे बारे में अधिक जानने के लिए\n★ TWITTER पर: https://twitter.com/guardianproject\n★ मुफ्त सॉफ्टवेयर: Checkey मुफ्त सॉफ्टवेयर है। आप हमारे स्रोत कोड पर एक नज़र डाल सकते हैं, या Checkey को और बेहतर बनाने में मदद करने के लिए योगदान कर सकते हैं: https://gitlab.com/guardianproject/ceyey\n★ संदेश का उपयोग करें: क्या हम आपकी पसंदीदा सुविधा को याद कर रहे हैं? एक कष्टप्रद बग मिला? कृपया हमें बताएँ! हमे आपसे सुनने में ख़ुशी होगी। हमें एक ईमेल भेजें: support@guardianproject.info या हमें हमारे चैट रूम में खोजें https://guardianproject.info/contact\n",
+          "ja-JP": "Checkey は、お使いのデバイスにインストールされている APK に関する情報を取得するためのユーティリティです。お使いのデバイスにインストールされたすべてのアプリの一覧から始めて、1 回のタッチで APK の署名が表示され、virustotal.com と androidobservatory.org へのリンクが表示され、その APK のプロファイルに簡単にアクセスできます。また、署名証明書をエクスポートし、TrustedIntents ライブラリーで使用する ApkSignaturePin pin ファイルを生成することもできます。\n\n★ オープンソース: 私たちのコードは透明性があります。コミュニティを参照したり参加して、Checkey をさらに良くするためにすることができます: https://gitlab.com/guardianproject/checkey\n★ お使いの言語を話します: Checkey は次の言語を話す友人が利用可能です: Deutsch, English, español, suomi, 日本語, 한국어, Norsk, português (Portugal), Русский, Slovenščina, Türkçe\n\nお使いの言語が表示されませんか? 参加して、アプリの翻訳を支援してください:\nhttps://hosted.weblate.org/projects/guardianproject/checkey/\nhttps://hosted.weblate.org/projects/guardianproject/checkey-metadata/\n\n\n***詳細を見る***\n★ 私たちについて: ガーディアンプロジェクトは、より良い明日のために安全なモバイルアプリとオープンソースコードを作る開発者のグループです\n★ 私たちのウェブサイト: 詳細は https://GuardianProject.info\n★ ツイッターで: https://twitter.com/guardianproject\n★ フリーソフトウェア: Checkey はフリーソフトウェアです。ソースコードを参照したり、Checkey をさらに良くするために貢献することができます: https://gitlab.com/guardianproject/checkey\n★ 私たちにメッセージをお送りください: あなたのお気に入りの機能が見つかりませんか? 迷惑なバグを見つけましたか? お知らせください! 私たちにあなたのご意見をお知らせください。メールをお送りください: support@guardianproject.info またはチャットルームで見つけてください https://guardianproject.info/contact\n",
+          "ko-KR": "Checkey은 장치에 설치된 APK에 대한 정보를 얻기위한 유틸리티입니다. 시작하게되면 장치에 설치한 모든 앱 목록을 보여주고, 한번의 터치로 APK 서명을 보여주고, APK의 프로파일에 쉽게 접근하여 virustotal.com 및 androidobservatory.org에 대한 링크를 제공합니다. 서명 인증서를 내보내고 TrustedIntents 라이브러리를 사용하여 ApkSignaturePin 핀 파일을 생성할 수 있습니다.\n\n***더 자세히 알기***\n★ 우리 웹사이트: https://GuardianProject.info\n★ 트위터: https://twitter.com/guardianproject\n",
+          "no-NO": "Checkey er et verktøy for innhenting av informasjon om APK-er installert på din enhet. I førstningen en liste over installerte program, hvis APK-signatur er ett trykk unna. Dernest lenker til virustotal.com og androidobservatory.org for profilering av valgt APK. Programmet lar deg også eksportere signeringssertifikatet og generere ApkSignaturePin pin-kodefiler for bruk med TrustedIntents-biblioteket.\n★ VI SNAKKER DITT SPRÅK: Checkeys vennegjeng omfatter:\nDeutsch, English, español, suomi, 日本語, 한국어, Norsk bokmål, português (Portugal), Русский, Slovenščina, Türkçe\n\n(Tysk, Engelsk, Spansk, Finsk, Japansk, Koreansk, Norsk bokmål, Portugisisk (Portugal), Russisk, Slovensk, Tyrkisk)\nMangler ditt språk? Hjelp oss å oversette programmet:\nhttps://hosted.weblate.org/projects/guardianproject/checkey/\nhttps://hosted.weblate.org/projects/guardianproject/checkey-metadata/\n\n***Lær mer***\n★ OM OSS: Guardianprosjektet er en gruppe utviklere som lager sikre mobilprogrammer og friprog-kode for en bedre fremtid.\n★ VÅR NETTSIDE: https://GuardianProject.info\n★ DESSVERRE PÅ TWITTER: https://twitter.com/guardianproject\n★ FRI PROGRAMVARE: Checkey er fri programvare. Du kan sjekke ut vår programkode, og bidra til den for å gjøre Checkey enda bedre:\nhttps://gitlab.com/guardianproject/checkey\n★ TILBAKEMELDINGER: Mangler vi din favorittfunksjonalitet? Har du funnet en irriterende feil. Fortell oss om det! Vi elsker å lytte til god kritikk. Send oss en e-post support@guardianproject.info eller finn oss i vår sludrekanal https://guardianproject.info/contact\n",
+          "pt": "Checkey é um utilitário para obter informação sobre as APKs que estão instaladas no seu aparelho. Começando com uma lista de todas as apps que estão instaladas no seu aparelho. Esta irá mostrar-lhe a assinatura APK com um único toque, e proporciona hiperligações para virustotal.com e androidobservatory.org para aceder facilmente aos perfis dessa APK. Esta também irá deixá-lo exportar o certificado de assinatura e gerar os ficheiros código ApkSignaturePin para usar com a biblioteca TrustedIntents.\n\n★ NÓS FALAMOS O SEU IDIOMA: Checkey está disponível para os amigos que falam: Deutsch, English, español, suomi, 日本語, 한국어, Norsk, português (Portugal), Русский, Slovenščina, Türkçe\nNão vê o seu idioma? Junte-se a nós e ajude a traduzir a app:\nhttps://hosted.weblate.org/translate/guardianproject/\n\n***Saiba Mais***\n★ SOBRE NÓS: Guardian Project é um grupo de responsáveis pelo desenvolvimento que cria apps móveis seguras e de código aberto para um futuro melhor.\n★ O NOSSO SÍTIO DA WEB: https://GuardianProject.info\n★ NO TWITTER: https://twitter.com/guardianproject\n★ PROGRAMA LIVRE: Checkey é um programa gratuito. Pode dar uma vista de olhos no nosso código aberto, ou contribuir para ajudar a tornar Checkey ainda melhor:\nhttps://gitlab.com/guardianproject/checkey\n★ ENVIE-NOS UMA MENSAGEM: Nós estamos a perder a sua função favorita? Encontrou um bug aborrecido? Por favor, diga-nos! Nós gostaríamos de o ouvir. Envie-nos uma mensagem: support@guardianproject.info ou encontre-nos na nossa sala de conversação em https://guardianproject.info/contact\n",
+          "pt-BR": "Checkey é um utilitário para obter informação sobre as APKs que estão instaladas no seu dispositivo. Começando com uma lista de todas as apps que estão instaladas no seu dispositivo. Esta irá mostrar-lhe a assinatura APK com um único toque, e proporciona hiperligações para virustotal.com e androidobservatory.org para aceder facilmente aos perfis dessa APK. Esta também irá deixá-lo exportar o certificado de assinatura e gerar os ficheiros código ApkSignaturePin para usar com a biblioteca TrustedIntents.\n\n★ NÓS FALAMOS O SEU IDIOMA: Checkey está disponível para os amigos que falam: Deutsch, English, español, suomi, 日本語, 한국어, Norsk, português (Portugal), Русский, Slovenščina, Türkçe\nNão vê o seu idioma? Junte-se a nós e ajude a traduzir a app:\nhttps://hosted.weblate.org/translate/guardianproject/\n\n***Saiba Mais***\n★ SOBRE NÓS: Guardian Project é um grupo de responsáveis pelo desenvolvimento que cria apps móveis seguras e de código aberto para um futuro melhor.\n★ O NOSSO SÍTIO DA WEB: https://GuardianProject.info\n★ NO TWITTER: https://twitter.com/guardianproject\n★ PROGRAMA LIVRE: Checkey é um programa gratuito. Pode dar uma vista de olhos no nosso código aberto, ou contribuir para ajudar a tornar Checkey ainda melhor:\nhttps://gitlab.com/guardianproject/checkey\n★ ENVIE-NOS UMA MENSAGEM: Nós estamos a perder a sua função favorita? Encontrou um bug aborrecido? Por favor, diga-nos! Nós gostaríamos de o ouvir. Envie-nos uma mensagem: support@guardianproject.info ou encontre-nos na nossa sala de conversação em https://guardianproject.info/contact\n",
+          "pt-PT": "Checkey é um utilitário para obter informação sobre as APKs que estão instaladas no seu aparelho. Começando com uma lista de todas as apps que estão instaladas no seu aparelho, esta irá mostrar-lhe a assinatura APK com um único toque, e proporciona hiperligações para virustotal.com e androidobservatory.org para aceder facilmente aos perfis dessa APK. Também permite exportar o certificado de assinatura e gerar os ficheiros de código PIN ApkSignaturePin para usar com a biblioteca TrustedIntents.\n\n★ CÓDIGO-FONTE ABERTO: o nosso código é transparente. Pode dar uma vista de olhos ou juntar-se à comunidade para tornar o Checkey ainda melhor: https://gitlab.com/guardianproject/checkey\n★ NÓS FALAMOS O SEU IDIOMA: o Checkey está disponível para as pessoas que falam: alemão, inglês, espanhol, finlandês, japonês, coreano, norueguês, português, português (Brasil), russo, esloveno, turco.\n\nNão vê o seu idioma? Junte-se a nós e ajude a traduzir a app: https://hosted.weblate.org/translate/guardianproject/\n\n***Saiba mais***\n★ SOBRE NÓS: Guardian Project é um grupo de responsáveis pelo desenvolvimento que cria apps móveis seguras e de código aberto para um futuro melhor.\n★ O NOSSO SÍTIO DA WEB: https://GuardianProject.info\n★ NO TWITTER: https://twitter.com/guardianproject\n★ PROGRAMA LIVRE: Checkey é um programa gratuito. Pode dar uma vista de olhos no nosso código-fonte aberto, ou contribuir para ajudar a tornar o Checkey ainda melhor:\nhttps://gitlab.com/guardianproject/checkey\n★ ENVIE-NOS UMA MENSAGEM: nós estamos a perder a sua funcionalidade favorita? Encontrou um erro chato? Por favor, diga-nos! Nós gostaríamos de o ouvir. Envie-nos uma mensagem: support@guardianproject.info ou encontre-nos na nossa sala de conversação em https://guardianproject.info/contact\n",
+          "ru-RU": "Checkey  это программа для получения информации относительно APK     которые установлены на Вашем устройстве. Начиная со списка всех приложений установленых на Вашем устройстве она определит подписи APK по одному касанию и укажет ссылки на virustotal.com и androidabservatory.org  для удобного доступа к профилям этих APK. Она так же поможет отправить номера сертификатов и создаст файлы номеров ApkSignaturePin для использование с библиотекой TrustedIntents.\n* МЫ ГОВОРИМ НА ВАШЕМ ЯЗЫКЕ: Checkey доступна для друзей говорящих на:\nНе видите вашего языка? Свяжитесь с нами и помогите перевести приложение:\nhttps://hosted.weblate.org/projects/guardianproject/checkey/\nhttps://hosted.weblate.org/projects/guardianproject/checkey-metadata/\n\n***Узнать больше***\n* О НАС: Guardian Project это группа разработчиков делающая мобильные приложения безопаснее используя открытый исходный код для лучшего будущего.\n★ НАШ WEBSITE: https://GuardianProject.info\n★ В TWITTER: https://twitter.com/guardianproject\n★ ПРОГРАММНОЕ ОБЕСПЕЧЕНИЕ С ОТКРЫТЫМ ИСХОДНЫМ КОДОМ: Checkey является программным обеспечением с открытым исходным кодом. Вы можете проверить наш исходный код или помочь сделать Checkey ещё лучше:\nhttps://gitlab.com/guardianproject/checkey\n★ ДАЙТЕ НАМ ЗНАТЬ: Мы отключили необходимые Вам возможности программы? Вы обнаружили ошибку? Пожалуйста, дайте нам знать! Мы не хотели расстроить Вас. Пришлите нам сообщение на почту: support@guardianproject.info или наберите нас в чате на странице https://guardianproject.info/contact\n",
+          "sl": "Checkey je orodje za pridobivanje informacij o APK paketih, ki so nameščeni na vaši napravi. Na začetnem zaslonu je prikazan seznam vseh, z dotikom posameznega pa se izpišejo: njegove zgoščene vrednosti, podatki o podpisu in povezavi do informacij na virustotal.com ter androidobservatory.org. Poleg tega omogoča še izvoz podpisnih potrdil in izdelavo ApkSignaturePin PIN datotek za uporabo s TrustedIntents knjižnico. \n\n★ GOVORIMO VAŠ JEZIK: Checkey je na voljo za prijatelje, ki govorijo: Deutsch, English, español, suomi, 日本語, 한국어, Norsk, português (Portugal), Русский, Slovenščina, Türkçe\nAli vaš jezik ni na voljo? Pridružite se nam in nam pomagajte prevesti to aplikacijo:\nhttps://hosted.weblate.org/projects/guardianproject/checkey/\nhttps://hosted.weblate.org/projects/guardianproject/checkey-metadata/\n\n***Izvedite več***\n★ O NAS: Guardian Project smo skupina razvijalcev, ki ustvarjamo varne in odprtokodne mobilne aplikacije za boljši jutri\n★ SPLETNA STRAN: https://GuardianProject.info\n★ NA TWITTERJU: https://twitter.com/guardianproject\n★ BREZPLAČNO PROGRAMJE: Checkey je brezplačen. Lahko si tudi ogledate njegovo izvorno kodo ali pa doprinesete k njegovemu razvoju, da bi postal še boljši:\nhttps://gitlab.com/guardianproject/checkey\n★ OBVESTITE NAS: Ali pogrešate kakšno funkcionalnost? Ste našli hrošča? Veseli bomo vašega sporočila. Pošljite nam e-pošto na: support@guardianproject.info ali nas poiščite v naši klepetalnici na: https://guardianproject.info/contact\n",
+          "tr-TR": "Checkey telefonunuzda yüklü olan APK'lar hakkında bilgi sahibi olmanıza yarayan bir araçtır. Telefonunuzda yüklü olan tüm uygulamaları içeren bir liste ile açılır, size tek tıklamayla APK imzasını gösterir bu APK'nun profillerine ulaşabilmeniz için virustotal.com ve androidobservatory.org adreslerine bağlantılar sunar. Ayrıca TrustedIntents kütüphanesinde kullanabilmeniz için imzalama sertifikalarını dışa aktararak ApkSignaturePin pin dosyaları oluşturmanıza olanak sağlar.\n\n★ AÇIK KAYNAKLI: Kodumuz şeffaftır. Göz atabilir veya Checkey'i daha iyi yapmaya yardımcı olmak için topluluğa katılabilirsin: https://gitlab.com/guardianproject/checkey\n★ DİLİNİZİ BİLİYORUZ: Checkey artık şu dilleri bilen arkadaşlar için kullanılabilir: Deutsch, English, español, suomi, 日本語, 한국어, Norsk, português (Portugal), Русский, Slovenščina, Türkçe\n\nDilinizi görmüyor musunuz? Bize katılın ve uygulamayı tercüme etmeye yardım edin:\nhttps://hosted.weblate.org/projects/guardianproject/checkey/\nhttps://hosted.weblate.org/projects/guardianproject/checkey-metadata/\n\n\n***Daha Fazlasını Öğrenin***\n★ HAKKIMIZDA: Guardian Project, daha iyi bir yarın için güvenli mobil uygulamalar ve açık kaynaklı kodlar yazan bir geliştirici grubudur\n★ WEB SİTEMİZ: https://GuardianProject.info\n★ TWITTER: https://twitter.com/guardianproject\n★ ÖZGÜR YAZILIM: Checkey özgür bir yazılımdır. Kaynak kodumuza göz atabilir veya Checkey'i daha iyi yapmaya yardım etmek için katkıda bulunabilirsiniz: https://gitlab.com/guardianproject/checkey\n★ BİZE MESAJ GÖNDERİN: En sevdiğiniz özellik eksik mi? Can sıkıcı bir hata mı buldunuz? Lütfen bize bildirin! Duymak isteriz. Bize bir e-posta gönderin: support@guardianproject.info veya sohbet odamızda bizi bulun: https://guardianproject.info/contact\n",
+          "uk": "Checkey - це утиліта для отримання відомостей про APK, які встановлені на вашому пристрої. Починаючи зі списку всіх застосунків, які ви встановили на своєму пристрої, він умить вам покаже підпис APK та надасть посилання на virustotal.com та androidobservatory.org для легкого доступу до профілів цього APK. Це також дозволить вам експортувати сертифікат підписання та утворити шпильові файли ApkSignaturePin для використання з бібліотекою TrustedIntents.\n\n★ ВІЛЬНІ ДЖЕРЕЛА: Наш код прозорий. Ви можете поглянути або приєднатися до спільноти, щоб зробити Checkey ще кращим: https://gitlab.com/guardianproject/checkey\n★ МИ СПІЛКУЄМОСЯ ВАШОЮ МОВОЮ: Checkey доступний для людей, що розмовляють: Deutsch, English, español, suomi, 日本語, 한국어, Norsk, português (Portugal), Русский, Slovenščina, Türkçe\n\nВи не бачите своєї мови? Приєднуйтесь до нас і допоможіть перекласти застосунок:\nhttps://hosted.weblate.org/projects/guardianproject/checkey/\nhttps://hosted.weblate.org/projects/guardianproject/checkey-metadata/\n\n\n***Вивчайте більше***\n★ ПРО НАС: Проєкт Guardian - це група розробників, які роблять безпечні мобільні застосунки та відкритий код для кращого завтрашнього дня\n★ НАША САЙТ: https://GuardianProject.info, щоб дізнатися більше про нас\n★ НА TWITTER: https://twitter.com/guardianproject\n★ ВІЛЬНЕ ПЗ: Checkey - це вільне програмне забезпечення. Ви можете поглянути на наш вихідний код або внести свій внесок у те, щоб зробити Checkey ще кращим: https://gitlab.com/guardianproject/checkey\n★ ПОВІДОМТЕ НАС: Не вистачає улюбленої функції? Знайшли дратівливу помилку? Скажіть будь ласка! Ми хотіли б почути від вас. Надішліть нам електронний лист: support@guardianproject.info або знайдіть нас у нашій кімнаті чату https://guardianproject.info/contact\n",
+          "ur": "آپ کے آلہ پر نصب شدہ APKs کے بارے میں معلومات حاصل کرنے کے لئے چیکی ایک افادیت ہے۔ آپ نے اپنے آلے پر انسٹال کردہ سبھی ایپس کی فہرست کے ساتھ شروع کریں، یہ آپ کو ایک لمس کے ساتھ APK کے دستخط دکھائے گا، اور اس APK کے پروفائلز تک آسانی سے رسائی حاصل کرنے کے لیے virustotal.com اور androidobservatory.org کے لنک فراہم کرتا ہے۔ یہ آپ کو دستخطی سرٹیفکیٹ برآمد کرنے اور ٹرسٹڈ انٹیٹینٹ لائبریری کے ساتھ استعمال کے لئے ApkSignaturePin فائلیں تیار کرنے بھی دے گا۔\n\n★ اوپن سورس: ہمارا کوڈ شفاف ہے۔ آپ چیکی کو اور بھی بہتر بنانے میں مدد کے لیے ایک نظر ڈال سکتے ہیں یا کمیونٹی میں شامل ہو سکتے ہیں: https://gitlab.com/guardianproject/checkey\n★ ہم آپ کی زبان بولتے ہیں: چیکی بولنے والے دوستوں کے لئے دستیاب ہے: Deutsch, English, español, suomi, 日本語, 한국어, Norsk, português (Portugal), Русский, Slovenščina, Türkçe\n\nاپنی زبان نہیں دیکھیں؟ ہمارے ساتھ شامل ہوں اور ایپ کا ترجمہ کرنے میں مدد کریں:\nhttps://hosted.weblate.org/projects/guardianproject/checkey/\nhttps://hosted.weblate.org/projects/guardianproject/checkey-metadata/\n\n\n***اورجانیے***\n★ ہمارے بارے میں: گارجین پروجیکٹ ڈویلپرز کا ایک گروپ ہے جو بہتر کل کیلئے محفوظ موبائل ایپس اور اوپن سورس کوڈ بناتا ہے۔\n★ ہماری ویب سائٹ: https://GuardianProject.info ہمارے بارے میں مزید معلومات کے لیے۔\n★ ٹویٹر پر: https://twitter.com/guardianproject\n★ مفت سافٹ ویئر: چیکی مفت سافٹ ویئر ہے۔ آپ ہمارے ماخذ کوڈ پر ایک نظر ڈال سکتے ہیں، یا چیکی کو اور بھی بہتر بنانے میں مدد فراہم کرسکتے ہیں: https://gitlab.com/guardianproject/checkey\n★ ہمیں پیغام بھیجیں: کیا آپ کی پسندیدہ خصوصیت اس میں نہیں پاتے؟ پریشان کن بگ ملا؟ براہ کرم ہمیں بتائیں! ہم آپ سے سننا پسند کریں گے۔ ہمیں ایک ای میل بھیجیں: support@guardianproject.info یا ہمارے چیٹ روم میں ہمیں تلاش کریں https://guardianproject.info/contact\n",
+          "zh-CN": "Checkey 是一个获得已安装 APK 信息的实用工具。从一个已经安装在你设备上的所有应用的列表开始，只需触摸一下，它便会向你显示APK签名，并且提供到virustotal.com和androidobservatory.org的链接来轻松访问APK的详细情况。它还允许导出签名证书并生成ApkSignaturePin pin文件，以便与TrustedIntents库一起使用。\n\n★开源：我们的代码是透明的。您可以查看或加入社区，以帮助使Checkey变得更好:\nhttps://gitlab.com/guardianproject/checkey\n★我们说你的语言：Checkey对说下列语言的朋友可用：德语、英语、西班牙语、芬兰语、日语、朝鲜语、挪威语、葡萄牙语、俄语、斯洛文尼亚语、俄语......\n\n没看到你的语言?加入我们，帮助翻译这个应用程序：\nhttps://hosted.weblate.org/projects/guardianproject/checkey/\nhttps://hosted.weblate.org/projects/guardianproject/checkey-metadata/\n\n***了解我们**\n★关于我们：Guardian项目是一群开发人员，他们致力于开发安全的移动应用程序和开源代码，以创造更美好的明天\n★我们的网站：https://GuardianProject.info了解更多关于我们的信息\n★推特帐户： https://twitter.com/guardianproject\n★自由软件：Checkey是自由软件。您可以查看我们的源代码，或者为帮助Checkey变得更好做出贡献:https://gitlab.com/guardianproject/checkey\n★给我们发消息：我们是不是错过了你最喜欢的功能?发现了一个恼人的bug?请告诉我们!我们希望收到你的来信。发送电子邮件给我们:support@guardianproject.info或在我们的聊天室找到我们https://guardianproject.info/contact\n"
+        },
+        "donate": ["https://github.com/sponsors/eighthave"],
+        "icon": {
+          "en-US": {
+            "name": "/info.guardianproject.checkey/en-US/icon_u6GazWhtE6VnMlTpZJrhKfveY-xjt5JYyDnyUriNbEY=.png",
+            "sha256": "bba19acd686d13a5673254e9649ae129fbde63ec63b79258c839f252b88d6c46",
+            "size": 175964
+          }
+        },
+        "preferredSigner": "f006a20481c71a690de02e385ab0c9fa4ac1245240f68102682703ba0656867a"
+      },
+      "versions": {
+        "2d81f339bb69626af42e8868dc6928c9072ebcbae76e1ff5ac8172e78ebe9cdd": {
+          "added": 1422403200000,
+          "file": {
+            "name": "/Checkey-0.1.1.apk",
+            "sha256": "2d81f339bb69626af42e8868dc6928c9072ebcbae76e1ff5ac8172e78ebe9cdd",
+            "size": 967083,
+            "ipfsCIDv1": "bafybeiggb6s25eorj25ehfo6vopb6lcicwcvdwgeeiyhybgeddhylwvcaq"
+          },
+          "manifest": {
+            "versionName": "0.1.1",
+            "versionCode": 101,
+            "usesSdk": {
+              "minSdkVersion": 8,
+              "targetSdkVersion": 21
+            },
+            "signer": {
+              "sha256": [
+                "f006a20481c71a690de02e385ab0c9fa4ac1245240f68102682703ba0656867a"
+              ]
+            },
+            "usesPermission": [
+              {
+                "name": "android.permission.INTERNET"
+              }
+            ]
+          },
+          "whatsNew": {
+            "cs-CZ": "+ přidat překlady: de es fi ja ko nb tr\n+ reprodukovatelný build proces\n+ opravid pády aplikace přidáním nejnovější Android Support v7\n",
+            "de-DE": "+ hinzugefügte Übersetzungen: de es fi ja ko nb tr\n+ reproduzierbarer Build-Vorgang\n+ neueste Version von Android Support v7 hinzugefügt, um Abstürze zu beheben\n",
+            "en-US": "+ add translations: de es fi ja ko nb tr\n+ reproducible build process\n+ add latest Android Support v7 to fix crashes\n",
+            "eo": "+ novaj tradukoj: germana, hispana, japana, korea, norvega Bokmål, turka\n+ reproduktebla kompilaĵo\n+ plej aktuala Android Support v7 por eviti paneojn\n",
+            "es-ES": "+ agregar traducciones: de es fi ja ko nbtr\n+ proceso de construcción reproducible\n+ agrega la ultima version de  Soporte de Android v7 para reparar  fallas\n",
+            "hi-IN": "अनुवाद जोड़ने: de es fi ja ko nb tr\n+ प्रतिलिपि प्रस्तुत करने योग्य निर्माण प्रक्रिया\n+ दुर्घटनाओं को ठीक करने के लिए नवीनतम Android समर्थन v7 जोड़ें\n",
+            "ja-JP": "+ 翻訳を追加: de es fi ja ko nb tr\n+ 再現可能なビルドプロセス\n+ 最新の Android サポート v7 を追加してクラッシュを修正\n",
+            "no-NO": "+ Oversettelser lagt til: de es fi ja ko nb tr\n+ Gjentagbar byggeprosess\n+ Støtte for Android 7 fikser kræsj\n",
+            "pl-PL": "+ dodano tłumaczenia: de es fi ja ko nb tr\n+ powtarzalny proces budowy\n+ dodano najnowszą obsługę Android w wersji 7, aby naprawić awarie\n",
+            "pt": "+ adicionar traduções: de es fi ja ko nb tr\n+ processo de compilação reproduzível\n+ adicionar suporte ao último Android v7 para erros\n",
+            "pt-BR": "+ adicionar traduções: de es fi ja ko nb tr\n+ processo de compilação reproduzível\n+ adicionar suporte ao último Android v7 para erros\n",
+            "pt-PT": "+ adicionar traduções: de es fi ja ko nb tr\n+ processo de compilação reprodutível\n+ adicionado suporte ao último Android v7 para corrigir craches\n",
+            "tr-TR": "+ eklenen çeviriler: de es fi ja ko nb tr\n+ tekrar oluşturulabilir derleme işlemi\n+ çökmeleri düzeltmek için en son Android v7 desteği eklendi\n",
+            "uk": "+ додано переклади: de es fi ja ko nb tr\n+ забезпечення відтворюваності збірки\n+ додано підтримку Android v7 для виправлення падінь додатку\n",
+            "ur": "+ ترجمہ شامل کریں: de es fi jo ko nb tr\n+ دوبارہ تولیدی عمل کا عمل\n+ کریشوں کو ٹھیک کرنے کیلئے جدید ترین Android سپورٹ v7 شامل کریں\n",
+            "zh-CN": "+添加翻译：德语、西班牙语、芬兰语、日语、韩国语、荷兰语(比利时)、土耳其语\n+可重现的构建过程\n+添加最新的Android支持v7来修复崩溃\n"
+          }
+        }
+      }
+    }
+  }
+}

@@ -15,7 +15,9 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+require_relative '../fdroid/index'
 require_relative '../fdroid/IndexV1'
+require_relative '../fdroid/v2/index'
 
 module Jekyll
   # Used to output the repo name/timestamp used to generate this F-Droid site.
@@ -30,7 +32,10 @@ module Jekyll
       if @@repotag == ''
         site = context.registers[:site]
         url = site.config['fdroid-repo']
-        index = FDroid::IndexV1.download(url, 'en')
+
+        fdroid_index = FDroid::Index.class(site.config.dig("jekyll-fdroid", "index_version"))
+        index = fdroid_index.download(url, 'en_US')
+
         @@repotag = "#{index.repo.name} #{index.repo.date}"
       end
       return @@repotag
