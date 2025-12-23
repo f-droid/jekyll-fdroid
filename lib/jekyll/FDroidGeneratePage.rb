@@ -16,7 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 module Jekyll
-  class FDroidPackagesGenerator < Generator
+  class FDroidCateogryGenerator < Generator
     attr_accessor :alreadyBuilt
 
     safe true
@@ -70,9 +70,13 @@ module Jekyll
           end
         end
 
-        # Generate browsing pages
+        # Generate categories pages
         site.includes_load_paths << (File.expand_path "../../_includes", File.dirname(__FILE__))
-        site.pages << FDroidBrowsingPage.new(site, site.source)
+        site.pages << FDroidCateogryPage.new(site, site.source)
+
+        # Generate package pages
+        site.includes_load_paths << (File.expand_path "../../_includes", File.dirname(__FILE__))
+        site.pages << FDroidPackagePage.new(site, site.source)
       end
     end
   end

@@ -16,7 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 module Jekyll
-  class FDroidBrowsingPage < ReadYamlPage
+  class FDroidPackagePage < ReadYamlPage
     def initialize(site, base)
       @site = site
       @base = base
@@ -24,7 +24,7 @@ module Jekyll
       @name = "index.html"
 
       self.process(@name)
-      self.read_yaml((File.expand_path "../../_pages", File.dirname(__FILE__)), 'categories-overview.html')
+      self.read_yaml((File.expand_path "../../_pages", File.dirname(__FILE__)), 'packages-overview.html')
     end
   end
 end
