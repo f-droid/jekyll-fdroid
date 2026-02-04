@@ -21,7 +21,8 @@ module Jekyll
     # @param [string]  base
     # @param [string]  app_category
     # @param [string]  app_category_id
-    def initialize(site, base, app_category, app_category_id)
+    # @param [hash]  extras
+    def initialize(site, base, app_category, app_category_id, extras)
       @site = site
       @base = base
       @dir = 'categories'
@@ -34,6 +35,7 @@ module Jekyll
       self.data['app_category'] = app_category
       self.data['permalink'] = "/categories/#{app_category_id}/"
       self.data['pagination']['collection'] = app_category_id
+      self.data.update(extras) if extras
     end
 
     def get_layout_dir()

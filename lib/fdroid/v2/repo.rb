@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative "../Package"
+
 module FDroid
   module V2
     class Repo
@@ -35,18 +37,31 @@ module FDroid
         Date.strptime("#{timestamp / 1000}", '%s')
       end
 
-      def anti_features
-        @repo.dig("antiFeatures")
+      def anti_features(language = primary_language)
+        get_localized(@repo.dig("antiFeatures"), language)
       end
 
-      def categories
-        @repo.dig("categories")
+      def categories(language = primary_language)
+        get_localized(@repo.dig("categories"), language)
       end
 
       private
 
       def primary_language
         @primary_language ||= @repo.dig("name").keys.first
+      end
+
+      def get_localized(data, language)
+        data&.transform_values do |item|
+          item&.transform_values do |v|
+            if v.is_a?(Hash)
+              preferred_locale = FDroid::Package.available_locales(language, v)&.first
+              FDroid::Package.sanitise(v.dig(preferred_locale || primary_language) || v.first&.at(1))
+            else
+              v
+            end
+          end
+        end
       end
     end
   end

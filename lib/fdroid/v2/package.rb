@@ -14,7 +14,7 @@ module FDroid
       def initialize(package_name, app_json, locale)
         @package_name = package_name
         @metadata = app_json.dig('metadata')
-        @versions = app_json.dig('versions').map { |k, v| Version.new(k, v) }
+        @versions = app_json.dig('versions').map { |k, v| Version.new(k, v, locale) }
         @locale = locale
       end
 
@@ -53,7 +53,7 @@ module FDroid
           'added' => from_metadata('added'),
           'last_updated' => from_metadata('lastUpdated'),
           'is_localized' => @locale,
-          'whats_new' => whats_new,
+          'whats_new' => suggested_version&.whats_new,
           'icon' => icon,
           'name' => name,
           'title' => name,
@@ -67,10 +67,12 @@ module FDroid
           'tv_screenshots' => screenshots("tv"),
           'wear_screenshots' => screenshots("wear"),
           'versions' => @ordered_versions.map { |p| p.to_data },
+          'preferred_signer' => from_metadata('preferredSigner'),
           'beautiful_url' => "/packages/#{package_name}"
         }
 
-        FDroid::Package.sanitise(data, skip = ['description', 'whats_new'])
+        data['is_localized'] = nil unless @is_localized
+        FDroid::Package.sanitise(data, skip = ['description', 'whats_new'], skip_recursive = true)
       end
 
       private
@@ -78,10 +80,6 @@ module FDroid
       def icon
         icon_locale = preferred_locale("icon", @locale)
         strip_first_slash(from_metadata(["icon", icon_locale, "name"]))
-      end
-
-      def whats_new
-        ordered_versions.first&.whats_new(@locale)
       end
 
       def name
@@ -115,11 +113,13 @@ module FDroid
       end
 
       def ordered_versions
-        @ordered_versions ||= @versions.sort.reverse
+        @ordered_versions ||= @versions.sort_by.with_index do |version, index|
+          [-version.version_code.to_i, index]
+        end
       end
 
       def suggested_version
-        @suggested_version ||= ordered_versions&.first { |version| !version.is_beta? }
+        @suggested_version ||= ordered_versions&.find { |version| !version.is_beta? }
       end
 
       def from_metadata(fields)
@@ -130,7 +130,9 @@ module FDroid
         localized_data = from_metadata(fields)
         return default_locale if localized_data.nil?
 
-        FDroid::Package.available_locales(default_locale, localized_data).first
+        available_locales = FDroid::Package.available_locales(default_locale, localized_data)
+        @is_localized = FDroid::Package.is_localized(default_locale, available_locales) if @is_localized.nil? && available_locales
+        available_locales&.first
       end
 
       def strip_first_slash(url)

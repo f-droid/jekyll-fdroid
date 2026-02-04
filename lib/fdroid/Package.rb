@@ -152,7 +152,7 @@ module FDroid
         'ten_inch_screenshots' => Package.localized_graphic_list_paths(@available_locales, @package['localized'], 'tenInchScreenshots'),
         'tv_screenshots' => Package.localized_graphic_list_paths(@available_locales, @package['localized'], 'tvScreenshots'),
         'wear_screenshots' => Package.localized_graphic_list_paths(@available_locales, @package['localized'], 'wearScreenshots'),
-        'versions' => @versions.sort.reverse.map { |p| p.to_data },
+        'versions' => @versions.sort_by.with_index { |v, i| [-v.version_code.to_i, i] }.map { |p| p.to_data },
         'beautiful_url' => "/packages/#{package_name}"
       }
 
@@ -338,14 +338,14 @@ module FDroid
     # used to recursively sanitise the hash returned by to_data, except for any
     # data already passed through process_package_description (and thus scrubbed
     # by loofah)
-    def self.sanitise(value, skip = [])
+    def self.sanitise(value, skip = [], skip_recursive = false)
       case value
       when String
         value.gsub(/[<>"'&]/, ESCAPES)
       when Hash
-        value.map { |k, v| skip.include?(k) ? [k, v] : [k, sanitise(v)] }.to_h
+        value.map { |k, v| skip.include?(k) ? [k, v] : [k, skip_recursive && skip && !skip.empty? ? sanitise(v, skip, skip_recursive) : sanitise(v)] }.to_h
       when Array
-        value.map { |x| sanitise(x) }
+        value.map { |x| skip_recursive && skip && !skip.empty? ? sanitise(x, skip, skip_recursive) : sanitise(x) }
       when Date, Float, Integer, nil
         value
       else

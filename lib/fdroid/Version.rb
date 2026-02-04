@@ -57,6 +57,7 @@ module FDroid
         'size' => @version['size'],
         'target_sdk_version' => @version['targetSdkVersion'],
         'uses_permission' => permission,
+        'uses_permission_sdk_23' => permission_sdk_23,
         'version_name' => version_name,
         'version_code' => version_code,
       }
@@ -67,6 +68,14 @@ module FDroid
         []
       else
         @version['uses-permission'].map { |perm| Permission.new(perm).to_data }
+      end
+    end
+
+    def permission_sdk_23
+      if @version['uses-permission-sdk-23'] == nil then
+        []
+      else
+        @version['uses-permission-sdk-23'].map { |perm| Permission.new(perm).to_data }
       end
     end
   end
