@@ -1,13 +1,15 @@
 # frozen_string_literal: true
 
 require_relative "./permission"
+require_relative "../Package"
 
 module FDroid
   module V2
     class Version
-      def initialize(key, version)
+      def initialize(key, version, locale)
         @key = key
         @version = version
+        @locale = locale
       end
 
       def <=>(other)
@@ -29,7 +31,7 @@ module FDroid
         {
           "added" => added,
           "anti_features" => anti_features_v1_compatible,
-          "anti_features_extra" => @version["antiFeatures"],
+          "anti_features_v2" => anti_features_v2,
           "apk_name" => apk_name,
           "file_extension" => apk_name_file_extension,
           "hash" => @version.dig("file", "sha256"),
@@ -43,13 +45,30 @@ module FDroid
           "size" => @version.dig("file", "size"),
           "target_sdk_version" => from_manifest(["usesSdk", "targetSdkVersion"]),
           "uses_permission" => permission,
+          "uses_permission_sdk_23" => permission_sdk_23,
           "version_name" => version_name,
           "version_code" => version_code,
+          "whats_new" => whats_new,
+          "release_channels" => @version.dig("releaseChannels"),
         }
       end
 
       def anti_features_v1_compatible
         @version["antiFeatures"]&.keys
+      end
+
+      def anti_features_v2
+        anti_features_data = @version.dig("antiFeatures")
+        return if anti_features_data.nil?
+
+        anti_features_data.transform_values do |v|
+          if v.is_a?(Hash)
+            preferred_locale = FDroid::Package.available_locales(@locale, v)&.first
+            v.dig(preferred_locale) || v.first&.at(1)
+          else
+            v
+          end
+        end
       end
 
       def apk_name
@@ -72,16 +91,23 @@ module FDroid
         up.map { |perm| Permission.new(perm).to_data }
       end
 
-      def is_beta?
-        !@version.dig("releaseChannels")&.include?("Beta").nil?
+      def permission_sdk_23
+        up = from_manifest("usesPermissionSdk23")
+        return [] if up.nil?
+
+        up.map { |perm| Permission.new(perm).to_data }
       end
 
-      def whats_new(locale)
+      def is_beta?
+        @version.dig("releaseChannels")&.include?("Beta") == true
+      end
+
+      def whats_new
         whats_new_data = @version.dig("whatsNew")
         return if whats_new_data.nil?
 
-        preferred_locale = FDroid::Package.available_locales(locale, whats_new_data).first
-        FDroid::Package.process_package_description(whats_new_data.dig(preferred_locale))
+        preferred_locale = FDroid::Package.available_locales(@locale, whats_new_data)&.first
+        FDroid::Package.process_package_description(whats_new_data.dig(preferred_locale) || whats_new_data.first&.at(1))
       end
 
       private

@@ -3,35 +3,71 @@ layout: page
 title: " "
 permalink: /packages/
 ---
-{% for app_category in site.app_categories %}
-  {% assign app_category_escaped = app_category | escape %}
-  {% assign filtered_packages = site.packages | where_exp: "item", "item.categories contains app_category_escaped" | sort: "last_updated" | reverse %}
-  {% if filtered_packages.size > 0 %}
-    <h3>{{ site.data.strings.app_categories[app_category] }}</h3>
+{%- if page.repo.categories %}
+  {%- assign app_categories = page.repo.categories %}
+{%- else %}
+  {%- assign app_categories = site.app_categories %}
+{%- endif %}
+{%- for app_category in app_categories %}
+  {%- if app_category[0] %}
+    {%- assign app_category_name = app_category[0] %}
+  {%- else %}
+    {%- assign app_category_name = app_category %}
+  {%- endif %}
+  {%- assign category_list = "" | split: "," %}
+  {%- assign category_packages = "" | split: "," %}
+  {%- assign app_category_escaped = app_category_name | escape %}
+  {%- assign filtered_packages = site.packages | where_exp: "item", "item.categories contains app_category_escaped" | sort: "last_updated" | reverse %}
+  {%- if filtered_packages.size > 0 %}
+    <h3>
+      {%- if app_category[1].name %}
+        {{- app_category[1].name }}
+      {%- else %}
+        {{- site.data.strings.app_categories[app_category_name] }}
+      {%- endif -%}
+    </h3>
     <div id="package-list">
-      {% if filtered_packages.size >= 3 %}
-        {% assign remaining = 3 %}
-      {% else %}
-        {% assign remaining = filtered_packages.size %}
-      {% endif %}
-      {% for package in filtered_packages %}
-      {% if package.is_localized and package.icon and package.summary and package.whats_new %}
-        {% include package-list-item.html package=package %}
-        {% assign remaining = remaining | minus: 1 %}
-      {% endif %}
-      {% if remaining <= 0 %}{% break %}{% endif %}
-      {% endfor %}
-      {% for package in filtered_packages %}
-      {% if package.is_localized and package.icon and package.summary and package.whats_new == nil %}
-        {% include package-list-item.html package=package %}
-        {% assign remaining = remaining | minus: 1 %}
-      {% endif %}
-      {% if remaining <= 0 %}{% break %}{% endif %}
-      {% endfor %}
-      {% for package in filtered_packages limit: remaining %}
-        {% include package-list-item.html package=package %}
-      {% endfor %}
+      {%- if filtered_packages.size >= 3 %}
+        {%- assign remaining = 3 %}
+      {%- else %}
+        {%- assign remaining = filtered_packages.size %}
+      {%- endif %}
+      {%- for package in filtered_packages %}
+      {%- if remaining <= 0 %}{% break %}{% endif %}
+      {%- if category_list contains package.package_name %}{% continue %}{% endif %}
+      {%- if package.is_localized and package.icon and package.summary and package.whats_new %}
+        {%- assign category_list = category_list | push: package.package_name %}
+        {%- assign category_packages = category_packages | push: package %}
+        {%- assign remaining = remaining | minus: 1 %}
+      {%- endif %}
+      {%- endfor %}
+      {%- for package in filtered_packages %}
+      {%- if remaining <= 0 %}{% break %}{% endif %}
+      {%- if category_list contains package.package_name %}{% continue %}{% endif %}
+      {%- if package.is_localized and package.icon and package.summary and package.whats_new == nil %}
+        {%- assign category_list = category_list | push: package.package_name %}
+        {%- assign category_packages = category_packages | push: package %}
+        {%- assign remaining = remaining | minus: 1 %}
+      {%- endif %}
+      {%- endfor %}
+      {%- for package in filtered_packages %}
+      {%- if remaining <= 0 %}{% break %}{% endif %}
+      {%- if category_list contains package.package_name %}{% continue %}{% endif %}
+        {%- assign category_list = category_list | push: package.package_name %}
+        {%- assign category_packages = category_packages | push: package %}
+        {%- assign remaining = remaining | minus: 1 %}
+      {%- endfor %}
+      {%- assign category_packages = category_packages | sort: "last_updated" | reverse %}
+      {%- for package in category_packages %}
+        {%- include package-list-item.html package=package %}
+      {%- endfor %}
     </div>
-    <p><a href="{{ site.baseurl }}/categories/{{ app_category | slugify }}/">{{ site.data.strings.app_categories.show_all_packages | replace: '%d', filtered_packages.size | replace: 'Show all 1 packages', site.data.strings.app_categories.show_package }}</a></p>
-  {% endif %}
-{% endfor %}
+    <p><a href="{{ site.baseurl }}/categories/{{ app_category_name | slugify }}/">
+      {%- if filtered_packages.size > 1 -%}
+        {{ site.data.strings.app_categories.show_all_packages | replace: '%d', filtered_packages.size }}
+      {%- else -%}
+        {{ site.data.strings.app_categories.show_package }}
+      {%- endif -%}
+    </a></p>
+  {%- endif %}
+{%- endfor %}

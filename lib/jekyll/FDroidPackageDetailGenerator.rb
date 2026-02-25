@@ -43,20 +43,35 @@ module Jekyll
         end
         site.config["pagination"]["enabled"] = true
 
-        fdroid_index = FDroid::Index.class(site.config.dig("jekyll-fdroid", "index_version"))
+        index_version = site.config.dig("jekyll-fdroid", "index_version")
+        fdroid_index = FDroid::Index.class(index_version)
         index = fdroid_index.download(site.config["fdroid-repo"], site.active_lang || 'en_US')
 
+        if index_version == 'v2'
+          repo = index.repo
+          anti_features = repo.anti_features(site.active_lang)
+          categories = repo.categories(site.active_lang)
+          extras = {
+            "repo" => {
+              "anti_features" => anti_features,
+              "categories" => categories
+            }
+          }
+        end
+
+        app_categories = categories ? categories.keys : site.config["app_categories"]
+
         # Generate collection and detail page for every category
-        site.config["app_categories"].each do |app_category|
+        app_categories.each do |app_category|
           app_category_id = Utils.slugify(app_category)
           site.collections[app_category_id] = Collection.new(site, app_category_id)
-          site.pages << FDroidCategoryDetailPage.new(site, site.source, app_category, app_category_id)
+          site.pages << FDroidCategoryDetailPage.new(site, site.source, app_category, app_category_id, extras)
         end
 
         # Generate detail page for every package
         site.collections["packages"] = Collection.new(site, "packages")
         index.packages.each do |package|
-          packagePage = FDroidPackageDetailPage.new(site, site.source, package)
+          packagePage = FDroidPackageDetailPage.new(site, site.source, package, extras)
           site.pages << packagePage
           site.collections["packages"].docs << packagePage
 
@@ -72,7 +87,7 @@ module Jekyll
 
         # Generate browsing pages
         site.includes_load_paths << (File.expand_path "../../_includes", File.dirname(__FILE__))
-        site.pages << FDroidBrowsingPage.new(site, site.source)
+        site.pages << FDroidBrowsingPage.new(site, site.source, extras)
       end
     end
   end

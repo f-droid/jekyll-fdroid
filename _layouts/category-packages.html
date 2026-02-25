@@ -15,7 +15,13 @@ pagination:
   sort_reverse: true
 ---
 
-<h3>{{ site.data.strings.app_categories[page.app_category] }}</h3>
+<h3>
+  {%- if page.repo.categories[page.app_category].name -%}
+    {{- page.repo.categories[page.app_category].name }}
+  {%- else -%}
+    {{- site.data.strings.app_categories[page.app_category] }}
+  {%- endif -%}
+</h3>
 <div id="package-list">
   {% for package in paginator.posts %}
     {% include package-list-item.html package=package %}

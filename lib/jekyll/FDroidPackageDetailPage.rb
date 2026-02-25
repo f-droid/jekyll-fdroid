@@ -20,7 +20,8 @@ module Jekyll
     # @param [Jekyll::Site]  site
     # @param [string]  base
     # @param [FDroid::Package]  package
-    def initialize(site, base, package)
+    # @param [hash]  extras
+    def initialize(site, base, package, extras)
       @site = site
       @base = base
       @dir = 'packages'
@@ -29,6 +30,7 @@ module Jekyll
       self.process(@name)
       self.read_yaml(get_layout_dir, 'package.html')
       self.data.update(package.to_data)
+      self.data.update(extras) if extras
     end
 
     def get_layout_dir()

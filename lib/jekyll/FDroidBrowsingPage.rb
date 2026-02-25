@@ -17,7 +17,7 @@
 
 module Jekyll
   class FDroidBrowsingPage < ReadYamlPage
-    def initialize(site, base)
+    def initialize(site, base, extras)
       @site = site
       @base = base
       @dir = "packages"
@@ -25,6 +25,7 @@ module Jekyll
 
       self.process(@name)
       self.read_yaml((File.expand_path "../../_pages", File.dirname(__FILE__)), 'categories-overview.html')
+      self.data.update(extras) if extras
     end
   end
 end

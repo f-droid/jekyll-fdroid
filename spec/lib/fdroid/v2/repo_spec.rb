@@ -85,13 +85,78 @@ module FDroid::V2
       it "returns date" do
         expect(repo.date).to eq(Date.strptime("#{repo.timestamp / 1000}", '%s'))
       end
+    end
 
-      it "returns antiFeatures" do
-        expect(repo.anti_features.keys).to eq(["NonFreeComp"])
+    describe "#antiFeatures" do
+      let(:locale) { 'en-US' }
+      it "returns the anti-features based on locale" do
+        expect(repo.anti_features(locale)).to eq(
+          {
+            "NonFreeComp" =>
+            {
+              "description" => "This app includes non-free components or software libraries.",
+              "icon" =>
+              {
+                "name" => "/icons/NonFreeComp.png",
+                "sha256" => "fdeb1b35495caee5e4c2a289679c978201ad46ab7627a30e501a8b5d4f295fbb",
+                "size" => 897
+              },
+              "name" => "Non-Free Components"
+            }
+          }
+        )
       end
 
-      it "returns categories" do
-        expect(repo.categories.keys).to eq(["Development", "Guardian Project", "Internet", "Multimedia", "Navigation", "Phone & SMS", "Security"])
+      context "when locale is not available" do
+        let(:locale) { 'en-EN' }
+        it "returns the name based on locale" do
+          expect(repo.anti_features(locale)).to eq(repo.anti_features(repo_primary_language))
+        end
+      end
+    end
+
+    describe "#categories" do
+      let(:locale) { 'en-US' }
+      it "returns the categories based on locale" do
+        expect(repo.categories(locale)).to eq(
+          {
+            "Development" =>
+            {
+              "name" => "Development"
+            },
+            "Guardian Project" =>
+            {
+              "name" => "Guardian Project"
+            },
+            "Internet" =>
+            {
+              "name" => "Internet"
+            },
+            "Multimedia" =>
+            {
+              "name" => "Multimedia"
+            },
+            "Navigation" =>
+            {
+              "name" => "Navigation"
+            },
+            "Phone & SMS" =>
+            {
+              "name" => "Phone &amp; SMS"
+            },
+            "Security" =>
+            {
+              "name" => "Security"
+            }
+          }
+        )
+      end
+
+      context "when locale is not available" do
+        let(:locale) { 'en-EN' }
+        it "returns the name based on locale" do
+          expect(repo.categories(locale)).to eq(repo.categories(repo_primary_language))
+        end
       end
     end
   end

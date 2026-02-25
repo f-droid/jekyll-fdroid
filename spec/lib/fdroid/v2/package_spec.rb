@@ -76,6 +76,7 @@ module FDroid::V2
                                              "tv_screenshots",
                                              "wear_screenshots",
                                              "versions",
+                                             "preferred_signer",
                                              "beautiful_url",
                                            ])
       end

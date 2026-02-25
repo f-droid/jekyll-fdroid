@@ -379,6 +379,10 @@ here"
           { "min_sdk" => nil, "permission" => "android.permission.NFC" },
           { "min_sdk" => nil, "permission" => "android.permission.WAKE_LOCK" }
         ],
+        "uses_permission_sdk_23" =>
+        [
+          { "min_sdk" => nil, "permission" => "android.permission.ACCESS_COARSE_LOCATION" }
+        ],
         "version_name" => "1.5",
         "version_code" => 1005050,
       }
