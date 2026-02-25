@@ -47,7 +47,7 @@ module Jekyll
         fdroid_index = FDroid::Index.class(index_version)
         index = fdroid_index.download(site.config["fdroid-repo"], site.active_lang || 'en_US')
 
-        if index_version == 'v2'
+        if index_version != 'v1'
           repo = index.repo
           anti_features = repo.anti_features(site.active_lang)
           categories = repo.categories(site.active_lang)
