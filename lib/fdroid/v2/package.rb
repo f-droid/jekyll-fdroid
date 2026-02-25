@@ -2,7 +2,7 @@
 
 require_relative './utils'
 require_relative './version'
-require_relative '../Package'
+require_relative '../utils'
 
 module FDroid
   module V2
@@ -58,7 +58,7 @@ module FDroid
           'name' => name,
           'title' => name,
           'summary' => summary,
-          'description' => FDroid::Package.process_package_description(description),
+          'description' => FDroid::Utils.process_package_description(description),
           'video' => video,
           'feature_graphic' => feature_graphic,
           'phone_screenshots' => screenshots("phone"),
@@ -72,7 +72,7 @@ module FDroid
         }
 
         data['is_localized'] = nil unless @is_localized
-        FDroid::Package.sanitise(data, skip = ['description', 'whats_new'], skip_recursive = true)
+        FDroid::Utils.sanitise(data, skip = ['description', 'whats_new'], skip_recursive = true)
       end
 
       private
@@ -130,7 +130,7 @@ module FDroid
         localized_data = from_metadata(fields)
         return default_locale if localized_data.nil?
 
-        available_locales = FDroid::Package.available_locales(default_locale, localized_data)
+        available_locales = FDroid::Utils.available_locales(default_locale, localized_data)
         @is_localized = FDroid::Package.is_localized(default_locale, available_locales) if @is_localized.nil? && available_locales
         available_locales&.first
       end
