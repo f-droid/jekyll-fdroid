@@ -15,7 +15,7 @@ module FDroid
     gp_json = JSON.parse(File.read(gp_path))
 
     it 'Decides which locales to use' do
-      de_locales = Package.available_locales('de-DE', localized)
+      de_locales = Utils.available_locales('de-DE', localized)
       expect(de_locales).to eq(['de-DE', 'de', 'de-AT', 'en-US', 'en', 'en-AU'])
       expect(Package.is_localized('de-CH', de_locales)).to eq('de')
       expect(Package.is_localized('de', de_locales)).to eq('de')
@@ -26,19 +26,19 @@ module FDroid
       expect(Package.is_localized('en-GB', de_locales)).to eq('en')
       expect(Package.is_localized('zh-CN', de_locales)).to eq(nil)
 
-      fr_locales = Package.available_locales('fr-FR', localized)
+      fr_locales = Utils.available_locales('fr-FR', localized)
       expect(fr_locales).to eq(['fr-CA', 'en-US', 'en', 'en-AU'])
       expect(Package.is_localized('fr-CA', fr_locales)).to eq('fr-CA')
       expect(Package.is_localized('fr-FR', fr_locales)).to eq('fr-CA')
       expect(Package.is_localized('zh-CN', fr_locales)).to eq(nil)
 
-      en_locales = Package.available_locales('en', localized)
+      en_locales = Utils.available_locales('en', localized)
       expect(en_locales).to eq(['en-US', 'en', 'en-AU'])
       expect(Package.is_localized('en-AU', en_locales)).to eq('en-AU')
       expect(Package.is_localized('en-ZA', en_locales)).to eq('en')
       expect(Package.is_localized('fr-FR', en_locales)).to eq(nil)
 
-      zh_locales = Package.available_locales('zh', localized)
+      zh_locales = Utils.available_locales('zh', localized)
       expect(zh_locales).to eq(['en-US', 'en', 'en-AU'])
       expect(Package.is_localized('fr-FR', zh_locales)).to eq(nil)
       expect(Package.is_localized('zh-CN', zh_locales)).to eq(nil)
@@ -51,7 +51,7 @@ module FDroid
         'en-GB' => { 'description' => 'GB description' },
         'en-US' => { 'description' => 'US description' }
       }
-      description = Package.localized(Package.available_locales('en', en_content), en_content, 'description')
+      description = Package.localized(Utils.available_locales('en', en_content), en_content, 'description')
       expect(description).to eql('US description')
 
       en_content = {
@@ -60,7 +60,7 @@ module FDroid
         'en' => { 'description' => 'Generic description' },
         'en-GB' => { 'description' => 'GB description' }
       }
-      description = Package.localized(Package.available_locales('en', en_content), en_content, 'description')
+      description = Package.localized(Utils.available_locales('en', en_content), en_content, 'description')
       expect(description).to eql('Generic description')
 
       en_content = {
@@ -68,20 +68,20 @@ module FDroid
         'en-AU' => { 'description' => 'AU description' },
         'en-GB' => { 'description' => 'GB description' }
       }
-      description = Package.localized(Package.available_locales('en', en_content), en_content, 'description')
+      description = Package.localized(Utils.available_locales('en', en_content), en_content, 'description')
       expect(description).to eql('CA description')
     end
 
     it 'Handles locale aliases' do
       localized_zh = { 'en-US' => {}, 'zh-CN' => {}, 'zh-TW' => {} }
-      zh_Hant = Package.available_locales('zh_Hant', localized_zh)
+      zh_Hant = Utils.available_locales('zh_Hant', localized_zh)
       expect(zh_Hant).to eq(['zh-TW', 'zh-CN', 'en-US'])
-      zh_Hans = Package.available_locales('zh_Hans', localized_zh)
+      zh_Hans = Utils.available_locales('zh_Hans', localized_zh)
       expect(zh_Hans).to eq(['zh-CN', 'zh-TW', 'en-US'])
     end
 
     it 'Calculates localized metadata correctly' do
-      de_locales = Package.available_locales('de-DE', localized)
+      de_locales = Utils.available_locales('de-DE', localized)
 
       name = Package.localized(de_locales, localized, 'name')
       expect(name).to eql('App [de-DE]')
@@ -107,40 +107,40 @@ multi-line
 
 string
 here"
-      multi_line = Package.format_description_to_html(text)
+      multi_line = Utils.format_description_to_html(text)
       expect(multi_line).to eql("This<br>is<br>a<br><br>multi-line<br><br>string<br>here")
     end
 
     it 'Formats f-droid.org links in descriptions' do
       text = "fdroid.app:com.linuxcounter.lico_update_003:"
-      multi_line = Package.process_package_description(text)
+      multi_line = Utils.process_package_description(text)
       expect(multi_line).to eql('<a href="/packages/com.linuxcounter.lico_update_003/"><tt>com.linuxcounter.lico_update_003</tt></a>:')
 
       text = "pointing to https://f-droid.org/packages/com.banasiak.coinflip/:
     This"
-      multi_line = Package.process_package_description(text)
+      multi_line = Utils.process_package_description(text)
       expect(multi_line).to eql('pointing to <a href="https://f-droid.org/packages/com.banasiak.coinflip/"><tt>com.banasiak.coinflip</tt></a>:<br>    This')
 
       text = "Starting with https://f-droid.org/packages/SpeedoMeterPackage.main.
     (this"
-      multi_line = Package.process_package_description(text)
+      multi_line = Utils.process_package_description(text)
       expect(multi_line).to eql('Starting with <a href="https://f-droid.org/packages/SpeedoMeterPackage.main/"><tt>SpeedoMeterPackage.main</tt></a>.<br>    (this')
 
       text = "works https://f-droid.org/packages/org.fitchfamily.android.wifi_backend_v2)
     Do"
-      multi_line = Package.process_package_description(text)
+      multi_line = Utils.process_package_description(text)
       expect(multi_line).to eql('works <a href="https://f-droid.org/packages/org.fitchfamily.android.wifi_backend_v2/"><tt>org.fitchfamily.android.wifi_backend_v2</tt></a>)<br>    Do')
 
       text = "forget https://f-droid.org/packages/org.microg.nlp"
-      multi_line = Package.process_package_description(text)
+      multi_line = Utils.process_package_description(text)
       expect(multi_line).to eql('forget <a href="https://f-droid.org/packages/org.microg.nlp/"><tt>org.microg.nlp</tt></a>')
 
       text = '    * <a href="https://f-droid.org/en/packages/player.efis.data.usa.can/">North America, Canada</a>'
-      multi_line = Package.process_package_description(text)
+      multi_line = Utils.process_package_description(text)
       expect(multi_line).to eql('    * <a href="https://f-droid.org/packages/player.efis.data.usa.can/">North America, Canada</a>')
 
       text = '   <a href="https://f-droid.org/en/packages/player.efis.mfd//">Kwik DMAP</a> is a stand-alone digital'
-      multi_line = Package.process_package_description(text)
+      multi_line = Utils.process_package_description(text)
       expect(multi_line).to eql('   <a href="https://f-droid.org/packages/player.efis.mfd//">Kwik DMAP</a> is a stand-alone digital')
     end
 
@@ -157,17 +157,17 @@ here"
 
         alert("oops")
       END
-      scrubbed = Package.process_package_description(input)
+      scrubbed = Utils.process_package_description(input)
       expect(scrubbed).to eql(output)
     end
 
     it 'Scrubs attributes from <a>' do
       text = '<a href="https://f-droid.org/packages/An.stop/" ping="http://tracker.com">CLICK ME!</a>'
-      multi_line = Package.process_package_description(text)
+      multi_line = Utils.process_package_description(text)
       expect(multi_line).to eql('<a href="https://f-droid.org/packages/An.stop/">CLICK ME!</a>')
 
       text = '<a href="https://f-droid.org/packages/An.stop/" class="CSS tricks?">CLICK ME!</a>'
-      multi_line = Package.process_package_description(text)
+      multi_line = Utils.process_package_description(text)
       expect(multi_line).to eql('<a href="https://f-droid.org/packages/An.stop/">CLICK ME!</a>')
     end
 
@@ -180,13 +180,13 @@ here"
         <b>bold text</b>
         <a href="https://example.com/" rel="external nofollow noopener" target="_blank">link</a>
       END
-      scrubbed = Package.process_package_description(input)
+      scrubbed = Utils.process_package_description(input)
       expect(scrubbed).to eql(output)
     end
 
     it 'strips <a> w/o href' do
       text = '<a class="foo"><b>link</b></a>'
-      scrubbed = Package.process_package_description(text)
+      scrubbed = Utils.process_package_description(text)
       expect(scrubbed).to eql('<b>link</b>')
     end
 
@@ -201,7 +201,7 @@ here"
         'summary' => '&lt;b&gt;bold&lt;/b&gt;',
         'foo' => ['&lt;oops&gt;'],
       }
-      expect(Package.sanitise(input, skip = ['description'])).to eql(output)
+      expect(Utils.sanitise(input, skip = ['description'])).to eql(output)
     end
   end
 

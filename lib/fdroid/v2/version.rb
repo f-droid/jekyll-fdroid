@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require_relative "./permission"
-require_relative "../Package"
+require_relative './permission'
+require_relative '../utils'
 
 module FDroid
   module V2
@@ -63,7 +63,7 @@ module FDroid
 
         anti_features_data.transform_values do |v|
           if v.is_a?(Hash)
-            preferred_locale = FDroid::Package.available_locales(@locale, v)&.first
+            preferred_locale = FDroid::Utils.available_locales(@locale, v)&.first
             v.dig(preferred_locale) || v.first&.at(1)
           else
             v
@@ -106,8 +106,8 @@ module FDroid
         whats_new_data = @version.dig("whatsNew")
         return if whats_new_data.nil?
 
-        preferred_locale = FDroid::Package.available_locales(@locale, whats_new_data)&.first
-        FDroid::Package.process_package_description(whats_new_data.dig(preferred_locale) || whats_new_data.first&.at(1))
+        preferred_locale = FDroid::Utils.available_locales(@locale, whats_new_data)&.first
+        FDroid::Utils.process_package_description(whats_new_data.dig(preferred_locale) || whats_new_data.first&.at(1))
       end
 
       private

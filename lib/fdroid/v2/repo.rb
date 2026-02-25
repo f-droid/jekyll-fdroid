@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative "../Package"
+require_relative '../utils'
 
 module FDroid
   module V2
@@ -55,8 +55,8 @@ module FDroid
         data&.transform_values do |item|
           item&.transform_values do |v|
             if v.is_a?(Hash)
-              preferred_locale = FDroid::Package.available_locales(language, v)&.first
-              FDroid::Package.sanitise(v.dig(preferred_locale || primary_language) || v.first&.at(1))
+              preferred_locale = FDroid::Utils.available_locales(language, v)&.first
+              FDroid::Utils.sanitise(v.dig(preferred_locale || primary_language) || v.first&.at(1))
             else
               v
             end
