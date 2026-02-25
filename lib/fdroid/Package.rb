@@ -23,7 +23,7 @@ require_relative './Version'
 # override the HTML elements loofah allows; be more restrictive
 module Loofah::HTML5::Scrub
   OVERRIDDEN_SAFE_ELEMENTS = Set.new(
-    ["a", "b", "big", "blockquote", "br", "cite", "em", "i", "small",
+    ["a", "b", "big", "blockquote", "br", "cite", "em", "i", "p", "small",
      "strike", "strong", "sub", "sup", "tt", "u"] + ["li", "ol", "ul"]
   )
 
@@ -71,9 +71,46 @@ module Loofah::Scrubbers
       return STOP
     end
   end
+
+  class Newline2Br < Loofah::Scrubber
+    def initialize
+      @direction = :top_down
+    end
+
+    def scrub(node)
+      return CONTINUE if node.element? && node.description&.inline?
+
+      if node.text?
+        prev_node = node.previous
+        prev_block = !prev_node || (prev_node.element? && prev_node.description&.block?)
+        next_node = node.next
+        next_block = !next_node || (next_node.element? && next_node.description&.block?)
+        if node.blank? && prev_block && next_block
+          node.remove if !prev_node || !next_node
+        else
+          replace = node.to_s.gsub(/(?:\n\r?|\r\n?)/, '<br>')
+          if prev_block
+            replace.sub!(/^(\s*\<br\>)+/, '')
+          end
+          if next_block
+            replace.sub!(/(\<br\>\s*)+$/, '')
+          end
+          if replace.empty?
+            node.remove if !prev_node || !next_node
+          else
+            node.add_next_sibling(replace)
+            node.remove
+          end
+        end
+      end
+      STOP
+    end
+  end
 end
 
 Loofah::Scrubbers::MAP[:fdroid] = Loofah::Scrubbers::FDroid
+
+Loofah::Scrubbers::MAP[:newline2br] = Loofah::Scrubbers::Newline2Br
 
 module FDroid
   class Package
@@ -199,8 +236,8 @@ module FDroid
       Loofah.fragment(string)
             .scrub!(:strip)
             .scrub!(:fdroid)
+            .scrub!(:newline2br)
             .to_html(:save_with => 0)
-            .gsub(/(?:\n\r?|\r\n?)/, '<br>')
     end
 
     # @param [string] available_locales
