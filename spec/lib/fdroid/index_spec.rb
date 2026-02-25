@@ -29,8 +29,8 @@ module FDroid
     context "when version is somethind else" do
       let(:version) { 'vv' }
 
-      it "returns IndexV1 class" do
-        expect(index_class).to be(FDroid::IndexV1)
+      it "returns V2::Index class" do
+        expect(index_class).to be(FDroid::V2::Index)
       end
     end
   end
