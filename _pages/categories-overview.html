@@ -64,7 +64,8 @@ permalink: /packages/
     </div>
     <p><a href="{{ site.baseurl }}/categories/{{ app_category_name | slugify }}/">
       {%- if filtered_packages.size > 1 -%}
-        {{ site.data.strings.app_categories.show_all_packages | replace: '%d', filtered_packages.size }}
+        {%- assign show_all_packages = site.data.strings.app_categories.show_all_packages_format | replace: '%{size}', filtered_packages.size | replace: '%{category}', app_category_name -%}
+        {{ show_all_packages }}
       {%- else -%}
         {{ site.data.strings.app_categories.show_package }}
       {%- endif -%}
