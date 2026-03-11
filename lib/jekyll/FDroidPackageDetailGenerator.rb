@@ -50,7 +50,7 @@ module Jekyll
         if index_version != 'v1'
           repo = index.repo
           anti_features = repo.anti_features(site.active_lang)
-          categories = repo.categories(site.active_lang)
+          categories = repo.categories(site.active_lang) || repo.categories('en-US')
           extras = {
             "repo" => {
               "anti_features" => anti_features,
