@@ -15,6 +15,8 @@ module FDroid
 
       before do
         allow(Net::HTTP).to receive(:get).and_return(gp_repo_data)
+        allow(File).to receive(:exists?).and_call_original
+        allow(FileUtils).to receive(:touch)
       end
 
       it "downloads the GP repo JSON and initializes it" do
@@ -27,6 +29,12 @@ module FDroid
 
       it "has a list of packages" do
         expect(download_index.packages.first.class).to be(Package)
+      end
+
+      it "writes and touches anti_features.json file" do
+        download_index
+        expect(File).to have_received(:exists?).twice
+        expect(FileUtils).to have_received(:touch)
       end
     end
   end
