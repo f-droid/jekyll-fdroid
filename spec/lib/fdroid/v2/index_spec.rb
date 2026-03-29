@@ -15,7 +15,7 @@ module FDroid
 
       before do
         allow(Net::HTTP).to receive(:get).and_return(gp_repo_data)
-        allow(File).to receive(:exists?).and_call_original
+        allow(File).to receive(:exist?).and_call_original
         allow(FileUtils).to receive(:touch)
       end
 
@@ -33,7 +33,7 @@ module FDroid
 
       it "writes and touches anti_features.json file" do
         download_index
-        expect(File).to have_received(:exists?).twice
+        expect(File).to have_received(:exist?).twice
         expect(FileUtils).to have_received(:touch)
       end
     end

@@ -54,10 +54,10 @@ module FDroid
       def write_anti_features_data_file
         timestamp = @repo.timestamp
         data_dir = "_data"
-        Dir.mkdir(data_dir) unless File.exists?(data_dir)
+        Dir.mkdir(data_dir) unless File.exist?(data_dir)
         afj = File.join data_dir, "anti_features.json"
         # repo timestamp is a Java-style UNIX timestamp in milliseconds
-        if not File.exists? afj or File.mtime(afj) != (timestamp / 1000)
+        if not File.exist? afj or File.mtime(afj) != (timestamp / 1000)
           File.open(afj, "w") do |f|
             f.write(@anti_features.to_json)
           end
