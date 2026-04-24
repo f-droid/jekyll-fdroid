@@ -41,6 +41,10 @@ module FDroid
         get_localized(@repo.dig("antiFeatures"), language)
       end
 
+      def repo_anti_features
+        @repo.dig("antiFeatures")
+      end
+
       def categories(language = primary_language)
         get_localized(@repo.dig("categories"), language)
       end

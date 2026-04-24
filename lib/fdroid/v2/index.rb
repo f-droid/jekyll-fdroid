@@ -3,13 +3,14 @@
 require 'open-uri'
 require 'net/http'
 require 'json'
+require 'fileutils'
 require_relative './package'
 require_relative './repo'
 
 module FDroid
   module V2
     class Index
-      attr_reader :packages, :repo
+      attr_reader :packages, :repo, :anti_features
 
       @@downloaded_repos = {}
 
@@ -38,11 +39,30 @@ module FDroid
       # @param [string] locale: language locale
       # @return [FDroid::Repo]
       def initialize(index, locale)
+        @repo = Repo.new(index['repo'])
+        @anti_features = @repo.repo_anti_features
+
         @packages = index['packages'].map do |pkg_name, app_json|
           Package.new(pkg_name, app_json, locale)
         end
 
-        @repo = Repo.new(index['repo'])
+        write_anti_features_data_file
+      end
+
+      private
+
+      def write_anti_features_data_file
+        timestamp = @repo.timestamp
+        data_dir = "_data"
+        Dir.mkdir(data_dir) unless File.exist?(data_dir)
+        afj = File.join data_dir, "anti_features.json"
+        # repo timestamp is a Java-style UNIX timestamp in milliseconds
+        if not File.exist? afj or File.mtime(afj) != (timestamp / 1000)
+          File.open(afj, "w") do |f|
+            f.write(@anti_features.to_json)
+          end
+          FileUtils.touch afj, mtime: (timestamp / 1000)
+        end
       end
     end
   end
