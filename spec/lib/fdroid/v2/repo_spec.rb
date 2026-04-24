@@ -12,6 +12,7 @@ module FDroid::V2
     end
     let (:repo) { Repo.new(gp_repo_json) }
     let (:repo_primary_language) { gp_repo_json.dig("name").keys.first }
+    let (:repo_anti_features) { gp_repo_json.dig("antiFeatures") }
 
     it "initializes FDroid::V2::Repo correctly" do
       expect(repo.instance_variables).to eq([:@repo])
@@ -105,6 +106,11 @@ module FDroid::V2
             }
           }
         )
+      end
+
+      it "returns all repo antiFeatures" do
+        expect(repo.repo_anti_features.class).to be(Hash)
+        expect(repo.repo_anti_features).to eq(repo_anti_features)
       end
 
       context "when locale is not available" do

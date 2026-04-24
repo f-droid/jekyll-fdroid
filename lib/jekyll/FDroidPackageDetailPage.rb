@@ -35,7 +35,7 @@ module Jekyll
 
     def get_layout_dir()
       layout_dir_override = File.join(site.source, '_layouts')
-      if File.exists? File.join(layout_dir_override, 'package.html')
+      if File.exist? File.join(layout_dir_override, 'package.html')
         layout_dir_override
       else
         File.expand_path '../../_layouts', File.dirname(__FILE__)
