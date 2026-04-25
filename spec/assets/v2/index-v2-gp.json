@@ -6059,7 +6059,8 @@
                 "maxSdkVersion": 18
               }
             ]
-          }
+          },
+          "releaseChannels": ["Beta"]
         }
       }
     }

@@ -27,6 +27,10 @@ module FDroid
         from_metadata('categories')
       end
 
+      def anti_features
+        (suggested_version || latest_version)&.anti_features_v2
+      end
+
       # Generates a hash of dumb strings to be used in templates.
       # @return [Hash]
       def to_data
@@ -66,7 +70,7 @@ module FDroid
           'ten_inch_screenshots' => screenshots("tenInch"),
           'tv_screenshots' => screenshots("tv"),
           'wear_screenshots' => screenshots("wear"),
-          'versions' => @ordered_versions.map { |p| p.to_data },
+          'versions' => ordered_versions.map { |p| p.to_data },
           'preferred_signer' => from_metadata('preferredSigner'),
           'beautiful_url' => "/packages/#{package_name}"
         }
@@ -120,6 +124,10 @@ module FDroid
 
       def suggested_version
         @suggested_version ||= ordered_versions&.find { |version| !version.is_beta? }
+      end
+
+      def latest_version
+        @latest_version ||= ordered_versions&.last
       end
 
       def from_metadata(fields)

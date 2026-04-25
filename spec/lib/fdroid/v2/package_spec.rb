@@ -3,6 +3,7 @@
 require 'rspec'
 require 'json'
 require 'date'
+require_relative '../../../../lib/fdroid/Package'
 require_relative '../../../../lib/fdroid/v2/utils'
 require_relative '../../../../lib/fdroid/v2/version'
 require_relative '../../../../lib/fdroid/v2/package'
@@ -35,6 +36,34 @@ module FDroid::V2
 
     it "returns hash with to_data fields" do
       expect(package.to_data.class).to be(Hash)
+    end
+
+    describe "#anti_features" do
+      it "returns anti_features nil" do
+        expect(package.anti_features).to be(nil)
+      end
+
+      context "when package do have anti features" do
+        let(:pkg_name) { "net.opendasharchive.openarchive.release" }
+        let(:app_json) do
+          JSON.parse(File.read('spec/assets/v2/index-v2-gp.json')).dig("packages", pkg_name)
+        end
+
+        it "returns anti_features hash" do
+          expect(package.anti_features.class).to be(Hash)
+        end
+      end
+
+      context "when anti features comes from the latest/beta version" do
+        let(:pkg_name) { "org.witness.sscphase1" }
+        let(:app_json) do
+          JSON.parse(File.read('spec/assets/v2/index-v2-gp.json')).dig("packages", pkg_name)
+        end
+
+        it "returns anti_features hash" do
+          expect(package.anti_features).to be(nil)
+        end
+      end
     end
 
     describe "#to_data" do
