@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative './permission'
+require_relative './uses_permission'
 require_relative '../utils'
 
 module FDroid
