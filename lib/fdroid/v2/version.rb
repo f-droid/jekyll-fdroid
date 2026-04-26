@@ -44,8 +44,8 @@ module FDroid
           "signer" => signer,
           "size" => @version.dig("file", "size"),
           "target_sdk_version" => from_manifest(["usesSdk", "targetSdkVersion"]),
-          "uses_permission" => permission,
-          "uses_permission_sdk_23" => permission_sdk_23,
+          "uses_permission" => uses_permission,
+          "uses_permission_sdk_23" => uses_permission_sdk_23,
           "version_name" => version_name,
           "version_code" => version_code,
           "whats_new" => whats_new,
@@ -84,18 +84,18 @@ module FDroid
         signer_array.first unless signer_array.nil?
       end
 
-      def permission
+      def uses_permission
         up = from_manifest("usesPermission")
         return [] if up.nil?
 
-        up.map { |perm| Permission.new(perm).to_data }
+        up.map { |uses_perm| UsesPermission.new(uses_perm).to_data }
       end
 
-      def permission_sdk_23
+      def uses_permission_sdk_23
         up = from_manifest("usesPermissionSdk23")
         return [] if up.nil?
 
-        up.map { |perm| Permission.new(perm).to_data }
+        up.map { |uses_perm| UsesPermission.new(uses_perm).to_data }
       end
 
       def is_beta?
