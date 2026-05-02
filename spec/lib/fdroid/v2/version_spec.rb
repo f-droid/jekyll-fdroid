@@ -34,7 +34,7 @@ module FDroid::V2
       end
     end
 
-    describe "#users_permission_sdk_23" do
+    describe "#uses_permission_sdk_23" do
       let(:pkg_name) { "org.torproject.torbrowser_alpha" }
       let(:gp_package) do
         JSON.parse(File.read("spec/assets/v2/index-v2-gp.json")).dig("packages", pkg_name)
