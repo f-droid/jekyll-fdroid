@@ -4,7 +4,6 @@ require 'rspec'
 require 'json'
 require 'date'
 require_relative '../../../../lib/fdroid/Package'
-require_relative '../../../../lib/fdroid/v2/permission'
 require_relative '../../../../lib/fdroid/v2/uses_permission'
 require_relative '../../../../lib/fdroid/v2/version'
 
