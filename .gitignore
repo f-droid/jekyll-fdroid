@@ -4,3 +4,6 @@
 .vscode
 vendor
 .bundle
+
+Gemfile.lock
+
