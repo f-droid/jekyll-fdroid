@@ -43,13 +43,26 @@ module FDroid
         @anti_features = @repo.repo_anti_features
 
         @packages = index['packages'].map do |pkg_name, app_json|
-          Package.new(pkg_name, app_json, locale)
+          pkg = Package.new(pkg_name, app_json, locale)
+
+          register_package_anti_features(pkg)
+
+          pkg
         end
 
         write_anti_features_data_file
       end
 
       private
+
+      def register_package_anti_features(pkg)
+        anti_features = pkg.anti_features
+        anti_features&.each do |anti_feature, _description|
+          @anti_features[anti_feature] ||= {}
+          @anti_features[anti_feature]["apps"] ||= []
+          @anti_features[anti_feature]["apps"] << pkg.package_name
+        end
+      end
 
       def write_anti_features_data_file
         timestamp = @repo.timestamp
