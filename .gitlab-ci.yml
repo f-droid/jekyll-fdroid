@@ -52,6 +52,7 @@ fdroid-website:
     # "public" needs to be a subdir of this gitlab project to deploy to pages.
     - mkdir $CI_PROJECT_DIR/public
     - ln -s $CI_PROJECT_DIR/public
+    - ruby -v
     - jekyll build -d public --trace --future
     - cp -v robots.txt.noindex public/robots.txt
     - ./tools/prepare-multi-lang.sh public --no-type-maps
