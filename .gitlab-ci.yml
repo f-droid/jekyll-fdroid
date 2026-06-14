@@ -1,5 +1,4 @@
 ---
-
 variables:
   LC_ALL: C.UTF-8
   DEBIAN_FRONTEND: noninteractive
@@ -18,7 +17,7 @@ ruby_latest:
 
 # this job aims to reproduce the production setup
 fdroid-website:
-  image: debian:bookworm
+  image: debian:trixie
   artifacts:
     paths:
       - public
@@ -29,9 +28,9 @@ fdroid-website:
     - cd ../fdroid-website
     # use the 'gitlab ci' subset of languages
     - sed -i
-          -e 's,^languages:,ignored_languages:,'
-          -e 's,^gitlab_ci_languages:,languages:,'
-          _config.yml
+      -e 's,^languages:,ignored_languages:,'
+      -e 's,^gitlab_ci_languages:,languages:,'
+      _config.yml
     # force the use of the local jekyll-fdroid
     - perl -i -pe "BEGIN{undef $/;} s@\n *gem 'jekyll-fdroid'.*?\n\s*:ref *=> *'[^']+'\n@\n@smg" Gemfile
     - sed -i "s@^end@    gem 'jekyll-fdroid', path\x3a '$CI_PROJECT_DIR'\nend@" Gemfile
@@ -46,9 +45,9 @@ fdroid-website:
     # This is where GitLab pages will deploy to by default (e.g. "https://fdroid.gitlab.io/jekyll-fdroid")
     # so we need to make sure that the Jekyll configuration understands this.
     - sed -Ei
-        -e "s,^(url\x3a).*,\1 'https://$CI_PROJECT_NAMESPACE.gitlab.io',"
-        -e "s,^(baseurl\x3a).*,\1 '/$CI_PROJECT_NAME',"
-        _config.yml
+      -e "s,^(url\x3a).*,\1 'https://$CI_PROJECT_NAMESPACE.gitlab.io',"
+      -e "s,^(baseurl\x3a).*,\1 '/$CI_PROJECT_NAME',"
+      _config.yml
     - echo "Jekyll config used for CI:" && cat _config.yml
     # "public" needs to be a subdir of this gitlab project to deploy to pages.
     - mkdir $CI_PROJECT_DIR/public
@@ -62,7 +61,6 @@ fdroid-website:
     - mkdir -p $CI_PROJECT_DIR/public/css
     - curl https://fdroid.gitlab.io/fdroid-website/css/main.css > $CI_PROJECT_DIR/public/css/main.css
 
-
 pages:
   stage: deploy
   artifacts:
@@ -72,4 +70,3 @@ pages:
     when: always
   script:
     - ls -lR public
-
