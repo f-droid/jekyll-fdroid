@@ -4,6 +4,7 @@
 .vscode
 vendor
 .bundle
+_data
 
 Gemfile.lock
 
