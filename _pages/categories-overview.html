@@ -19,13 +19,12 @@ permalink: /packages/
   {%- assign app_category_escaped = app_category_name | escape %}
   {%- assign filtered_packages = site.packages | where_exp: "item", "item.categories contains app_category_escaped" | sort: "last_updated" | reverse %}
   {%- if filtered_packages.size > 0 %}
-    <h3>
-      {%- if app_category[1].name %}
-        {{- app_category[1].name }}
-      {%- else %}
-        {{- site.data.strings.app_categories[app_category_name] }}
-      {%- endif -%}
-    </h3>
+    {%- if app_category[1].name %}
+      {%- assign i18n_category_name = app_category[1].name %}
+    {%- else %}
+      {%- assign i18n_category_name = site.data.strings.app_categories[app_category_name] %}
+    {%- endif %}
+    <h3>{{ i18n_category_name }}</h3>
     <div id="package-list">
       {%- if filtered_packages.size >= 3 %}
         {%- assign remaining = 3 %}
@@ -64,7 +63,7 @@ permalink: /packages/
     </div>
     <p><a href="{{ site.baseurl }}/categories/{{ app_category_name | slugify }}/">
       {%- if filtered_packages.size > 1 -%}
-        {%- assign show_all_packages = site.data.strings.app_categories.show_all_packages_format | replace: '%{size}', filtered_packages.size | replace: '%{category}', app_category_name -%}
+        {%- assign show_all_packages = site.data.strings.app_categories.show_all_packages_format | replace: '%{size}', filtered_packages.size | replace: '%{category}', i18n_category_name -%}
         {{ show_all_packages }}
       {%- else -%}
         {{ site.data.strings.app_categories.show_package }}
