@@ -34,6 +34,9 @@ $icon-size: null;
 @if global-variable-exists(text-color-light) != true {
 	$text-color-light: lighten(#000, 46%) !global;
 }
+@if global-variable-exists(animation-defaults) != true {
+	$animation-defaults: 0.5s ease-in-out !global;
+}
 
 /**
  * Browsing
@@ -173,7 +176,12 @@ $icon-size: null;
 
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(#{"min(220px, 100%)"}, 1fr));
-    gap: calc(#{$spacing-unit} / 2);
+    column-gap: calc(#{$spacing-unit} / 2);
+
+    & > .category-item .show-all {
+        margin-top: calc(#{$spacing-unit} / 4);
+        margin-bottom: calc(1em + #{$spacing-unit} / 2);
+    }
 
     @media (max-width: 620px) {
         grid-template-columns: repeat(1, minmax(0, 1fr));
@@ -190,14 +198,99 @@ $icon-size: null;
     }
 }
 
-@mixin animate-on-expand {
+@mixin animate-on-expand($properties...) {
     display: grid;
-    transition: grid-template-rows 0.5s ease-in-out;
+    $transition: ((grid-template-rows $animation-defaults));
+    @each $property in $properties {
+        $transition: append($transition, ($property $animation-defaults), $separator: comma);
+    }
+    transition: $transition;
     @include transition-opt-out;
 
     & > * {
         min-height: 0;
         overflow: hidden;
+    }
+}
+
+.category-group details {
+    summary {
+        list-style: none;
+        cursor: pointer;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        margin-bottom: calc(#{$spacing-unit} / 2);
+
+        & > * {
+            grid-column: 1;
+        }
+
+        & > br {
+            display: none;
+        }
+    }
+
+    summary::before, summary::after {
+        content: '';
+        margin: 4px;
+        grid-row: 1;
+        grid-column: 2;
+        justify-self: center;
+        align-self: center;
+    }
+
+    summary::before {
+        border-bottom: solid 2px $text-color;
+        margin-bottom: 12px;
+        width: 18px;
+        height: 8px;
+    }
+
+    summary::after {
+        border-left: solid 2px $text-color;
+        margin-left: 12px;
+        width: 8px;
+        height: 18px;
+        transition: $animation-defaults;
+        @include transition-opt-out;
+        transform: scaleY(1);
+    }
+
+    .category-group-name {
+        color: $text-color;
+        font-size: calc(#{$base-font-size} * 1.25);
+        transition: font-size $animation-defaults;
+        @include transition-opt-out;
+    }
+
+    .category-group-desc {
+        @include animate-on-expand;
+        grid-template-rows: 1fr;
+        color: $text-color-light;
+        font-size: #{$base-font-size};
+    }
+}
+
+.category-group {
+    display: block;
+    grid-column: 1 / -1;
+
+    &:not(:first-child) {
+        margin-top: calc(#{$spacing-unit} / 2);
+    }
+
+    details[open] {
+        summary::after {
+            transform: scaleY(0);
+        }
+
+        .category-group-name {
+            font-size: calc(#{$base-font-size} * 1.5);
+        }
+
+        .category-group-desc {
+            grid-template-rows: 0fr;
+        }
     }
 }
 
@@ -222,10 +315,11 @@ $icon-size: null;
         content: '';
         border: solid;
         border-width: 0 2px 2px 0;
-        width: 8px;
-        height: 8px;
+        border-color: $text-color;
+        width: 6px;
+        height: 6px;
         margin: 4px;
-        transition: 0.5s;
+        transition: $animation-defaults;
         @include transition-opt-out;
         transform: rotate(45deg);
         grid-row: 1;
@@ -235,8 +329,9 @@ $icon-size: null;
     }
 
     .category-name {
+        color: $text-color;
         font-size: calc(#{$base-font-size} * 1.1);
-        transition: font-size 0.5s ease-in-out;
+        transition: font-size $animation-defaults;
         @include transition-opt-out;
     }
 
@@ -249,6 +344,9 @@ $icon-size: null;
 }
 
 .category-item {
+    @include animate-on-expand;
+    grid-template-rows: 1fr;
+
     .category-details {
         @include animate-on-expand;
         grid-template-rows: 0fr;
@@ -260,6 +358,11 @@ $icon-size: null;
         .show-all {
             margin: 1em 0;
         }
+    }
+
+    .show-all {
+        @include animate-on-expand(margin);
+        grid-template-rows: 0fr;
     }
 
     &:has(details[open]) {
@@ -276,7 +379,7 @@ $icon-size: null;
         }
 
         .category-name {
-            font-size: calc(#{$base-font-size} * 1.5);
+            font-size: calc(#{$base-font-size} * 1.25);
         }
 
         .category-desc {
@@ -285,8 +388,14 @@ $icon-size: null;
     }
 
     details[open] {
-        & + .category-details {
+        & + .category-details, & + .category-details + .show-all {
             grid-template-rows: 1fr;
+        }
+    }
+
+    details:not([open]) {
+        & + .category-details + .show-all {
+            margin-bottom: calc(#{$spacing-unit} / 2);
         }
     }
 }

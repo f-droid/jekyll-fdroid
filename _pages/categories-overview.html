@@ -8,7 +8,29 @@ permalink: /packages/
 {%- else %}
   {%- assign app_categories = site.app_categories %}
 {%- endif %}
-<ul class="category-list">
+{%- if page.category_groups %}
+  {%- assign category_groups = page.category_groups %}
+{%- else %}
+  {%- assign category_groups = site.category_groups %}
+{%- endif %}
+<div class="category-list">
+{%- for category_group in category_groups %}
+  {%- assign category_group_key = category_group[0] %}
+  {%- assign category_group_name = category_group[1].name | default: category_group_key %}
+  {%- assign i18n_category_group = site.data.strings.category_groups[category_group_key] %}
+  {%- assign i18n_category_group_name = i18n_category_group.name | default: site.data.strings.category_groups[category_group_name] | default: category_group_name %}
+  {%- assign category_group_desc = category_group[1].summary %}
+  {%- assign i18n_category_group_desc = i18n_category_group.summary | default: site.data.strings.category_groups[category_group_desc] | default: category_group_desc %}
+  <div class="category-group g{{ forloop.index0 }}" hidden>
+    <details open><summary>
+      <span class="category-group-name">{{ i18n_category_group_name }}</span>
+    {%- if i18n_category_group_desc %}<br>
+      <span class="category-group-desc"><span>{{ i18n_category_group_desc }}</span></span>
+    {%- endif %}
+    </summary></details>
+  </div>
+{%- endfor %}
+
 {%- for app_category in app_categories %}
   {%- if app_category[0] %}
     {%- assign app_category_name = app_category[0] %}
@@ -23,17 +45,16 @@ permalink: /packages/
     {%- if app_category[1].name %}
       {%- assign i18n_category_name = app_category[1].name %}
     {%- else %}
-      {%- assign i18n_category_name = site.data.strings.app_categories[app_category_name] %}
+      {%- assign i18n_category_name = site.data.strings.app_categories[app_category_name] | default: app_category_name %}
     {%- endif %}
-  <li class="category-item">
+  <section class="category-item c{{ forloop.index0 }}"><div>
     <details><summary>
       <span class="category-name">{{ i18n_category_name }}</span>
     {%- if app_category[1].description %}<br>
       <span class="category-desc"><span>{{ app_category[1].description }}</span></span>
     {%- endif %}
     </summary></details>
-    <div class="category-details">
-    <ul class="package-list">
+    <div class="category-details"><div>
       {%- if filtered_packages.size >= 3 %}
         {%- assign remaining = 3 %}
       {%- else %}
@@ -66,19 +87,18 @@ permalink: /packages/
       {%- endfor %}
       {%- assign category_packages = category_packages | sort: "last_updated" | reverse %}
       {%- for package in category_packages %}
-        <li>{% include package-list-item.html package=package %}</li>
+        {%- include package-list-item.html package=package %}
       {%- endfor %}
-    <li class="show-all"><a href="{{ site.baseurl }}/categories/{{ app_category_name | slugify }}/">
+    </div></div>
+    <p class="show-all"><span><a href="{{ site.baseurl }}/categories/{{ app_category_name | slugify }}/">
       {%- if filtered_packages.size > 1 -%}
         {%- assign show_all_packages = site.data.strings.app_categories.show_all_packages_format | replace: '%{size}', filtered_packages.size | replace: '%{category}', i18n_category_name -%}
         {{ show_all_packages }}
       {%- else -%}
         {{ site.data.strings.app_categories.show_package }}
       {%- endif -%}
-    </a></li>
-    </ul>
-    </div>
-  </li>
+    </a></span></p>
+  </div></section>
   {%- endif %}
 {%- endfor %}
-</ul>
+</div>
