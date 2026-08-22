@@ -75,7 +75,7 @@ module Jekyll
           site.pages << packagePage
           site.collections["packages"].docs << packagePage
 
-          package.categories.each do |app_category|
+          package.categories&.each do |app_category|
             app_category_id = Utils.slugify(app_category)
             if site.collections[app_category_id].nil?
               puts("Warning: Package '#{package.package_name}' has unknown category '#{app_category}', will be ignored")
