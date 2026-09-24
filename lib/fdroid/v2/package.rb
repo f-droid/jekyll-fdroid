@@ -42,7 +42,7 @@ module FDroid
           'translation' => from_metadata('translation'),
           'bitcoin' => from_metadata('bitcoin'),
           'litecoin' => from_metadata('litecoin'),
-          'donate' => from_metadata('donate')&.first,
+          'donate' => from_metadata('donate'),
           'liberapay' => liberapay(metadata),
           'liberapayID' => liberapay_id(metadata),
           'openCollective' => from_metadata('openCollective'),
