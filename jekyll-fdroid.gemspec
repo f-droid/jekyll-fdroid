@@ -24,6 +24,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'rubyzip'
   s.add_runtime_dependency 'json', '>= 1.8.5'
   s.add_runtime_dependency 'loofah'
+  s.add_runtime_dependency 'bigdecimal'
   s.add_development_dependency 'rspec'
   s.add_development_dependency 'rubocop'
   s.add_development_dependency 'logger'
