@@ -19,7 +19,6 @@
 require 'loofah'
 require 'uri'
 require_relative './Version'
-require_relative './utils'
 
 # override the HTML elements loofah allows; be more restrictive
 module Loofah::HTML5::Scrub
@@ -108,13 +107,6 @@ module FDroid
     # The 'versions' key is an array of Version.to_data hashes.
     # @return [Hash]
     def to_data
-      liberapay = @package['liberapay']
-      if liberapay == nil
-        liberapayID = @package['liberapayID']
-        if liberapayID != nil
-          liberapay = "~#{liberapayID}"
-        end
-      end
       data = {
         # These fields are taken as is from the metadata. If not present, they are
         'package_name' => package_name,
@@ -126,8 +118,7 @@ module FDroid
         'litecoin' => @package['litecoin'],
         'donate' => @package['donate'],
         'flattrID' => @package['flattrID'],
-        'liberapay' => liberapay,
-        'liberapayID' => @package['liberapayID'],
+        'liberapay' => @package['liberapay'],
         'openCollective' => @package['openCollective'],
         'categories' => @package['categories'],
         'anti_features' => @package['antiFeatures'],

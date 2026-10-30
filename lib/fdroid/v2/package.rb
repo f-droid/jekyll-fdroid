@@ -1,14 +1,11 @@
 # frozen_string_literal: true
 
-require_relative './utils'
 require_relative './version'
 require_relative '../utils'
 
 module FDroid
   module V2
     class Package
-      include FDroid::V2::Utils
-
       private attr_reader :package_name, :metadata, :locale
 
       def initialize(package_name, app_json, locale)
