@@ -38,6 +38,27 @@ module FDroid::V2
       expect(package.to_data.class).to be(Hash)
     end
 
+    describe "#donate" do
+      it "returns the donation options as a list" do
+        expect(package.to_data['donate']).to eq([
+                                                  "https://github.com/sponsors/eighthave",
+                                                  "https://liberapay.com/GuardianProject/donate",
+                                                  "https://opencollective.com/GuardianProject/donate",
+                                                ])
+      end
+
+      context "when package has no donation options at all" do
+        let(:pkg_name) { "org.thoughtcrime.securesms" }
+        let(:app_json) do
+          JSON.parse(File.read('spec/assets/v2/index-v2-gp.json')).dig("packages", pkg_name)
+        end
+
+        it "returns no donations options" do
+          expect(package.to_data['donate']).to eq([])
+        end
+      end
+    end
+
     describe "#anti_features" do
       it "returns anti_features nil" do
         expect(package.anti_features).to be(nil)
@@ -74,12 +95,7 @@ module FDroid::V2
                                              "author_name",
                                              "author_website",
                                              "translation",
-                                             "bitcoin",
-                                             "litecoin",
                                              "donate",
-                                             "liberapay",
-                                             "liberapayID",
-                                             "openCollective",
                                              "categories",
                                              "changelog",
                                              "suggested_version_code",
