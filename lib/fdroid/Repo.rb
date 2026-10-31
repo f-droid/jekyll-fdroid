@@ -49,6 +49,10 @@ module FDroid
       Date.strptime("#{@repo['timestamp'] / 1000}", '%s')
     end
 
+    def mirrors
+      @repo['mirrors']
+    end
+
     private
 
     def escape_html(value)
