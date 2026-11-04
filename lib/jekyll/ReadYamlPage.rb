@@ -35,5 +35,14 @@ module Jekyll
 
       self.data ||= {}
     end
+
+    # Quick fix to silence the "Conflict: The following destination is shared by multiple files." warnings
+    # following a change in Jekyll v4.3.2: https://github.com/jekyll/jekyll/pull/9256
+    #
+    # It seems this is effectively unused during the processing pipeline for normal `Jekyll::Page`s in `site.pages`
+    # so we override this to excuse ourselves when placed inside a `Jekyll::Collection.docs` in `site.collections`
+    def write?
+      false
+    end
   end
 end
