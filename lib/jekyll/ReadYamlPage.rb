@@ -19,6 +19,8 @@
 
 module Jekyll
   class ReadYamlPage < Page
+    attr_accessor :hook_callback
+
     # We need do define it ourself because the templates are in the plugin's directory
     def read_yaml(base, name, opts = {})
       begin
@@ -34,6 +36,11 @@ module Jekyll
       end
 
       self.data ||= {}
+    end
+
+    def trigger_hooks(hook_name, *args)
+      super(hook_name, *args)
+      hook_callback&.call hook_name, self, *args
     end
   end
 end

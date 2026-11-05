@@ -47,6 +47,7 @@ module Jekyll
         fdroid_index = FDroid::Index.class(index_version)
         index = fdroid_index.download(site.config["fdroid-repo"], site.active_lang || 'en_US')
 
+        extras = nil
         if index_version != 'v1'
           repo = index.repo
           anti_features = repo.anti_features(site.active_lang)
@@ -58,6 +59,9 @@ module Jekyll
             }
           }
         end
+
+        category_groups = site.config["category_groups"]
+        (extras ||= {})["category_groups"] = category_groups if category_groups
 
         app_categories = categories ? categories.keys : site.config["app_categories"]
 
@@ -87,7 +91,56 @@ module Jekyll
 
         # Generate browsing pages
         site.includes_load_paths << (File.expand_path "../../_includes", File.dirname(__FILE__))
-        site.pages << FDroidBrowsingPage.new(site, site.source, extras)
+        browsing_page = FDroidBrowsingPage.new(site, site.source, extras)
+        site.pages << browsing_page
+
+        if category_groups
+          browsing_page.hook_callback = Proc.new do |hook_name, page|
+            generate_category_groups_css(page, category_groups, app_categories) if hook_name == :post_render
+          end
+        end
+      end
+    end
+
+    def generate_category_groups_css(page, category_groups, app_categories)
+      grouping = {}
+      empty_groups = nil
+      catch_all = nil
+      len = category_groups.length
+      css = String.new('<style>')
+      css << "\n"
+      category_groups.each_with_index do |(key, value), index|
+        categories = (is_hash = value.is_a?(Hash)) ? value['categories'] : value
+        if (is_fallback = is_hash && value['fallback']) || !categories || categories.empty?
+          (empty_groups ||= []) << index
+          catch_all = index if is_fallback
+        else
+          order = index - len;
+          css << ".g#{index} { order: #{order}; }\n"
+          categories.each do |category|
+            grouping[category] = order unless grouping.include?(category)
+          end
+        end
+      end
+      catch_all = empty_groups.last if catch_all.nil? && empty_groups
+      ungrouped_categories = nil
+      app_categories.each_with_index do |category, index|
+        if (has_group = grouping.include?(category)) || catch_all
+          order = has_group ? grouping[category] : catch_all - len
+          css << ".c#{index} { order: #{order}; }\n" if has_group
+          css << ".g#{order + len}:has(details:not([open])) ~ .c#{index} { grid-template-rows: 0fr; }\n"
+        end
+        (ungrouped_categories ||= []) << index unless has_group
+      end
+      empty_groups&.each do |index|
+        css << ".g#{index} { #{index == catch_all && ungrouped_categories ? 'order: 0;' : 'display: none;'}\n"
+      end
+      css << '</style>'
+
+      if (pos = page.output.index('</head>'))
+        page.output.insert(pos, css)
+      elsif (pos = page.output.index('<body'))
+        page.output.insert(pos, "<head>#{css}</head>")
       end
     end
   end
