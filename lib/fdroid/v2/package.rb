@@ -124,7 +124,7 @@ module FDroid
       end
 
       def latest_version
-        @latest_version ||= ordered_versions&.last
+        @latest_version ||= ordered_versions&.first
       end
 
       def from_metadata(fields)
